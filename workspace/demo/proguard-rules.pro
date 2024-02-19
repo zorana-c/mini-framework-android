@@ -36,9 +36,9 @@
 # 代码混淆的压缩比例，值介于0-7，默认5
 -optimizationpasses 5
 # 不跳过非公共的库的类
--dontskipnonpubliclibraryclasses
+#-dontskipnonpubliclibraryclasses
 # 不跳过非公共库类的成员变量
-#-dontskipnonpubliclibraryclassmembers
+-dontskipnonpubliclibraryclassmembers
 # 指定混淆时采用的算法
 -optimizations !code/simplification/cast, !field/*, !class/merging/*
 # 避免混淆注解、内部类、泛型、匿名类
@@ -46,15 +46,15 @@
 # 保留行号
 -keepattributes SourceFile, LineNumberTable
 # 忽略警告
--ignorewarning
+-ignorewarnings
 # 记录生成日志数据build时在本项目根目录输出Apk包内所有class的内部结构
--dump class_files.txt
+-dump build/print/class_files.txt
 # 生成未混淆的类和成员
--printseeds seeds.txt
+-printseeds build/print/seeds.txt
 # 生成从Apk中删除的代码
--printusage unused.txt
+-printusage build/print/unused.txt
 # 生成原类名与混淆后类名的映射文件
--printmapping mapping.txt
+-printmapping build/print/mapping.txt
 # </基本指令>
 
 # <基础组件>

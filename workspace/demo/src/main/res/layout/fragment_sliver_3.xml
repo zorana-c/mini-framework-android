@@ -78,7 +78,7 @@
                 android:text="Banner"
                 android:textColor="@android:color/white" />
 
-            <com.framework.demo.widget.SliverDrawerLayout
+            <com.framework.widget.drawer.DrawerLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -86,8 +86,8 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="left"
                     android:orientation="horizontal"
+                    app:edgeMode="left"
                     app:sliverScrolling="false">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -103,8 +103,8 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="end"
                     android:orientation="horizontal"
+                    app:edgeMode="right"
                     app:sliverScrolling="false">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -151,51 +151,51 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/white"
                         android:gravity="center"
-                        android:text="SliverDrawerLayout" />
+                        android:text="DrawerLayout" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="250dp"
                         android:layout_height="match_parent"
                         android:background="@android:color/holo_green_light"
                         android:gravity="center"
-                        android:text="SliverDrawerLayout" />
+                        android:text="DrawerLayout" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="250dp"
                         android:layout_height="match_parent"
                         android:background="@android:color/holo_blue_light"
                         android:gravity="center"
-                        android:text="SliverDrawerLayout" />
+                        android:text="DrawerLayout" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="250dp"
                         android:layout_height="match_parent"
                         android:background="@android:color/white"
                         android:gravity="center"
-                        android:text="SliverDrawerLayout" />
+                        android:text="DrawerLayout" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="250dp"
                         android:layout_height="match_parent"
                         android:background="@android:color/holo_green_light"
                         android:gravity="center"
-                        android:text="SliverDrawerLayout" />
+                        android:text="DrawerLayout" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="250dp"
                         android:layout_height="match_parent"
                         android:background="@android:color/holo_blue_light"
                         android:gravity="center"
-                        android:text="SliverDrawerLayout" />
+                        android:text="DrawerLayout" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="250dp"
                         android:layout_height="match_parent"
                         android:background="@android:color/white"
                         android:gravity="center"
-                        android:text="SliverDrawerLayout" />
+                        android:text="DrawerLayout" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
-            </com.framework.demo.widget.SliverDrawerLayout>
+            </com.framework.widget.drawer.DrawerLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
