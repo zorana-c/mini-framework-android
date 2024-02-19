@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MetaMediaFragment">
+
+    <com.framework.widget.sliver.SliverViewPager
+        android:id="@+id/pageContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" />
+
+    <include layout="@layout/toolsbar_metamedia_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

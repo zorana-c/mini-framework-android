@@ -1,0 +1,13 @@
+apply from: "$rootDir/config-library.gradle"
+
+android {
+    namespace 'com.metamedia'
+}
+
+dependencies {
+    implementation project(':module-common')
+    implementation project(':module-mall')
+    implementation project(':module-person')
+    // 视频播放组件
+    implementation 'androidx.media3:media3-exoplayer:1.2.0'
+}

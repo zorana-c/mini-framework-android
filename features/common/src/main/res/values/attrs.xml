@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="selected" format="boolean" />
+
+    <!-- PrimaryTextView-->
+    <declare-styleable name="PrimaryTextView">
+        <attr name="colorPrimary" />
+        <attr name="selected" />
+    </declare-styleable>
+
+    <!-- PrimaryImageView-->
+    <declare-styleable name="PrimaryImageView">
+        <attr name="colorPrimary" />
+        <attr name="selected" />
+    </declare-styleable>
+</resources>

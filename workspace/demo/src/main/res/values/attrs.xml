@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RecyclerViewCompat">
+        <attr name="itemSpanRatio" format="float" />
+    </declare-styleable>
+    <declare-styleable name="CollapsingBarLayout">
+        <attr name="headAnchorId" format="reference" />
+        <attr name="tailAnchorId" format="reference" />
+    </declare-styleable>
+</resources>

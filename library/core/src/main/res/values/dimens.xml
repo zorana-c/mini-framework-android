@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 工具栏高度-->
+    <dimen name="uiActionBarHeight">48dp</dimen>
+    <!-- 底部菜单导航栏-->
+    <dimen name="uiNavigatorBarHeight">50dp</dimen>
+</resources>

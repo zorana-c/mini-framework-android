@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/ic_reminder_background"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/contentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:minEms="12"
+        android:padding="24dip"
+        android:textColor="#ff666666"
+        android:textSize="15sp" />
+
+    <View style="@style/UIDividerView.Horizontal" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/confirmTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="12dip"
+        android:text="@string/uiReminderConfirm"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+</androidx.appcompat.widget.LinearLayoutCompat>

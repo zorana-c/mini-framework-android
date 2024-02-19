@@ -1,0 +1,9 @@
+apply from: "$rootDir/config-library.gradle"
+
+android {
+    namespace 'com.guide'
+}
+
+dependencies {
+    implementation project(':module-common')
+}

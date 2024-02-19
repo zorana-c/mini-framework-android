@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.framework.widget.sliver.SliverRefreshLayout
+        android:id="@id/uiDecorRefreshView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.framework.widget.expand.StickyRecyclerLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.framework.widget.expand.ExpandableRecyclerView
+                android:id="@id/uiDecorRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.framework.widget.expand.StickyRecyclerLayout>
+    </com.framework.widget.sliver.SliverRefreshLayout>
+
+    <com.framework.widget.expand.letters.LettersRecyclerView
+        android:id="@+id/lettersRecyclerView"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|center_vertical" />
+
+    <com.framework.widget.expand.letters.LettersEnlargeView
+        android:id="@+id/lettersEnlargeView"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:text="A"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
+</FrameLayout>

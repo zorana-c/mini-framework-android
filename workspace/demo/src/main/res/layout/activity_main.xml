@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.framework.demo.widget.CustomSliverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliverScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:sliverZoomSrc="@mipmap/ic_background"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="280dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#60000000"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="Zoom"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/decorBackground"
+        android:orientation="vertical"
+        app:divider="@drawable/ic_divider_background"
+        app:dividerPadding="15dp"
+        app:showDividers="middle|end">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinJniTest"
+            android:padding="15dp"
+            android:text="JNI Test"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinAPIService"
+            android:padding="15dp"
+            android:text="API Service"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinLayoutError"
+            android:padding="15dp"
+            android:text="Layout Error"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinLayoutEmpty"
+            android:padding="15dp"
+            android:text="Layout Empty"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinListFragment"
+            android:padding="15dp"
+            android:text="List Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinListPopupFragment"
+            android:padding="15dp"
+            android:text="List Popup Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinListDialogFragment"
+            android:padding="15dp"
+            android:text="List Dialog Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinPushFragment"
+            android:padding="15dp"
+            android:text="Push Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinPushPopupFragment"
+            android:padding="15dp"
+            android:text="Push Popup Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinPushDialogFragment"
+            android:padding="15dp"
+            android:text="Push Dialog Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinPickerDialogFragment"
+            android:padding="15dp"
+            android:text="Show Picker Dialog Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinPickerTimestampDialogFragment"
+            android:padding="15dp"
+            android:text="Show Picker Timestamp Dialog Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinPickerCountryDialogFragment"
+            android:padding="15dp"
+            android:text="Show Picker Country Dialog Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinChatFragmentActivity"
+            android:padding="15dp"
+            android:text="Join Chat Fragment Activity"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinSliverFragment"
+            android:padding="15dp"
+            android:text="Join Sliver Fragment"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinSliverFragment2"
+            android:padding="15dp"
+            android:text="Join Sliver Fragment 2"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="joinSliverFragment3"
+            android:padding="15dp"
+            android:text="Join Sliver Fragment 3"
+            android:textColor="@android:color/white" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Wrap Content"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="Tail"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/floatingImage"
+        android:layout_width="155dp"
+        android:layout_height="105dp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        android:onClick="joinTestFragment"
+        android:padding="10dp"
+        app:sliverScrolling="false" />
+</com.framework.demo.widget.CustomSliverScrollView>

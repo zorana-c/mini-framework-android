@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.framework.widget.sliver.SliverContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uiDecorLoadingContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/uiDecorLoadingProgressBar"
+            android:layout_width="25.0dip"
+            android:layout_height="25.0dip"
+            android:layout_gravity="center"
+            android:layout_margin="20.0dip"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_atop"
+            tools:targetApi="lollipop" />
+    </FrameLayout>
+</com.framework.widget.sliver.SliverContainer>

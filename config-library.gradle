@@ -1,0 +1,89 @@
+apply plugin: "com.android.library"
+apply from: "$rootDir/constants.gradle"
+
+var ext = project.ext
+android {
+    compileSdk ext.compileSdk
+
+    defaultConfig {
+        minSdk ext.minSdk
+        targetSdk ext.targetSdk
+        versionCode ext.versionCode
+        versionName ext.versionName
+        multiDexEnabled true
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        beta {
+            buildConfigField('String', 'BUILD_TYPE', '\"beta\"')
+            buildConfigField('boolean', 'BUILD_DEBUG', 'true')
+            crunchPngs false
+            debuggable true
+            jniDebuggable true
+            minifyEnabled false
+            zipAlignEnabled false
+            testCoverageEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField('String', 'BUILD_TYPE', '\"debug\"')
+            buildConfigField('boolean', 'BUILD_DEBUG', 'true')
+            crunchPngs false
+            debuggable true
+            jniDebuggable true
+            minifyEnabled false
+            zipAlignEnabled false
+            testCoverageEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            buildConfigField('String', 'BUILD_TYPE', '\"release\"')
+            buildConfigField('boolean', 'BUILD_DEBUG', 'false')
+            crunchPngs true
+            debuggable false
+            jniDebuggable false
+            minifyEnabled true
+            zipAlignEnabled true
+            testCoverageEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            matchingFallbacks = ['beta', 'debug']
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.all {
+            jvmArgs '-Xmx2g'
+        }
+        unitTests.includeAndroidResources true
+    }
+}
+
+dependencies {
+    // 模块测试类
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    // 模块通信类
+    annotationProcessor 'com.google.auto.service:auto-service:1.0'
+}

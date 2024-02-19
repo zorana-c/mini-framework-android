@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp">
+
+    <com.framework.core.widget.UIImageView
+        android:id="@+id/picImageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="56dp"
+        android:src="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_oval="true" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
+        android:text="瑶一瑶小肉包"
+        android:textColor="#ffc0c0c0"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/picImageView"
+        app:layout_constraintTop_toTopOf="@id/picImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/identityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/ic_video_author_background"
+        android:gravity="center"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:text="作者"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/nameTextView"
+        app:layout_constraintLeft_toRightOf="@id/nameTextView"
+        app:layout_constraintTop_toTopOf="@id/nameTextView" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/joinUseLikeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/likeImageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_video_like"
+            app:tint="@android:color/darker_gray" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/likeNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="999+"
+            android:textColor="@android:color/black"
+            android:textSize="10sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/contentLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="@id/nameTextView"
+        app:layout_constraintRight_toLeftOf="@id/joinUseLikeLayout"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|start"
+            android:text="这里是评论内容，一行显示到这里显示不完换行"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
+
+        <com.framework.core.widget.UIImageView
+            android:id="@+id/contentImageView"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="3dp"
+            android:scaleType="centerCrop"
+            android:src="@android:color/darker_gray"
+            app:riv_corner_radius="5dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="@id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@id/contentLayout">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="1分钟前"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="11sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:gravity="center"
+            android:text="·"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="广东"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="11sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp"
+            android:gravity="center"
+            android:text="回复"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,16 @@
+apply from: "$rootDir/config-application.gradle"
+
+android {
+    namespace 'com.framework.demo'
+
+    defaultConfig {
+        versionCode 101
+        versionName '1.0.1'
+    }
+}
+
+dependencies {
+    implementation files('libs/lib_demo.jar')
+    implementation project(':module-common')
+    implementation project(':module-chat')
+}

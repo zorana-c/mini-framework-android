@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.framework.widget.ShadowFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    app:shadowBackground="#ff333333"
+    app:shadowColor="#60333333"
+    app:shadowCornerRadius="10dp"
+    app:shadowOffsetX="2dp"
+    app:shadowOffsetY="1dp">
+
+    <ProgressBar
+        android:layout_width="25.0dip"
+        android:layout_height="25.0dip"
+        android:layout_gravity="center"
+        android:layout_margin="20.0dip"
+        android:indeterminateTint="@android:color/white"
+        android:indeterminateTintMode="src_atop"
+        tools:targetApi="lollipop" />
+</com.framework.widget.ShadowFrameLayout>

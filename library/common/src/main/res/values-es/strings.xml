@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="uiReconfirmTips">Tips</string>
+    <string name="uiReconfirmCancel">Cancel</string>
+    <string name="uiReconfirmConfirm">Confirm</string>
+
+    <string name="uiReminderConfirm">I See</string>
+
+    <string name="uiSysPictureTake">Take Photos</string>
+    <string name="uiSysPictureGallery">Select From Gallery</string>
+    <string name="uiSysPictureCancel">Cancel</string>
+
+    <string name="uiYear">Year</string>
+    <string name="uiMonth">Month</string>
+    <string name="uiDayOfMonth">Day</string>
+</resources>

@@ -1,0 +1,56 @@
+// Gradle 插件管理
+pluginManagement {
+    // 下载 Gradle 插件的依赖仓库
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+// 依赖项解析管理
+dependencyResolutionManagement {
+    // 设置存储库模式:
+    // PREFER_PROJECT: 解析依赖库时, 优先使用本地仓库
+    // FAIL_ON_PROJECT_REPOS: 解析依赖库时, 强行使用远程仓库
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+// 项目工程名字(可不写)
+rootProject.name = 'MiniFramework'
+// 导入文档空间
+include ':docs'
+// 导入扩展空间
+include ':extensions'
+// 导入特征空间
+include ':features'
+include ':module-chat'
+project(':module-chat').projectDir = new File(settingsDir, 'features/chat')
+include ':module-common'
+project(':module-common').projectDir = new File(settingsDir, 'features/common')
+include ':module-guide'
+project(':module-guide').projectDir = new File(settingsDir, 'features/guide')
+include ':module-mall'
+project(':module-mall').projectDir = new File(settingsDir, 'features/mall')
+include ':module-metamedia'
+project(':module-metamedia').projectDir = new File(settingsDir, 'features/metamedia')
+include ':module-person'
+project(':module-person').projectDir = new File(settingsDir, 'features/person')
+// 导入资源空间
+include ':library'
+include ':library-common'
+project(':library-common').projectDir = new File(settingsDir, 'library/common')
+include ':library-core'
+project(':library-core').projectDir = new File(settingsDir, 'library/core')
+include ':library-database'
+project(':library-database').projectDir = new File(settingsDir, 'library/database')
+include ':library-widget'
+project(':library-widget').projectDir = new File(settingsDir, 'library/widget')
+// 导入工程空间
+include ':workspace'
+include ':app-demo'
+project(':app-demo').projectDir = new File(settingsDir, 'workspace/demo')
+include ':app-tiktok'
+project(':app-tiktok').projectDir = new File(settingsDir, 'workspace/tiktok')

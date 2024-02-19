@@ -1,0 +1,9 @@
+apply from: "$rootDir/config-library.gradle"
+
+android {
+    namespace 'com.mall'
+}
+
+dependencies {
+    implementation project(':module-common')
+}

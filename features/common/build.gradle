@@ -1,0 +1,12 @@
+apply from: "$rootDir/config-library.gradle"
+
+android {
+    namespace 'com.common'
+}
+
+dependencies {
+    api project(':library-common')
+    api project(':library-core')
+    api project(':library-database')
+    api project(':library-widget')
+}

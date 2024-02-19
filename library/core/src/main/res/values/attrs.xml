@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UIDecorLayout-->
+    <declare-styleable name="UIDecorLayout">
+        <attr name="preDecorKey" format="integer" />
+        <attr name="actionBar" format="reference" />
+        <attr name="contentView" format="reference" />
+        <attr name="loadingView" format="reference" />
+        <attr name="emptyView" format="reference" />
+        <attr name="errorView" format="reference" />
+        <attr name="enterAnimation" format="reference" />
+        <attr name="exitAnimation" format="reference" />
+    </declare-styleable>
+
+    <!-- UIDecorLayout_Layout-->
+    <declare-styleable name="UIDecorLayout_Layout">
+        <attr name="android:layout_gravity" />
+        <attr name="fitsParentLayouts" format="boolean" />
+    </declare-styleable>
+
+    <!-- UIImageView-->
+    <declare-styleable name="UIImageView">
+        <!-- load 错误时-->
+        <attr name="errorSrc" format="reference|color" />
+        <!-- load 回退时-->
+        <attr name="fallbackSrc" format="reference|color" />
+        <!-- load 进行时-->
+        <attr name="placeholderSrc" format="reference|color" />
+    </declare-styleable>
+</resources>

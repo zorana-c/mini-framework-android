@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="20" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/docs" />
+            <option value="$PROJECT_DIR$/extensions" />
+            <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/chat" />
+            <option value="$PROJECT_DIR$/features/common" />
+            <option value="$PROJECT_DIR$/features/guide" />
+            <option value="$PROJECT_DIR$/features/mall" />
+            <option value="$PROJECT_DIR$/features/metamedia" />
+            <option value="$PROJECT_DIR$/features/person" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/library/common" />
+            <option value="$PROJECT_DIR$/library/core" />
+            <option value="$PROJECT_DIR$/library/database" />
+            <option value="$PROJECT_DIR$/library/widget" />
+            <option value="$PROJECT_DIR$/workspace" />
+            <option value="$PROJECT_DIR$/workspace/demo" />
+            <option value="$PROJECT_DIR$/workspace/tiktok" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

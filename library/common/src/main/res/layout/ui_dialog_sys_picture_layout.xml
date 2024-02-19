@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/ic_sys_picture_background"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/pictureTakeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="15dip"
+        android:text="@string/uiSysPictureTake"
+        android:textColor="#ff333333"
+        android:textSize="15sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/pictureGalleryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="15dip"
+        android:text="@string/uiSysPictureGallery"
+        android:textColor="#ff333333"
+        android:textSize="15sp" />
+
+    <View
+        style="@style/UIDividerView.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="12dip" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cancelTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="15dip"
+        android:text="@string/uiSysPictureCancel"
+        android:textColor="#ff333333"
+        android:textSize="15sp" />
+</androidx.appcompat.widget.LinearLayoutCompat>

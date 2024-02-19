@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.framework.widget.sliver.SliverRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pinned"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:scrollbars="vertical"
+    app:sliverBounceLocate="head"
+    app:sliverFitSystemWindows="true"
+    app:sliverRefreshLocate="head">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <com.framework.widget.recycler.banner.BannerRecyclerView
+            android:id="@+id/bannerRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layoutManager="com.framework.widget.recycler.banner.BannerLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_match_layout" />
+
+        <com.framework.widget.recycler.banner.BannerIndicatorView
+            android:id="@+id/bannerIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="6dp" />
+    </FrameLayout>
+
+    <com.framework.widget.recycler.banner.BannerRecyclerView
+        android:id="@+id/marqueeRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        app:layoutManager="com.framework.widget.recycler.banner.MarqueeLayoutManager"
+        tools:itemCount="20"
+        tools:listitem="@layout/item_match_2_layout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#fffedabc"
+        android:gravity="center"
+        android:text="Pinned" />
+
+    <com.framework.widget.sliver.SliverContainer
+        android:id="@+id/floating"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:background="@android:color/white"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        app:sliverBounceLocate="none"
+        app:sliverHeightUsed="60dp"
+        app:sliverScrollFloating="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#ffebcdef"
+            android:gravity="center"
+            android:text="Floating" />
+
+        <com.framework.widget.sliver.SliverScrollView
+            android:id="@+id/list1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:overScrollMode="never"
+            android:scrollbars="vertical"
+            app:sliverBounceLocate="tail">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/black"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Head"
+                    android:textColor="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/holo_blue_dark" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/darker_gray" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/holo_green_dark" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/holo_green_light" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/holo_blue_dark" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/darker_gray" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/black"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Center"
+                    android:textColor="@android:color/white" />
+
+                <com.framework.demo.widget.CustomSliverScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/darker_gray" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_light" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/darker_gray" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_light" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/darker_gray" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_light" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/darker_gray" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_light" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </com.framework.demo.widget.CustomSliverScrollView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/holo_blue_dark" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/darker_gray" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/holo_green_dark" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/holo_green_light" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/holo_blue_dark" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:color/darker_gray" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/black"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Tail"
+                    android:textColor="@android:color/white" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.framework.widget.sliver.SliverScrollView>
+    </com.framework.widget.sliver.SliverContainer>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        app:sliverScrolling="false">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="Go Print."
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColorHint="@android:color/darker_gray">
+
+            <requestFocus />
+        </androidx.appcompat.widget.AppCompatEditText>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Send"
+            android:textColor="@android:color/darker_gray" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</com.framework.widget.sliver.SliverRefreshLayout>

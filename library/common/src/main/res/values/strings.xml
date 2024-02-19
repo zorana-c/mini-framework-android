@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="uiReconfirmTips">温馨提示</string>
+    <string name="uiReconfirmCancel">我再想想</string>
+    <string name="uiReconfirmConfirm">确定</string>
+
+    <string name="uiReminderConfirm">我知道了</string>
+
+    <string name="uiSysPictureTake">拍照</string>
+    <string name="uiSysPictureGallery">从手机相册选择</string>
+    <string name="uiSysPictureCancel">取消</string>
+
+    <string name="uiYear">年</string>
+    <string name="uiMonth">月</string>
+    <string name="uiDayOfMonth">日</string>
+</resources>

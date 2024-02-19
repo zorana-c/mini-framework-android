@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.framework.widget.sliver.SliverContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliverContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:sliverBounceLocate="none"
+    app:userScrollEnabled="false">
+
+    <!-- 主背景调-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:sliverScrolling="false">
+
+        <!-- 背景图-->
+        <com.framework.core.widget.UIImageView
+            android:id="@+id/backgroundView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@color/decorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0.8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 渐变层: 透明到非透明-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/ic_decor_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 头部布局-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/actionBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/tabContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.framework.core.widget.AppCompatStatusBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="7dp"
+                app:tabIndicatorColor="@android:color/holo_red_light"
+                app:tabIndicatorFullWidth="false"
+                app:tabMinWidth="0dp"
+                app:tabMode="auto"
+                app:tabPaddingEnd="12dp"
+                app:tabPaddingStart="12dp"
+                app:tabSelectedTextColor="@android:color/holo_red_light"
+                app:tabTextColor="@android:color/white"
+                app:tabUnboundedRipple="false">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="首页" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="附近" />
+            </com.google.android.material.tabs.TabLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_search_background"
+                android:gravity="center_vertical"
+                android:minHeight="32dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="搜索商品"
+                android:textColor="#ffa8a8a8"
+                android:textSize="13sp" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dp"
+                    android:src="@mipmap/ic_message_hint" />
+            </FrameLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!-- 刷新布局-->
+    <com.framework.widget.sliver.SliverRefreshLayout
+        android:id="@+id/sliverRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 固定布局-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="5dp">
+
+                <com.framework.widget.recycler.banner.BannerRecyclerView
+                    android:id="@+id/bannerRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layoutManager="com.framework.widget.recycler.banner.BannerLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_match_3_layout" />
+
+                <com.framework.widget.recycler.banner.BannerIndicatorView
+                    android:id="@+id/bannerIndicatorView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="6dp" />
+            </FrameLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.framework.widget.sliver.SliverContainer
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.framework.widget.expand.ExpandableRecyclerView
+                        android:id="@+id/classifyRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="4dp"
+                        app:itemSpanRatio="0.2"
+                        app:layoutManager="com.framework.demo.widget.lm.SpanGridLayoutManager"
+                        app:spanCount="2"
+                        tools:itemCount="12"
+                        tools:listitem="@layout/item_classify_layout" />
+                </com.framework.widget.sliver.SliverContainer>
+
+                <com.framework.widget.ScrollingIndicatorView
+                    android:id="@+id/classifyIndicatorView"
+                    android:layout_width="32dp"
+                    android:layout_height="3dp"
+                    android:layout_gravity="center" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="12dp"
+                android:background="@android:color/darker_gray"
+                android:gravity="center"
+                android:text="Other Views"
+                android:textColor="@android:color/white" />
+
+            <com.framework.widget.sliver.SliverContainer
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:orientation="horizontal">
+
+                <com.framework.widget.expand.ExpandableRecyclerView
+                    android:id="@+id/list1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:padding="5dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_child_list_hor_layout" />
+            </com.framework.widget.sliver.SliverContainer>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="12dp"
+                android:background="@android:color/darker_gray"
+                android:gravity="center"
+                android:text="Other Views"
+                android:textColor="@android:color/white" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:paddingBottom="2dp"
+                app:tabIndicator="@drawable/ic_indicator_background"
+                app:tabIndicatorAnimationDuration="420"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabIndicatorColor="@android:color/holo_red_dark"
+                app:tabIndicatorFullWidth="false"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@android:color/holo_red_dark"
+                app:tabTextColor="@android:color/white" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.framework.widget.sliver.SliverViewPager
+            android:id="@+id/sliverViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:sliverHeightUsed="46dp" />
+    </com.framework.widget.sliver.SliverRefreshLayout>
+</com.framework.widget.sliver.SliverContainer>

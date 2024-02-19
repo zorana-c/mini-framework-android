@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 指明是否启用用户手势, 默认是true-->
+    <attr name="userScrollEnabled" format="boolean" />
+    <!-- 指明窗体状态栏背景颜色, 默认是colorPrimaryDark-->
+    <attr name="statusBarBackground" format="color|reference" />
+
+    <!-- SliverContainer-->
+    <declare-styleable name="SliverContainer">
+        <!-- 指明手势滑动方向, 默认是垂直方向-->
+        <attr name="android:orientation" />
+        <!-- 指明是否向上嵌套滑动, 默认是true-->
+        <attr name="android:nestedScrollingEnabled" />
+        <!-- 指明是否向下嵌套滑动, 默认是true-->
+        <attr name="inheritScrollingEnabled" format="boolean" />
+        <!-- 指明是否可以内部滑动, 默认是true-->
+        <attr name="sliverScrollingEnabled" format="boolean" />
+        <!-- 指明是否启用用户手势, 默认是true-->
+        <attr name="userScrollEnabled" />
+        <!-- 指明是否获取视图焦点, 默认是false-->
+        <attr name="sliverChildFocusable" format="boolean" />
+        <!-- 指明是否可以浮动滑动, 默认是false-->
+        <attr name="sliverScrollFloating" format="boolean" />
+        <!-- 指明是否填充Windows, 默认是false-->
+        <attr name="sliverFitSystemWindows" format="boolean" />
+        <!-- 指明是否可以阻尼滑动, 默认是all-->
+        <attr name="sliverBounceLocate" format="enum">
+            <enum name="none" value="0" />
+            <enum name="head" value="-1" />
+            <enum name="tail" value="1" />
+            <enum name="all" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SliverContainer_Layout">
+        <!-- 指明子视图布局位置, 默认是左上角-->
+        <attr name="android:layout_gravity" />
+        <!-- 指明子视图是否滑动, 默认是true-->
+        <attr name="sliverScrolling" format="boolean" />
+        <!-- 指明子视图额外被使用掉的宽度, 对布局填充模式才有效-->
+        <attr name="sliverWidthUsed" format="dimension|reference" />
+        <!-- 指明子视图额外被使用掉的高度, 对布局填充模式才有效-->
+        <attr name="sliverHeightUsed" format="dimension|reference" />
+    </declare-styleable>
+
+    <!-- SliverScrollView-->
+    <declare-styleable name="SliverScrollView">
+        <!-- 设置拉伸背景图片, 注意: 第一个视图背景必须透明-->
+        <attr name="sliverZoomSrc" format="reference" />
+    </declare-styleable>
+
+    <!-- SliverRefreshLayout-->
+    <declare-styleable name="SliverRefreshLayout">
+        <!-- 指明刷新的模式, 默认是none-->
+        <attr name="sliverRefreshLocate" format="enum">
+            <enum name="none" value="0" />
+            <enum name="head" value="-1" />
+            <enum name="tail" value="1" />
+            <enum name="all" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <!-- BannerIndicatorView-->
+    <declare-styleable name="BannerIndicatorView">
+        <!-- 宽度-->
+        <attr name="indicatorWidth" format="dimension|reference" />
+        <!-- 选中时的宽度-->
+        <attr name="indicatorSelectedWidth" format="dimension|reference" />
+        <!-- 高度-->
+        <attr name="indicatorHeight" format="dimension|reference" />
+        <!-- 角度-->
+        <attr name="indicatorRadius" format="dimension|reference" />
+        <!-- 间隙-->
+        <attr name="indicatorInterval" format="dimension|reference" />
+        <!-- 选中颜色-->
+        <attr name="indicatorSelectedColor" format="color" />
+        <!-- 未选中颜色-->
+        <attr name="indicatorUnSelectedColor" format="color" />
+    </declare-styleable>
+
+    <!-- ScrollingIndicatorView-->
+    <declare-styleable name="ScrollingIndicatorView">
+        <!-- 游标颜色-->
+        <attr name="sivIndicatorColor" format="color|reference" />
+        <!-- 大小比例-->
+        <attr name="sivIndicatorRatio" format="float|reference" />
+        <!-- 圆角角度-->
+        <attr name="sivIndicatorRadius" format="dimension|reference" />
+        <!-- 背景颜色-->
+        <attr name="sivIndicatorBackgroundColor" format="color|reference" />
+    </declare-styleable>
+
+    <!-- AppCompatPickerView-->
+    <declare-styleable name="AppCompatPickerView">
+        <!-- 是否开启滑动声音-->
+        <attr name="pickerPlaySound" format="boolean" />
+        <!-- 指定中间线条颜色-->
+        <attr name="pickerLineColor" format="color|reference" />
+        <!-- 指定中间线条宽度-->
+        <attr name="pickerLineWidth" format="dimension|reference" />
+        <!-- 指定中间线条背景-->
+        <attr name="pickerBackground" format="color|reference" />
+    </declare-styleable>
+
+    <!-- AppCompatPickerTextView-->
+    <declare-styleable name="AppCompatPickerTextView">
+        <attr name="overFakeBoldText" format="boolean" />
+        <attr name="overTextColor" format="color|reference" />
+        <attr name="overTextSize" format="dimension|reference" />
+    </declare-styleable>
+
+    <!-- ShadowFrameLayout-->
+    <declare-styleable name="ShadowFrameLayout">
+        <!-- 视图: 测量所有子视图-->
+        <attr name="measureAllChildren" format="boolean" />
+        <!-- 背景颜色: 默认是白色-->
+        <attr name="shadowBackground" format="reference|color" />
+
+        <!-- 1、关于阴影-->
+        <!-- 阴影：阴影颜色-->
+        <attr name="shadowColor" format="reference|color" />
+        <!-- 阴影：x轴的偏移量-->
+        <attr name="shadowOffsetX" format="reference|dimension" />
+        <!-- 阴影：y轴的偏移量-->
+        <attr name="shadowOffsetY" format="reference|dimension" />
+        <!-- 阴影：阴影的扩散范围(也可以理解为扩散程度)-->
+        <attr name="shadowLimitSize" format="reference|dimension" />
+        <!-- 控件区域是否对称，默认是对称。不对称的话，那么控件区域随着阴影区域走-->
+        <attr name="shadowSymmetry" format="boolean" />
+        <!-- 阴影：上边是否隐藏阴影-->
+        <attr name="shadowTopEnabled" format="boolean" />
+        <!-- 阴影：左边是否隐藏阴影-->
+        <attr name="shadowLeftEnabled" format="boolean" />
+        <!-- 阴影：右边是否隐藏阴影-->
+        <attr name="shadowRightEnabled" format="boolean" />
+        <!-- 阴影：下面是否隐藏阴影-->
+        <attr name="shadowBottomEnabled" format="boolean" />
+
+        <!-- 2、关于圆角-->
+        <!-- 圆角：所有圆角-->
+        <attr name="shadowCornerRadius" format="reference|dimension" />
+        <!-- 圆角：上左圆角-->
+        <attr name="shadowCornerRadius_topLeft" format="reference|dimension" />
+        <!-- 圆角：上右圆角-->
+        <attr name="shadowCornerRadius_topRight" format="reference|dimension" />
+        <!-- 圆角：下左圆角-->
+        <attr name="shadowCornerRadius_bottomLeft" format="reference|dimension" />
+        <!-- 圆角：下右圆角-->
+        <attr name="shadowCornerRadius_bottomRight" format="reference|dimension" />
+    </declare-styleable>
+
+    <!-- SliverViewPager-->
+    <declare-styleable name="SliverViewPager">
+        <!-- 指明是否启用平滑滑动, 默认是true-->
+        <attr name="useSmoothScroll" format="boolean" />
+        <!-- 指明是否启用用户手势, 默认是true-->
+        <attr name="userScrollEnabled" />
+    </declare-styleable>
+
+    <!-- DrawerLayout-->
+    <declare-styleable name="DrawerLayout">
+        <!-- 指明抽屉的基准标高, 默认是10dp-->
+        <attr name="elevation" format="dimension|reference" />
+        <!-- 指明抽屉状态栏背景颜色, 默认是colorPrimaryDark-->
+        <attr name="statusBarBackground" />
+    </declare-styleable>
+
+    <!-- DrawerLayout_Layout-->
+    <declare-styleable name="DrawerLayout_Layout">
+        <!-- 指明抽屉的边缘-->
+        <attr name="edgeMode" format="enum">
+            <enum name="none" value="0" />
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+            <enum name="top" value="4" />
+            <enum name="bottom" value="8" />
+        </attr>
+    </declare-styleable>
+
+    <!-- NestedFrameLayout-->
+    <declare-styleable name="NestedFrameLayout">
+        <!-- 指明是否启用用户手势, 默认是true-->
+        <attr name="userScrollEnabled" />
+        <!-- 指明嵌套滑动方向-->
+        <attr name="android:orientation" />
+    </declare-styleable>
+
+    <!-- AppCompatActionBar-->
+    <declare-styleable name="AppCompatActionBar">
+        <!-- 指明抽屉状态栏背景颜色, 默认是colorPrimaryDark-->
+        <attr name="statusBarBackground" />
+    </declare-styleable>
+</resources>

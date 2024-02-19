@@ -1,0 +1,13 @@
+// 扩展常量参数配置
+project.ext {
+    // sdk compile version code
+    compileSdk = 34
+    // sdk min version code
+    minSdk = 19
+    // sdk max version code
+    targetSdk = 34
+    // default version code
+    versionCode = 100
+    // default version name
+    versionName = "1.0.0"
+}

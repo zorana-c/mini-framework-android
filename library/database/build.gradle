@@ -1,0 +1,9 @@
+apply from: "$rootDir/config-library.gradle"
+
+android {
+    namespace 'com.framework.database'
+}
+
+dependencies {
+    implementation project(':library-core')
+}

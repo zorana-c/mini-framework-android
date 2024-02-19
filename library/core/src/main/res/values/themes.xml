@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application-->
+    <style name="Base.Theme.DayNight.DarkActionBar" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:windowAnimationStyle">@style/UIAnimation.Activity</item>
+    </style>
+
+    <style name="UITheme" parent="Base.Theme.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="UITheme.NoActionBar" parent="UITheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Dialog-->
+    <style name="Base.Theme.DayNight.Dialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/UIAnimation.Dialog</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="UITheme.Dialog" parent="Base.Theme.DayNight.Dialog">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="UITheme.Dialog.Fullscreen" parent="UITheme.Dialog">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="UITheme.Dialog.NoActionBar" parent="UITheme.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Animation-->
+    <style name="UIAnimation.Activity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_to_right</item>
+    </style>
+
+    <style name="UIAnimation.Dialog" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/anim_alpha_action_v</item>
+        <item name="android:windowExitAnimation">@anim/anim_alpha_action_inv</item>
+    </style>
+
+    <style name="UIAnimation.Dialog.InTopOutTop" parent="UIAnimation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_top</item>
+    </style>
+
+    <style name="UIAnimation.Dialog.InBottomOutBottom" parent="UIAnimation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
+    </style>
+
+    <style name="UIAnimation.PopupWindow" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_alpha_action_v</item>
+        <item name="android:windowExitAnimation">@anim/anim_alpha_action_inv</item>
+    </style>
+
+    <style name="UIAnimation.PopupWindow.InTopOutTop" parent="UIAnimation.PopupWindow">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_top</item>
+    </style>
+
+    <style name="UIAnimation.PopupWindow.InBottomOutBottom" parent="UIAnimation.PopupWindow">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
+    </style>
+</resources>

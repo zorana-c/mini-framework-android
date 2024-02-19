@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp">
+
+    <com.framework.widget.recycler.picker.AppCompatPickerView
+        android:id="@+id/lPickerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:pickerBackground="@drawable/ic_picker_left_background"
+        app:pickerLineWidth="0dp"
+        tools:itemCount="10"
+        tools:listitem="@layout/ui_item_picker_layout" />
+
+    <com.framework.widget.recycler.picker.AppCompatPickerView
+        android:id="@+id/cPickerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:pickerBackground="@drawable/ic_picker_background"
+        app:pickerLineWidth="0dp"
+        tools:itemCount="10"
+        tools:listitem="@layout/ui_item_picker_layout" />
+
+    <com.framework.widget.recycler.picker.AppCompatPickerView
+        android:id="@+id/rPickerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:pickerBackground="@drawable/ic_picker_right_background"
+        app:pickerLineWidth="0dp"
+        tools:itemCount="10"
+        tools:listitem="@layout/ui_item_picker_layout" />
+</androidx.appcompat.widget.LinearLayoutCompat>
