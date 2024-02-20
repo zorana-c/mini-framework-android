@@ -35,60 +35,60 @@
 # <基本指令>
 # 代码混淆的压缩比例，值介于0-7，默认5
 -optimizationpasses 5
-# 不跳过非公共的库的类
+# 不跳过非公共库的类
 #-dontskipnonpubliclibraryclasses
 # 不跳过非公共库类的成员变量
--dontskipnonpubliclibraryclassmembers
+#-dontskipnonpubliclibraryclassmembers
 # 指定混淆时采用的算法
--optimizations !code/simplification/cast, !field/*, !class/merging/*
+#-optimizations !code/simplification/cast, !field/*, !class/merging/*
 # 避免混淆注解、内部类、泛型、匿名类
--keepattributes *Annotation*, InnerClasses, Signature, EnclosingMethod
+#-keepattributes *Annotation*, InnerClasses, Signature, EnclosingMethod
 # 保留行号
--keepattributes SourceFile, LineNumberTable
+#-keepattributes SourceFile, LineNumberTable
 # 忽略警告
 -ignorewarnings
 # 记录生成日志数据build时在本项目根目录输出Apk包内所有class的内部结构
--dump build/print/class_files.txt
+#-dump build/print/class_files.txt
 # 生成未混淆的类和成员
--printseeds build/print/seeds.txt
+#-printseeds build/print/seeds.txt
 # 生成从Apk中删除的代码
--printusage build/print/unused.txt
+#-printusage build/print/unused.txt
 # 生成原类名与混淆后类名的映射文件
--printmapping build/print/mapping.txt
+#-printmapping build/print/mapping.txt
 # </基本指令>
 
 # <基础组件>
--keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
--keep public class * extends android.app.Service
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.preference.Preference
--keep public class * extends android.support.multidex.MultiDexApplication
--keep public class * extends android.view.View
--keep public class com.android.vending.licensing.ILicensingService
--keep class android.support.** {*;}
+#-keep public class * extends android.app.Activity
+#-keep public class * extends android.app.Application
+#-keep public class * extends android.app.Service
+#-keep public class * extends android.app.backup.BackupAgentHelper
+#-keep public class * extends android.content.BroadcastReceiver
+#-keep public class * extends android.content.ContentProvider
+#-keep public class * extends android.preference.Preference
+#-keep public class * extends android.support.multidex.MultiDexApplication
+#-keep public class * extends android.view.View
+#-keep public class com.android.vending.licensing.ILicensingService
+#-keep class android.support.** {*;}
 # </基础组件>
 
 # <View相关>
 # 不混淆自定义控件
--keep public class * extends android.view.View {
-    *** get*();
-    void set*(***);
-    public <init>(android.content.Context);
-    public <init>(android.content.Context, android.util.AttributeSet);
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-    public <init>(android.content.Context, android.util.AttributeSet, int, int);
-}
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet);
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-    public <init>(android.content.Context, android.util.AttributeSet, int, int);
-}
--keepclassmembers class * {
-    public void *(android.view.View);
-}
+#-keep public class * extends android.view.View {
+#    *** get*();
+#    void set*(***);
+#    public <init>(android.content.Context);
+#    public <init>(android.content.Context, android.util.AttributeSet);
+#    public <init>(android.content.Context, android.util.AttributeSet, int);
+#    public <init>(android.content.Context, android.util.AttributeSet, int, int);
+#}
+#-keepclasseswithmembers class * {
+#    public <init>(android.content.Context, android.util.AttributeSet);
+#    public <init>(android.content.Context, android.util.AttributeSet, int);
+#    public <init>(android.content.Context, android.util.AttributeSet, int, int);
+#}
+#-keepclassmembers class * {
+#    public void *(android.view.View);
+#}
 # 不混淆带有JavaScript的WebView自定义视图
 #-keepclassmembers class com.framework.demo.widget.CustomWebview {
 #    public *;
@@ -101,42 +101,40 @@
 
 # <序列化相关>
 # 不混淆实现了Serializable接口的类成员，此处只是演示
--keepclassmembers class * implements java.io.Serializable {
-    static final long serialVersionUID;
-    private static final java.io.ObjectStreamField[] serialPersistentFields;
-    private void writeObject(java.io.ObjectOutputStream);
-    private void readObject(java.io.ObjectInputStream);
-    java.lang.Object writeReplace();
-    java.lang.Object readResolve();
-}
+#-keepclassmembers class * implements java.io.Serializable {
+#    static final long serialVersionUID;
+#    private static final java.io.ObjectStreamField[] serialPersistentFields;
+#    private void writeObject(java.io.ObjectOutputStream);
+#    private void readObject(java.io.ObjectInputStream);
+#    java.lang.Object writeReplace();
+#    java.lang.Object readResolve();
+#}
 # 不混淆实现了Serializable接口的类成员
--keep public class * implements java.io.Serializable {*;}
+#-keep public class * implements java.io.Serializable {*;}
 # 不混淆实现了parcelable接口的类成员
--keep class * implements android.os.Parcelable {
-    public static final android.os.Parcelable$Creator *;
-}
+#-keep class * implements android.os.Parcelable {
+#    public static final android.os.Parcelable$Creator *;
+#}
 # </序列化相关>
 
 # <R文件相关>
 # 不混淆资源类
--keep class **.R$* {
-    *;
-}
+#-keep class **.R$* {*;}
 # </R文件相关>
 
 # <枚举类相关>
 # 不混淆枚举类中的values和valuesof这两个方法
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
+#-keepclassmembers enum * {
+#    public static **[] values();
+#    public static ** valueOf(java.lang.String);
+#}
 # </枚举类相关>
 
 # <Native相关>
 # 不混淆native方法
--keepclasseswithmembernames class * {
-    native <methods>;
-}
+#-keepclasseswithmembernames class * {
+#    native <methods>;
+#}
 # </Native相关>
 
 # <Package相关>
@@ -160,31 +158,31 @@
 # </Package相关>
 
 # <OkHttp3.x>
--dontwarn com.squareup.okhttp3.**
--keep class com.squareup.okhttp3.** { *;}
--dontwarn okio.**
+#-dontwarn com.squareup.okhttp3.**
+#-keep class com.squareup.okhttp3.** {*;}
+#-dontwarn okio.**
 # </OkHttp3.x>
 
 # <Retrofit2.x>
--dontnote retrofit2.Platform
--dontwarn retrofit2.Platform$Java8
--keepattributes Signature
--keepattributes Exceptions
--dontwarn okio.**
+#-dontnote retrofit2.Platform
+#-dontwarn retrofit2.Platform$Java8
+#-keepattributes Signature
+#-keepattributes Exceptions
+#-dontwarn okio.**
 # </Retrofit2.x>
 
 # <Gson>
--keep class com.google.gson.** {*;}
--keep class com.google.**{*;}
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.stream.** { *; }
--keep class com.google.gson.examples.android.model.** { *; }
+#-keep class com.google.gson.** {*;}
+#-keep class com.google.** {*;}
+#-keep class sun.misc.Unsafe {*;}
+#-keep class com.google.gson.stream.** {*;}
+#-keep class com.google.gson.examples.android.model.** {*;}
 # </Gson>
 
 # <Glide>
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-    **[] $VALUES;
-    public *;
-}
+#-keep public class * implements com.bumptech.glide.module.GlideModule
+#-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+#    **[] $VALUES;
+#    public *;
+#}
 # </Glide>

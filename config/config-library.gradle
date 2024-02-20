@@ -1,7 +1,11 @@
 apply plugin: "com.android.library"
-apply from: "$rootDir/constants.gradle"
+apply from: "$rootDir/config/constants.gradle"
 
 var ext = project.ext
+if (ext.useAndroidKotlin) {
+    apply plugin: "kotlin-android"
+}
+
 android {
     compileSdk ext.compileSdk
 
@@ -69,6 +73,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    if (ext.useAndroidKotlin) {
+        kotlinOptions {
+            jvmTarget = '1.8'
+        }
     }
 
     testOptions {

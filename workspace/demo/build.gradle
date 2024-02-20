@@ -1,4 +1,4 @@
-apply from: "$rootDir/config-application.gradle"
+apply from: "$rootDir/config/config-application.gradle"
 
 android {
     namespace 'com.framework.demo'
@@ -10,7 +10,6 @@ android {
 }
 
 dependencies {
-    implementation files('libs/lib_demo.jar')
     implementation project(':module-common')
     implementation project(':module-chat')
 }

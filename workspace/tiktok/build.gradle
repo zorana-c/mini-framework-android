@@ -1,6 +1,4 @@
-apply from: "$rootDir/config-application.gradle"
-// 启用 Kotlin 语言
-// apply from: "$rootDir/config-kotlin.gradle"
+apply from: "$rootDir/config/config-application.gradle"
 
 android {
     namespace 'com.tiktok.app'

@@ -1,4 +1,4 @@
-apply from: "$rootDir/config-library.gradle"
+apply from: "$rootDir/config/config-library.gradle"
 
 android {
     namespace 'com.mall'

@@ -1,7 +1,0 @@
-apply plugin: "kotlin-android"
-
-android {
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-}

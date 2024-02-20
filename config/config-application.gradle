@@ -1,7 +1,11 @@
 apply plugin: "com.android.application"
-apply from: "$rootDir/constants.gradle"
+apply from: "$rootDir/config/constants.gradle"
 
 var ext = project.ext
+if (ext.useAndroidKotlin) {
+    apply plugin: "kotlin-android"
+}
+
 android {
     compileSdk ext.compileSdk
 
@@ -14,6 +18,15 @@ android {
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    signingConfigs {
+        _default {
+            storeFile file("$rootDir/config/keystore/keystore-default.jks")
+            storePassword '666666'
+            keyAlias 'keystore-default'
+            keyPassword '666666'
+        }
     }
 
     buildTypes {
@@ -29,6 +42,7 @@ android {
             zipAlignEnabled false
             testCoverageEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs._default
         }
 
         debug {
@@ -43,6 +57,7 @@ android {
             zipAlignEnabled false
             testCoverageEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs._default
         }
 
         release {
@@ -57,6 +72,7 @@ android {
             zipAlignEnabled true
             testCoverageEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs._default
             matchingFallbacks = ['beta', 'debug']
         }
     }
@@ -75,6 +91,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    if (ext.useAndroidKotlin) {
+        kotlinOptions {
+            jvmTarget = '1.8'
+        }
     }
 
     testOptions {

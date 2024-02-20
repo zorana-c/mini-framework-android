@@ -42,15 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:onClick="joinJniTest"
-            android:padding="15dp"
-            android:text="JNI Test"
-            android:textColor="@android:color/white" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:onClick="joinAPIService"
             android:padding="15dp"
             android:text="API Service"

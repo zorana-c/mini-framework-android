@@ -10,4 +10,6 @@ project.ext {
     versionCode = 100
     // default version name
     versionName = "1.0.0"
+    // plugin kotlin-android
+    useAndroidKotlin = false
 }

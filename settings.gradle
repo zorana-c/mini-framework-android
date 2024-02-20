@@ -20,10 +20,10 @@ dependencyResolutionManagement {
 }
 // 项目工程名字(可不写)
 rootProject.name = 'MiniFramework'
+// 导入配置空间
+include ':config'
 // 导入文档空间
 include ':docs'
-// 导入扩展空间
-include ':extensions'
 // 导入特征空间
 include ':features'
 include ':module-chat'

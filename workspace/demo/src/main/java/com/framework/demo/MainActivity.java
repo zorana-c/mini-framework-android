@@ -34,7 +34,6 @@ import com.framework.core.widget.UIDecorLayout;
 import com.framework.core.widget.UISliverScrollView;
 import com.framework.demo.content.CustomDecorOptions;
 import com.framework.demo.http.repository.TestServiceRepository;
-import com.natives.jnis.JniUtils;
 import com.navigation.UINavigatorController;
 
 /**
@@ -110,10 +109,6 @@ public class MainActivity extends UIDecorFragmentActivity {
                 .subscribeWithLayout(this)
                 .delay(2000)
                 .subscribe(UIToast::asyncToast, UILog::e);
-    }
-
-    public void joinJniTest(@NonNull View view) {
-        UIToast.asyncToast(JniUtils.stringFromJNI());
     }
 
     @SuppressLint("CheckResult")
