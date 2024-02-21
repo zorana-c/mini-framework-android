@@ -7,7 +7,7 @@
     android:layout_height="32dp"
     android:layout_gravity="center"
     android:autoSizeMaxTextSize="14sp"
-    android:autoSizeMinTextSize="10sp"
+    android:autoSizeMinTextSize="7sp"
     android:autoSizeStepGranularity="0.5sp"
     android:autoSizeTextType="uniform"
     android:gravity="center"

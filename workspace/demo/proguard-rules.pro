@@ -28,161 +28,109 @@
 # ④ WebView的JS调用接口方法不可混淆；
 # ⑤ 注解相关的类不混淆；
 # ⑥ GSON、Fastjson等解析的Bean数据类不可混淆；
-# ⑦ 枚举enum类中的values和valuesof这两个方法不可混淆(反射调用)；
+# ⑦ 枚举enum类中的values和valuesOf这两个方法不可混淆(反射调用)；
 # ⑧ 继承Parceable和Serializable等可序列化的类不可混淆；
 # ⑨ 第三方库或SDK，请参考第三方提供的混淆规则，没提供的话，建议第三方包全部不混淆；
 
-# <基本指令>
-# 代码混淆的压缩比例，值介于0-7，默认5
--optimizationpasses 5
-# 不跳过非公共库的类
-#-dontskipnonpubliclibraryclasses
-# 不跳过非公共库类的成员变量
-#-dontskipnonpubliclibraryclassmembers
-# 指定混淆时采用的算法
-#-optimizations !code/simplification/cast, !field/*, !class/merging/*
-# 避免混淆注解、内部类、泛型、匿名类
-#-keepattributes *Annotation*, InnerClasses, Signature, EnclosingMethod
-# 保留行号
-#-keepattributes SourceFile, LineNumberTable
-# 忽略警告
+# ==================================== <基本指令> ====================================
+# 混淆记录日志
+-verbose
+# 混淆忽略警告
 -ignorewarnings
-# 记录生成日志数据build时在本项目根目录输出Apk包内所有class的内部结构
-#-dump build/print/class_files.txt
-# 生成未混淆的类和成员
-#-printseeds build/print/seeds.txt
-# 生成从Apk中删除的代码
-#-printusage build/print/unused.txt
-# 生成原类名与混淆后类名的映射文件
-#-printmapping build/print/mapping.txt
-# </基本指令>
+# 混淆压缩比例，值介于0-7，默认5
+-optimizationpasses 5
+# 不使用大小写混淆
+-dontusemixedcaseclassnames
+# 不跳过非公共库的类
+-dontskipnonpubliclibraryclasses
+# 不跳过非公共库的类的成员
+-dontskipnonpubliclibraryclassmembers
+# 指定混淆时采用的算法
+-optimizations !code/simplification/cast, !field/*, !class/merging/*
+# ==================================== <基本指令> ====================================
+
+# ==================================== <Android> ====================================
+# <注解>
+# 禁止混淆注解
+-keepattributes *Annotation*
+-keep class * extends java.lang.annotation.Annotation {*;}
+
+# <反射>
+# 禁止混淆反射
+-keepattributes EnclosingMethod
+
+# <泛型>
+# 禁止混淆泛型
+-keepattributes Signature
+
+# <异常>
+# 禁止混淆异常
+-keepattributes Exceptions
+-keep class * extends java.lang.Exception {*;}
+
+# <内部类>
+# 禁止混淆内部类
+-keepattributes Exceptions, InnerClasses
+
+# <代码行号>
+# 禁止混淆代码行号
+-keepattributes SourceFile, LineNumberTable
 
 # <基础组件>
-#-keep public class * extends android.app.Activity
-#-keep public class * extends android.app.Application
-#-keep public class * extends android.app.Service
-#-keep public class * extends android.app.backup.BackupAgentHelper
-#-keep public class * extends android.content.BroadcastReceiver
-#-keep public class * extends android.content.ContentProvider
-#-keep public class * extends android.preference.Preference
-#-keep public class * extends android.support.multidex.MultiDexApplication
-#-keep public class * extends android.view.View
-#-keep public class com.android.vending.licensing.ILicensingService
-#-keep class android.support.** {*;}
-# </基础组件>
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Dialog
+-keep public class * extends android.app.Fragment
+-keep public class * extends android.app.Service
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.preference.Preference
+-keep public class com.android.vending.licensing.ILicensingService
 
-# <View相关>
-# 不混淆自定义控件
-#-keep public class * extends android.view.View {
-#    *** get*();
-#    void set*(***);
-#    public <init>(android.content.Context);
-#    public <init>(android.content.Context, android.util.AttributeSet);
-#    public <init>(android.content.Context, android.util.AttributeSet, int);
-#    public <init>(android.content.Context, android.util.AttributeSet, int, int);
-#}
-#-keepclasseswithmembers class * {
-#    public <init>(android.content.Context, android.util.AttributeSet);
-#    public <init>(android.content.Context, android.util.AttributeSet, int);
-#    public <init>(android.content.Context, android.util.AttributeSet, int, int);
-#}
-#-keepclassmembers class * {
-#    public void *(android.view.View);
-#}
-# 不混淆带有JavaScript的WebView自定义视图
-#-keepclassmembers class com.framework.demo.widget.CustomWebview {
-#    public *;
-#}
-# 不混淆内部类中的所有public内容
-#-keep class com.framework.demo.widget.CustomView$OnClickInterface {
-#    public *;
-#}
-# </View相关>
+# <Support组件>
+-keep class android.support.** {*;}
 
-# <序列化相关>
-# 不混淆实现了Serializable接口的类成员，此处只是演示
-#-keepclassmembers class * implements java.io.Serializable {
-#    static final long serialVersionUID;
-#    private static final java.io.ObjectStreamField[] serialPersistentFields;
-#    private void writeObject(java.io.ObjectOutputStream);
-#    private void readObject(java.io.ObjectInputStream);
-#    java.lang.Object writeReplace();
-#    java.lang.Object readResolve();
-#}
-# 不混淆实现了Serializable接口的类成员
-#-keep public class * implements java.io.Serializable {*;}
-# 不混淆实现了parcelable接口的类成员
-#-keep class * implements android.os.Parcelable {
-#    public static final android.os.Parcelable$Creator *;
-#}
-# </序列化相关>
+# <视图组件>
+# 不混淆自定义视图
+-keep public class * extends android.view.View {
+    *** get*();
+    void set*(***);
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public <init>(android.content.Context, android.util.AttributeSet, int, int);
+}
+# 不混淆有参构造方法
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public <init>(android.content.Context, android.util.AttributeSet, int, int);
+}
 
-# <R文件相关>
+# <R文件资源>
 # 不混淆资源类
-#-keep class **.R$* {*;}
-# </R文件相关>
+-keep class **.R$* {*;}
 
-# <枚举类相关>
-# 不混淆枚举类中的values和valuesof这两个方法
-#-keepclassmembers enum * {
-#    public static **[] values();
-#    public static ** valueOf(java.lang.String);
-#}
-# </枚举类相关>
+# <序列化>
+# 不混淆实现了Serializable接口的类成员
+-keep class * implements java.io.Serializable {*;}
+# 不混淆实现了parcelable接口的类成员
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+    *;
+}
 
-# <Native相关>
+# <Native>
 # 不混淆native方法
-#-keepclasseswithmembernames class * {
-#    native <methods>;
-#}
-# </Native相关>
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
 
-# <Package相关>
-# 不混淆类名中包含了"entity"的类，及类中内容
-#-keep class **.*entity*.** {*;}
-
-# 不混淆指定包名下的类名，不包括子包下的类名
-#-keep class com.framework.demo*
-
-# 不混淆指定包名下的类名，及类里的内容
-#-keep class com.framework.demo* {*;}
-
-# 不混淆指定包名下的类名，包括子包下的类名
-#-keep class com.framework.demo**
-
-# 不混淆某个类的子类
-#-keep public class * extends com.framework.demo.Test
-
-# 不混淆实现了某个接口的类
-#-keep class * implements com.framework.demo.TestImpl
-# </Package相关>
-
-# <OkHttp3.x>
-#-dontwarn com.squareup.okhttp3.**
-#-keep class com.squareup.okhttp3.** {*;}
-#-dontwarn okio.**
-# </OkHttp3.x>
-
-# <Retrofit2.x>
-#-dontnote retrofit2.Platform
-#-dontwarn retrofit2.Platform$Java8
-#-keepattributes Signature
-#-keepattributes Exceptions
-#-dontwarn okio.**
-# </Retrofit2.x>
-
-# <Gson>
-#-keep class com.google.gson.** {*;}
-#-keep class com.google.** {*;}
-#-keep class sun.misc.Unsafe {*;}
-#-keep class com.google.gson.stream.** {*;}
-#-keep class com.google.gson.examples.android.model.** {*;}
-# </Gson>
-
-# <Glide>
-#-keep public class * implements com.bumptech.glide.module.GlideModule
-#-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-#    **[] $VALUES;
-#    public *;
-#}
-# </Glide>
+# <枚举类>
+# 不混淆枚举类中的values和valueOf这两个方法
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+# ==================================== <Android> ====================================
