@@ -780,6 +780,7 @@ public class SliverContainer extends ViewGroup implements
     private int mBounceLocate;
     private int mScrollPointerId;
     private boolean mIsLayoutDirty;
+    private boolean mIsUnableToDrag;
     private boolean mIsChildFocusable;
     private boolean mIsScrollFloating;
     private boolean mIsUserScrollEnabled;
@@ -792,7 +793,7 @@ public class SliverContainer extends ViewGroup implements
         final int actionMasked = event.getActionMasked();
         if (actionMasked == MotionEvent.ACTION_DOWN) {
             // Defensive cleanup for new gesture
-            this.stopInheritScroll();
+            this.stopSliverScroll();
             this.stopTargetNestedScroll(SliverCompat.TYPE_NON_TOUCH);
             this.stopTargetInheritScroll(SliverCompat.TYPE_NON_TOUCH);
         }
@@ -803,7 +804,7 @@ public class SliverContainer extends ViewGroup implements
             // Clean up after inherit scrolls if this is the end of a gesture;
             // also cancel it if we tried an ACTION_DOWN but we didn't want the rest
             // of the gesture.
-            this.stopInheritScroll();
+            this.stopSliverScroll();
             this.stopTargetNestedScroll();
             this.stopTargetInheritScroll();
         }
@@ -821,32 +822,37 @@ public class SliverContainer extends ViewGroup implements
     }
 
     protected boolean performInterceptTouchEvent(@NonNull MotionEvent event) {
-        final boolean interceptForDrag;
-        interceptForDrag = SliverCompat.SCROLL_AXIS_NONE == this.getNestedScrollAxes();
+        final int actionMasked = event.getActionMasked();
+        if (actionMasked == MotionEvent.ACTION_UP
+                || actionMasked == MotionEvent.ACTION_CANCEL) {
+            this.mIsUnableToDrag = false;
+            this.cancelTouchScroll(SliverCompat.TYPE_TOUCH);
+            return false;
+        }
+        if (actionMasked != MotionEvent.ACTION_DOWN) {
+            if (this.mIsUnableToDrag) {
+                return false;
+            }
+        }
         if (this.mVelocityTracker == null) {
             this.mVelocityTracker = VelocityTracker.obtain();
         }
         this.mVelocityTracker.addMovement(event);
 
-        switch (event.getActionMasked()) {
+        switch (actionMasked) {
             case MotionEvent.ACTION_DOWN:
                 this.mScrollPointerId = event.getPointerId(0);
                 this.mInitialTouch[0] = this.mLastTouch[0] = (int) (event.getX() + 0.5f);
                 this.mInitialTouch[1] = this.mLastTouch[1] = (int) (event.getY() + 0.5f);
                 this.mNestedOffsets[0] = 0;
                 this.mNestedOffsets[1] = 0;
+                this.mIsUnableToDrag = false;
 
-                final int scrollState = this.mScrollState;
-                if (SCROLL_STATE_SETTLING == scrollState) {
+                if (SCROLL_STATE_SETTLING == this.mScrollState) {
                     this.stopSliverScroll(SliverCompat.TYPE_NON_TOUCH);
                     this.stopNestedScroll(SliverCompat.TYPE_NON_TOUCH);
                     this.stopInheritScroll(SliverCompat.TYPE_NON_TOUCH);
                     this.requestParentDisallowInterceptTouchEvent();
-
-                    // Pass intercept.
-                    // if (interceptForDrag) {
-                    //     this.setScrollState(SCROLL_STATE_DRAGGING);
-                    // }
                 }
 
                 int scrollAxes = SliverCompat.SCROLL_AXIS_NONE;
@@ -864,6 +870,10 @@ public class SliverContainer extends ViewGroup implements
                 final int pointerIndex;
                 pointerIndex = event.findPointerIndex(this.mScrollPointerId);
                 if (pointerIndex < 0) {
+                    return false;
+                }
+                if (this.getNestedScrollAxes() != SliverCompat.SCROLL_AXIS_NONE) {
+                    this.mIsUnableToDrag = true;
                     return false;
                 }
                 if (SCROLL_STATE_DRAGGING != this.mScrollState) {
@@ -900,14 +910,8 @@ public class SliverContainer extends ViewGroup implements
             case MotionEvent.ACTION_POINTER_UP:
                 this.onSecondaryPointerUp(event);
                 break;
-            case MotionEvent.ACTION_CANCEL:
-                this.cancelTouchScroll(SliverCompat.TYPE_TOUCH);
-                break;
-            case MotionEvent.ACTION_UP:
-                this.resetTouchScroll(SliverCompat.TYPE_TOUCH);
-                break;
         }
-        return interceptForDrag && SCROLL_STATE_DRAGGING == this.mScrollState;
+        return SCROLL_STATE_DRAGGING == this.mScrollState;
     }
 
     @Override

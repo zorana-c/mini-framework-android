@@ -16,6 +16,8 @@ public class SliverScrollHelper {
 
     private boolean mSliverScrollingTouch;
     private boolean mSliverScrollingNonTouch;
+    private boolean mPendingScrollingTouch;
+    private boolean mPendingScrollingNonTouch;
     private boolean mIsSliverScrollingEnabled;
 
     public SliverScrollHelper(@NonNull View view) {
@@ -229,8 +231,12 @@ public class SliverScrollHelper {
         if (!this.hasSliverScrolling(scrollType)) {
             return;
         }
-        this.setSliverScrollingForType(scrollType, false);
+        this.setPendingScrollingForType(scrollType, false);
         ViewChildCompat.onStopSliverScroll(this.mView, scrollType);
+        if (this.getPendingScrollingForType(scrollType)) {
+            return;
+        }
+        this.setSliverScrollingForType(scrollType, false);
     }
 
     public boolean hasSliverScrolling() {
@@ -259,6 +265,29 @@ public class SliverScrollHelper {
                 break;
             case SliverCompat.TYPE_NON_TOUCH:
                 this.mSliverScrollingNonTouch = scrolling;
+                break;
+        }
+        this.setPendingScrollingForType(scrollType, scrolling);
+    }
+
+    private boolean getPendingScrollingForType(@SliverCompat.ScrollType int scrollType) {
+        switch (scrollType) {
+            case SliverCompat.TYPE_TOUCH:
+                return this.mPendingScrollingTouch;
+            case SliverCompat.TYPE_NON_TOUCH:
+                return this.mPendingScrollingNonTouch;
+        }
+        return false;
+    }
+
+    private void setPendingScrollingForType(@SliverCompat.ScrollType int scrollType,
+                                            boolean scrolling) {
+        switch (scrollType) {
+            case SliverCompat.TYPE_TOUCH:
+                this.mPendingScrollingTouch = scrolling;
+                break;
+            case SliverCompat.TYPE_NON_TOUCH:
+                this.mPendingScrollingNonTouch = scrolling;
                 break;
         }
     }
