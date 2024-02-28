@@ -140,7 +140,7 @@ public class CommentFragment extends UIListFragment<String>
         uiListController.setPaddingTop(padding);
         uiListController.setPaddingBottom(padding);
         uiListController.setClipToPadding(false);
-        uiListController.setGroupDefaultExpanded(true);
+        uiListController.setGroupExpanded(true);
 
         final int radius = UIRes.dip2px(10);
         UIThemeEnforcement.with(this)

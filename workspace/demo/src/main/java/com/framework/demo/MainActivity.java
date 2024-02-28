@@ -192,8 +192,8 @@ public class MainActivity extends UIDecorFragmentActivity {
     }
 
     public void joinTestFragment(@NonNull View view) {
-        this.randomPalette();
-//        this.getUINavigatorController().startFragment(ListFragment2.class);
+//        this.randomPalette();
+        this.getUINavigatorController().startFragment(ListFragment2.class);
     }
 
     private void randomPalette() {

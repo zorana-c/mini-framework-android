@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.framework.widget.sliver.SliverRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -406,6 +407,8 @@ public class ExpandableRecyclerView extends SliverRecyclerView {
 
     public static abstract class ViewHolder extends SliverRecyclerView.ViewHolder {
         @Nullable
+        private List<Object> mPayloads;
+        @Nullable
         private RecyclerView mRecyclerView;
         @Nullable
         private ComponentListener mComponentListener;
@@ -459,6 +462,14 @@ public class ExpandableRecyclerView extends SliverRecyclerView {
 
         public final boolean getItemExpanded() {
             return this.mItemExpanded;
+        }
+
+        @NonNull
+        public final List<Object> getPayloads() {
+            if (this.mPayloads == null) {
+                return Collections.emptyList();
+            }
+            return this.mPayloads;
         }
 
         @Nullable
@@ -566,11 +577,25 @@ public class ExpandableRecyclerView extends SliverRecyclerView {
             target.setOnLongClickListener(this.mComponentListener);
         }
 
+        final void addChangePayloads(@NonNull List<Object> payloads) {
+            if (this.mPayloads == null) {
+                this.mPayloads = new ArrayList<>();
+            }
+            this.mPayloads.addAll(payloads);
+        }
+
         final void setRecyclerView(@Nullable RecyclerView recyclerView) {
             this.mRecyclerView = recyclerView;
         }
 
+        final void clearPayloads() {
+            if (this.mPayloads != null) {
+                this.mPayloads.clear();
+            }
+        }
+
         final void recycler() {
+            this.clearPayloads();
             this.mRecyclerView = null;
             this.mComponentListener = null;
             this.mItemLetter = null;

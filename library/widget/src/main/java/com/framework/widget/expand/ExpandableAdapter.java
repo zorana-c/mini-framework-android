@@ -231,6 +231,10 @@ public interface ExpandableAdapter<VH extends RecyclerView.ViewHolder> {
 
     boolean isGroupExpanded(int groupPosition);
 
+    // Adapter
+
+    void notifyDataSetChanged();
+
     // Head
 
     default void notifyHeadItemInserted(int position) {
@@ -400,29 +404,37 @@ public interface ExpandableAdapter<VH extends RecyclerView.ViewHolder> {
     // Combined Item
 
     default long getCombinedItemId(@PositionType int positionType, long itemId) {
-        return (positionType << 32) | itemId;
+        final long combinedId;
+        combinedId = Long.MIN_VALUE | ((positionType & Integer.MAX_VALUE) << 32);
+        return combinedId | itemId;
     }
 
     default long getUnCombinedItemId(long combinedItemId) {
-        final int positionType = this.getPositionType(combinedItemId);
-        return (positionType << 32) ^ combinedItemId;
+        final long positionType = this.getPositionType(combinedItemId);
+        final long combinedId;
+        combinedId = Long.MIN_VALUE | ((positionType & Integer.MAX_VALUE) << 32);
+        return combinedId ^ combinedItemId;
     }
 
     default int getCombinedItemType(@PositionType int positionType, int itemType) {
-        return (positionType << 16) | itemType;
+        final int combinedType;
+        combinedType = Integer.MIN_VALUE | ((positionType & Short.MAX_VALUE) << 16);
+        return combinedType | itemType;
     }
 
     default int getUnCombinedItemType(int combinedItemType) {
         final int positionType = this.getPositionType(combinedItemType);
-        return (positionType << 16) ^ combinedItemType;
+        final int combinedType;
+        combinedType = Integer.MIN_VALUE | ((positionType & Short.MAX_VALUE) << 16);
+        return combinedType ^ combinedItemType;
     }
 
     default int getPositionType(long combinedItemId) {
-        return Math.toIntExact(combinedItemId >> 32);
+        return Math.toIntExact((combinedItemId ^ Long.MIN_VALUE) >> 32);
     }
 
     default int getPositionType(int combinedItemType) {
-        return Math.toIntExact(combinedItemType >> 16);
+        return Math.toIntExact((combinedItemType ^ Integer.MIN_VALUE) >> 16);
     }
 
     interface AdapterDataObserver {

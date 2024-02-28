@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.framework.core.compat.UILog;
 import com.framework.core.compat.UIRes;
 import com.framework.core.widget.UIDecorLayout;
 import com.framework.widget.expand.ExpandableRecyclerView;
@@ -36,10 +37,43 @@ public class UIListController<T> extends UIDecorController
         implements SliverRefreshLayout.RefreshCallback {
     public static final int LIST_MIN_LIMIT = 12;
 
-    public interface UIComponent<VH extends ViewHolder<?>>
-            extends UIDecorController.UIComponent {
+    public interface UIComponent<T> extends UIDecorController.UIComponent {
 
         void onUIRefresh(@Nullable Bundle savedInstanceState, int page, int limit);
+
+        default void notifyDataSetLoadMore() {
+            this.<UIListController<T>>getUIPageController().notifyDataSetLoadMore();
+        }
+
+        @NonNull
+        default UIDataController<T> getUIDataController() {
+            return this.<UIListController<T>>getUIPageController().getUIDataController();
+        }
+
+        @Nullable
+        default <P extends T> P findDataBy(int position) {
+            return this.getUIDataController().findBy(position);
+        }
+
+        @NonNull
+        default <P extends T> P requireDataBy(int position) {
+            return this.getUIDataController().requireBy(position);
+        }
+
+        default void put(@Nullable T t) {
+            this.<UIListController<T>>getUIPageController().put(t);
+        }
+
+        default void putAll(@NonNull Collection<? extends T> c) {
+            this.<UIListController<T>>getUIPageController().putAll(c);
+        }
+
+        default void putAllWithClear(@NonNull Collection<? extends T> c) {
+            this.<UIListController<T>>getUIPageController().putAllWithClear(c);
+        }
+    }
+
+    public interface Callback<VH extends ViewHolder<?>> {
 
         @NonNull
         VH onCreateViewHolder(@NonNull LayoutInflater inflater,
@@ -93,26 +127,18 @@ public class UIListController<T> extends UIDecorController
         default int getChildItemCount(int groupPosition) {
             return 0;
         }
-
-        default void notifyDataSetLoadMore() {
-            final UIListController<?> uiListController;
-            uiListController = this.getUIPageController();
-            uiListController.notifyDataSetLoadMore();
-        }
     }
 
     private final UIDataController<T> mUIDataController;
-    private final ComponentListener<T> mComponentListener;
     private int mRefreshPageCount;
     private int mPendingPageCount;
     private Bundle mSavedState;
     private SliverRefreshLayout mSliverRefreshLayout;
     private ExpandableRecyclerView mExpandableRecyclerView;
 
-    public UIListController(@NonNull UIComponent<? extends ViewHolder<T>> uiComponent) {
+    public UIListController(@NonNull UIComponent<? super T> uiComponent) {
         super(uiComponent);
         this.mUIDataController = new UIDataController<>();
-        this.mComponentListener = new ComponentListener<>(this);
     }
 
     @Override
@@ -165,7 +191,11 @@ public class UIListController<T> extends UIDecorController
             newAdapter = oldAdapter;
         }
         if (oldAdapter != newAdapter) {
-            recyclerView.setAdapter(newAdapter);
+            if (newAdapter instanceof Adapter) {
+                recyclerView.setAdapter(newAdapter);
+            } else {
+                throw new IllegalStateException("The adapter is illegal.");
+            }
         }
         // Setup Background
         if (recyclerView.getBackground() == null) {
@@ -416,7 +446,7 @@ public class UIListController<T> extends UIDecorController
     @NonNull
     public final UIListController<T> setEmptyComponent(@Nullable ItemComponent<ViewHolder<T>> component) {
         if (component == null) {
-            this.getUIEmptyComponentController().clear();
+            this.getUIEmptyComponentController().removeAll();
         } else {
             this.getUIEmptyComponentController().set(component);
         }
@@ -503,8 +533,8 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public UIListController<T> setGroupDefaultExpanded(boolean expanded) {
-        this.mComponentListener.setGroupDefaultExpanded(expanded);
+    public UIListController<T> setGroupExpanded(boolean groupExpanded) {
+        this.requireAdapter().setGroupExpanded(groupExpanded);
         return this;
     }
 
@@ -849,99 +879,23 @@ public class UIListController<T> extends UIDecorController
         return this;
     }
 
-    // ########## DataController ##########
+    // ########## UIDataController ##########
 
     @NonNull
     public UIDataController<T> getUIDataController() {
         return this.mUIDataController;
     }
 
-    @Nullable
-    public final <P extends T> P findDataSourceBy(int position) {
-        return this.getUIDataController().findDataSourceBy(position);
-    }
-
     @NonNull
-    public final <P extends T> P requireDataSourceBy(int position) {
-        return this.getUIDataController().requireDataSourceBy(position);
-    }
-
-    @NonNull
-    public final UIListController<T> set(@NonNull T dataSource) {
-        return this.setAll(Collections.singletonList(dataSource));
-    }
-
-    @NonNull
-    public final UIListController<T> setAll(@NonNull Collection<T> dataSources) {
-        this.getUIDataController().setAll(dataSources);
+    public final UIListController<T> registerObserver(@NonNull UIDataController.Observer observer) {
+        this.getUIDataController().registerObserver(observer);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> add(@NonNull T dataSource) {
-        return this.add(-1, dataSource);
-    }
-
-    @NonNull
-    public final UIListController<T> add(int index, @NonNull T dataSource) {
-        return this.addAll(index, Collections.singletonList(dataSource));
-    }
-
-    @NonNull
-    public final UIListController<T> addAll(@NonNull Collection<T> dataSources) {
-        return this.addAll(-1, dataSources);
-    }
-
-    @NonNull
-    public final UIListController<T> addAll(int index, @NonNull Collection<T> dataSources) {
-        this.getUIDataController().addAll(index, dataSources);
+    public final UIListController<T> unregisterObserver(@NonNull UIDataController.Observer observer) {
+        this.getUIDataController().unregisterObserver(observer);
         return this;
-    }
-
-    @NonNull
-    public final UIListController<T> registerDataObserver(@NonNull UIDataController.DataObserver observer) {
-        this.getUIDataController().registerDataObserver(observer);
-        return this;
-    }
-
-    @NonNull
-    public final UIListController<T> unregisterDataObserver(@NonNull UIDataController.DataObserver observer) {
-        this.getUIDataController().unregisterDataObserver(observer);
-        return this;
-    }
-
-    @NonNull
-    public final UIListController<T> addOnDataChangedListener(@NonNull UIDataController.OnDataChangedListener<T> listener) {
-        this.getUIDataController().addOnDataChangedListener(listener);
-        return this;
-    }
-
-    @NonNull
-    public final UIListController<T> removeOnDataChangedListener(@NonNull UIDataController.OnDataChangedListener<T> listener) {
-        this.getUIDataController().removeOnDataChangedListener(listener);
-        return this;
-    }
-
-    @NonNull
-    public final UIListController<T> removeAt(int position) {
-        this.getUIDataController().removeAt(position);
-        return this;
-    }
-
-    @NonNull
-    public final UIListController<T> remove(@NonNull T dataSource) {
-        this.getUIDataController().remove(dataSource);
-        return this;
-    }
-
-    @NonNull
-    public final UIListController<T> clear() {
-        this.getUIDataController().clear();
-        return this;
-    }
-
-    public final int getItemCount() {
-        return this.getUIDataController().size();
     }
 
     /**
@@ -952,8 +906,8 @@ public class UIListController<T> extends UIDecorController
      * @see UIListController#putAllWithClear(Collection)
      */
     @NonNull
-    public final UIListController<T> put(@NonNull T dataSource) {
-        return this.putAll(Collections.singletonList(dataSource));
+    public final UIListController<T> put(@Nullable T t) {
+        return this.putAll(Collections.singletonList(t));
     }
 
     /**
@@ -964,8 +918,8 @@ public class UIListController<T> extends UIDecorController
      * @see UIListController#putAllWithClear(Collection)
      */
     @NonNull
-    public UIListController<T> putAll(@NonNull Collection<T> dataSources) {
-        this.putAllInternal(dataSources);
+    public UIListController<T> putAll(@NonNull Collection<? extends T> c) {
+        this.putAllInternal(c);
         return this;
     }
 
@@ -977,14 +931,14 @@ public class UIListController<T> extends UIDecorController
      * @see UIListController#putAllWithClear(Collection)
      */
     @NonNull
-    public final UIListController<T> putAllWithClear(@NonNull Collection<T> dataSources) {
-        this.clear();
-        this.putAll(dataSources);
+    public final UIListController<T> putAllWithClear(@NonNull Collection<? extends T> c) {
+        this.getUIDataController().removeAll();
+        this.putAllInternal(c);
         return this;
     }
 
-    final void putAllInternal(@NonNull Collection<T> dataSources) {
-        final int N = dataSources.size();
+    final void putAllInternal(@NonNull Collection<? extends T> collection) {
+        final int N = collection.size();
         final int pendingPageCount = this.mPendingPageCount;
         final boolean refreshing;
         refreshing = pendingPageCount > 0;
@@ -996,10 +950,12 @@ public class UIListController<T> extends UIDecorController
         this.mRefreshPageCount += (N > 0 ? pendingPageCount : 0);
         this.mPendingPageCount = 0;
 
+        final UIDataController<T> uiDataController;
+        uiDataController = this.getUIDataController();
         if (needsRemoveAll) {
-            this.clear();
+            uiDataController.removeAll();
         }
-        this.addAll(dataSources);
+        uiDataController.addAll(collection);
         this.postContentOnAnimation();
         this.completeRefreshed(UIDecorOptions.MS_ANIM);
 
@@ -1065,82 +1021,6 @@ public class UIListController<T> extends UIDecorController
         uiComponent.onUIRefresh(savedInstanceState, page, LIST_MIN_LIMIT);
     }
 
-    private static final class ComponentListener<T> implements
-            UIDataController.DataObserver,
-            UIDataController.OnDataChangedListener<T> {
-        @NonNull
-        private final UIListController<T> mUIListController;
-        private boolean mGroupDefaultExpanded;
-
-        public ComponentListener(@NonNull UIListController<T> uiListController) {
-            this.mUIListController = uiListController;
-            this.mUIListController.registerDataObserver(this);
-            this.mUIListController.addOnDataChangedListener(this);
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        @Override
-        public boolean onItemRangeInserted(int positionStart, int itemCount) {
-            final Adapter<?> adapter = this.requireAdapter();
-            final int gItemCount = adapter.getGroupItemCount();
-            if (gItemCount == itemCount) {
-                adapter.notifyDataSetChanged();
-            } else {
-                final int cItemCount = gItemCount - positionStart;
-                final int tItemCount = adapter.getTailItemCount();
-                adapter.notifyGroupItemRangeInserted(positionStart, itemCount);
-                adapter.notifyGroupItemRangeChanged(positionStart, cItemCount);
-                adapter.notifyTailItemRangeChanged(0, tItemCount);
-            }
-            return true;
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        @Override
-        public boolean onItemRangeRemoved(int positionStart, int itemCount) {
-            final Adapter<?> adapter = this.requireAdapter();
-            final int gItemCount = adapter.getGroupItemCount();
-            if (gItemCount == 0) {
-                adapter.notifyDataSetChanged();
-            } else {
-                final int cItemCount = gItemCount - positionStart;
-                final int tItemCount = adapter.getTailItemCount();
-                adapter.notifyGroupItemRangeRemoved(positionStart, itemCount);
-                adapter.notifyGroupItemRangeChanged(positionStart, cItemCount);
-                adapter.notifyTailItemRangeChanged(0, tItemCount);
-            }
-            return true;
-        }
-
-        @Override
-        public boolean onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            final Adapter<?> adapter = this.requireAdapter();
-            final int positionStart = Math.min(fromPosition, toPosition);
-            final int cItemCount = Math.abs(fromPosition - toPosition) + 1;
-            adapter.notifyGroupItemRangeMoved(fromPosition, toPosition, itemCount);
-            adapter.notifyGroupItemRangeChanged(positionStart, cItemCount);
-            return true;
-        }
-
-        @Override
-        public void onItemRangeInserted(@NonNull UIDataController<T> uiDataController,
-                                        int positionStart,
-                                        int itemCount) {
-            if (this.mGroupDefaultExpanded) {
-                this.mUIListController.expandGroup(positionStart, itemCount);
-            }
-        }
-
-        @NonNull
-        public Adapter<?> requireAdapter() {
-            return this.mUIListController.requireAdapter();
-        }
-
-        public void setGroupDefaultExpanded(boolean groupDefaultExpanded) {
-            this.mGroupDefaultExpanded = groupDefaultExpanded;
-        }
-    }
-
     public static class ViewHolder<T> extends ExpandableRecyclerView.ViewHolder
             implements UIPageControllerOwner {
 
@@ -1149,21 +1029,21 @@ public class UIListController<T> extends UIDecorController
         }
 
         @Nullable
-        public final <P extends T> P findDataSourceBy(int position) {
-            final UIListController<T> uiListController = this.getUIPageController();
-            if (uiListController == null) {
+        public final <P extends T> P findDataBy(int position) {
+            final UIDataController<T> uiDataController = this.getUIDataController();
+            if (uiDataController == null) {
                 return null;
             }
-            return uiListController.findDataSourceBy(position);
+            return uiDataController.findBy(position);
         }
 
         @NonNull
-        public final <P extends T> P requireDataSourceBy(int position) {
-            final P dataSource = this.findDataSourceBy(position);
-            if (dataSource == null) {
+        public final <P extends T> P requireDataBy(int position) {
+            final UIDataController<T> uiDataController = this.getUIDataController();
+            if (uiDataController == null) {
                 throw new NullPointerException("ERROR");
             }
-            return dataSource;
+            return uiDataController.requireBy(position);
         }
 
         @Nullable
@@ -1204,7 +1084,10 @@ public class UIListController<T> extends UIDecorController
         }
     }
 
-    public static class Adapter<VH extends ViewHolder<?>> extends ExpandableRecyclerView.Adapter<VH> {
+    public static class Adapter<VH extends ViewHolder<?>> extends ExpandableRecyclerView.Adapter<VH>
+            implements UIDataController.Adapter {
+        @NonNull
+        private final ExpandableObserver mExpandableObserver;
         @NonNull
         private final UIListController<?> mUIListController;
         @NonNull
@@ -1219,26 +1102,23 @@ public class UIListController<T> extends UIDecorController
         }
 
         public <T> Adapter(@NonNull UIListController<T> uiListController) {
+            this.mExpandableObserver = new ExpandableObserver(this);
             this.mUIListController = uiListController;
-            this.mUIHeadDataController = new UIDataController<>();
-            this.mUIHeadDataController.registerDataObserver(UIDataControllers.observer(this));
-            this.mUITailDataController = new UIDataController<>();
-            this.mUITailDataController.registerDataObserver(UIDataControllers.observer(this));
-            this.mUIEmptyDataController = new UIDataController<>();
-            this.mUIEmptyDataController.registerDataObserver(UIDataControllers.observer(this));
+            this.mUIListController.registerObserver(this.mExpandableObserver);
+            this.mUIHeadDataController = new UIDataController<>(this);
+            this.mUITailDataController = new UIDataController<>(this);
+            this.mUIEmptyDataController = new UIDataController<>(this);
         }
 
         @Override
-        public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-            super.onAttachedToRecyclerView(recyclerView);
-        }
-
-        @Override
-        public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
-            super.onDetachedFromRecyclerView(recyclerView);
-            this.mUIHeadDataController.clear();
-            this.mUITailDataController.clear();
-            this.mUIEmptyDataController.clear();
+        public void onViewAttachedToWindow(@NonNull VH holder) {
+            super.onViewAttachedToWindow(holder);
+            UILog.e("Pos: " + holder.getLayoutPosition()
+                    + "\nGroupPos: " + holder.getGroupPosition()
+                    + "\nChildPos: " + holder.getChildPosition()
+                    + "\nPositionType: " + holder.getPositionType()
+                    + "\nItemId: " + holder.getItemId()
+                    + "\nRealItemId: " + this.getUnCombinedItemId(holder.getItemId()));
         }
 
         // Head.
@@ -1247,29 +1127,29 @@ public class UIListController<T> extends UIDecorController
         @Override
         public VH onCreateHeadViewHolder(@NonNull ViewGroup parent, int itemViewType) {
             final LayoutInflater inflater = this.requireLayoutInflater();
-            return this.mUIHeadDataController.requireDataSourceBy(itemViewType).onCreateViewHolder(inflater, parent, itemViewType);
+            return this.mUIHeadDataController.requireBy(itemViewType).onCreateViewHolder(inflater, parent, itemViewType);
         }
 
         @Override
         public void onBindHeadViewHolder(@NonNull VH holder, int position, @NonNull List<Object> payloads) {
             super.onBindHeadViewHolder(holder, position, payloads);
-            this.mUIHeadDataController.requireDataSourceBy(position).onBindViewHolder(holder, position, payloads);
+            this.mUIHeadDataController.requireBy(position).onBindViewHolder(holder, position, payloads);
         }
 
         @Nullable
         @Override
         public CharSequence getHeadItemLetter(int position) {
-            return this.mUIHeadDataController.requireDataSourceBy(position).getItemLetter(position);
+            return this.mUIHeadDataController.requireBy(position).getItemLetter(position);
         }
 
         @Override
         public long getHeadItemId(int position) {
-            return this.mUIHeadDataController.requireDataSourceBy(position).getItemId(position);
+            return this.mUIHeadDataController.requireBy(position).getItemId(position);
         }
 
         @Override
         public int getHeadItemViewType(int position) {
-            return this.mUIHeadDataController.requireDataSourceBy(position).getItemViewType(position);
+            return this.mUIHeadDataController.requireBy(position).getItemViewType(position);
         }
 
         @Override
@@ -1283,29 +1163,29 @@ public class UIListController<T> extends UIDecorController
         @Override
         public VH onCreateTailViewHolder(@NonNull ViewGroup parent, int itemViewType) {
             final LayoutInflater inflater = this.requireLayoutInflater();
-            return this.mUITailDataController.requireDataSourceBy(itemViewType).onCreateViewHolder(inflater, parent, itemViewType);
+            return this.mUITailDataController.requireBy(itemViewType).onCreateViewHolder(inflater, parent, itemViewType);
         }
 
         @Override
         public void onBindTailViewHolder(@NonNull VH holder, int position, @NonNull List<Object> payloads) {
             super.onBindTailViewHolder(holder, position, payloads);
-            this.mUITailDataController.requireDataSourceBy(position).onBindViewHolder(holder, position, payloads);
+            this.mUITailDataController.requireBy(position).onBindViewHolder(holder, position, payloads);
         }
 
         @Nullable
         @Override
         public CharSequence getTailItemLetter(int position) {
-            return this.mUITailDataController.requireDataSourceBy(position).getItemLetter(position);
+            return this.mUITailDataController.requireBy(position).getItemLetter(position);
         }
 
         @Override
         public long getTailItemId(int position) {
-            return this.mUITailDataController.requireDataSourceBy(position).getItemId(position);
+            return this.mUITailDataController.requireBy(position).getItemId(position);
         }
 
         @Override
         public int getTailItemViewType(int position) {
-            return this.mUITailDataController.requireDataSourceBy(position).getItemViewType(position);
+            return this.mUITailDataController.requireBy(position).getItemViewType(position);
         }
 
         @Override
@@ -1319,29 +1199,29 @@ public class UIListController<T> extends UIDecorController
         @Override
         public VH onCreateEmptyViewHolder(@NonNull ViewGroup parent, int itemViewType) {
             final LayoutInflater inflater = this.requireLayoutInflater();
-            return this.mUIEmptyDataController.requireDataSourceBy(itemViewType).onCreateViewHolder(inflater, parent, itemViewType);
+            return this.mUIEmptyDataController.requireBy(itemViewType).onCreateViewHolder(inflater, parent, itemViewType);
         }
 
         @Override
         public void onBindEmptyViewHolder(@NonNull VH holder, int position, @NonNull List<Object> payloads) {
             super.onBindEmptyViewHolder(holder, position, payloads);
-            this.mUIEmptyDataController.requireDataSourceBy(position).onBindViewHolder(holder, position, payloads);
+            this.mUIEmptyDataController.requireBy(position).onBindViewHolder(holder, position, payloads);
         }
 
         @Nullable
         @Override
         public CharSequence getEmptyItemLetter(int position) {
-            return this.mUIEmptyDataController.requireDataSourceBy(position).getItemLetter(position);
+            return this.mUIEmptyDataController.requireBy(position).getItemLetter(position);
         }
 
         @Override
         public long getEmptyItemId(int position) {
-            return this.mUIEmptyDataController.requireDataSourceBy(position).getItemId(position);
+            return this.mUIEmptyDataController.requireBy(position).getItemId(position);
         }
 
         @Override
         public int getEmptyItemViewType(int position) {
-            return this.mUIEmptyDataController.requireDataSourceBy(position).getItemViewType(position);
+            return this.mUIEmptyDataController.requireBy(position).getItemViewType(position);
         }
 
         @Override
@@ -1355,13 +1235,13 @@ public class UIListController<T> extends UIDecorController
         @Override
         public VH onCreateGroupViewHolder(@NonNull ViewGroup parent, int itemViewType) {
             final LayoutInflater inflater = this.requireLayoutInflater();
-            return this.getUIComponent().onCreateViewHolder(inflater, parent, itemViewType);
+            return this.getCallback().onCreateViewHolder(inflater, parent, itemViewType);
         }
 
         @Override
         public void onBindGroupViewHolder(@NonNull VH holder, int groupPosition, @NonNull List<Object> payloads) {
             super.onBindGroupViewHolder(holder, groupPosition, payloads);
-            this.getUIComponent().onBindViewHolder(holder, groupPosition, payloads);
+            this.getCallback().onBindViewHolder(holder, groupPosition, payloads);
         }
 
         @Override
@@ -1372,22 +1252,22 @@ public class UIListController<T> extends UIDecorController
         @Nullable
         @Override
         public CharSequence getGroupItemLetter(int groupPosition) {
-            return this.getUIComponent().getItemLetter(groupPosition);
+            return this.getCallback().getItemLetter(groupPosition);
         }
 
         @Override
         public long getGroupItemId(int groupPosition) {
-            return this.getUIComponent().getItemId(groupPosition);
+            return this.getCallback().getItemId(groupPosition);
         }
 
         @Override
         public int getGroupItemViewType(int groupPosition) {
-            return this.getUIComponent().getItemViewType(groupPosition);
+            return this.getCallback().getItemViewType(groupPosition);
         }
 
         @Override
         public int getGroupItemCount() {
-            return this.getUIPageController().getItemCount();
+            return this.getUIDataController().size();
         }
 
         // Child.
@@ -1396,39 +1276,52 @@ public class UIListController<T> extends UIDecorController
         @Override
         public VH onCreateChildViewHolder(@NonNull ViewGroup parent, int itemViewType) {
             final LayoutInflater inflater = this.requireLayoutInflater();
-            return this.getUIComponent().onCreateChildViewHolder(inflater, parent, itemViewType);
+            return this.getCallback().onCreateChildViewHolder(inflater, parent, itemViewType);
         }
 
         @Override
         public void onBindChildViewHolder(@NonNull VH holder, int groupPosition, int childPosition, @NonNull List<Object> payloads) {
             super.onBindChildViewHolder(holder, groupPosition, childPosition, payloads);
-            this.getUIComponent().onBindChildViewHolder(holder, groupPosition, childPosition, payloads);
+            this.getCallback().onBindChildViewHolder(holder, groupPosition, childPosition, payloads);
         }
 
         @Nullable
         @Override
         public CharSequence getChildItemLetter(int groupPosition, int childPosition) {
-            return this.getUIComponent().getChildItemLetter(groupPosition, childPosition);
+            return this.getCallback().getChildItemLetter(groupPosition, childPosition);
         }
 
         @Override
         public long getChildItemId(int groupPosition, int childPosition) {
-            return this.getUIComponent().getChildItemId(groupPosition, childPosition);
+            return this.getCallback().getChildItemId(groupPosition, childPosition);
         }
 
         @Override
         public int getChildItemViewType(int groupPosition, int childPosition) {
-            return this.getUIComponent().getChildItemViewType(groupPosition, childPosition);
+            return this.getCallback().getChildItemViewType(groupPosition, childPosition);
         }
 
         @Override
         public int getChildItemCount(int groupPosition) {
-            return this.getUIComponent().getChildItemCount(groupPosition);
+            return this.getCallback().getChildItemCount(groupPosition);
+        }
+
+        public final boolean getGroupExpanded() {
+            return this.mExpandableObserver.getGroupExpanded();
+        }
+
+        public final void setGroupExpanded(boolean groupExpanded) {
+            this.mExpandableObserver.setGroupExpanded(groupExpanded);
         }
 
         @NonNull
-        public final <T extends VH> UIComponent<T> getUIComponent() {
+        public final Callback<VH> getCallback() {
             return this.mUIListController.getUIComponent();
+        }
+
+        @NonNull
+        public final <T> UIDataController<T> getUIDataController() {
+            return this.<T>getUIPageController().getUIDataController();
         }
 
         @NonNull
@@ -1463,13 +1356,13 @@ public class UIListController<T> extends UIDecorController
         }
 
         @Nullable
-        public final T findDataSourceBy(int position) {
-            return this.getUIPageController().findDataSourceBy(position);
+        public final <P extends T> P findDataBy(int position) {
+            return this.getUIDataController().findBy(position);
         }
 
         @NonNull
-        public final T requireDataSourceBy(int position) {
-            return this.getUIPageController().requireDataSourceBy(position);
+        public final <P extends T> P requireDataBy(int position) {
+            return this.getUIDataController().requireBy(position);
         }
     }
 

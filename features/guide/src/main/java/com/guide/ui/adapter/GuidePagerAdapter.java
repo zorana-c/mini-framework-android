@@ -32,7 +32,7 @@ public final class GuidePagerAdapter extends UIRecyclerAdapter<Integer> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int groupPosition) {
-        final Integer resId = this.findDataSourceBy(groupPosition);
+        final Integer resId = this.findDataBy(groupPosition);
         final UIImageView imageView = (UIImageView) holder.itemView;
         imageView.setImage(resId);
     }

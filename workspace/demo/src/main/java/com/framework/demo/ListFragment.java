@@ -93,7 +93,7 @@ public class ListFragment extends UIListFragment<String> {
 
         this.getUIPageController()
                 .setRefreshLocate(SliverContainer.SCROLL_LOCATE_HEAD)
-                .setGroupDefaultExpanded(true)
+                .setGroupExpanded(true)
                 .addHeadComponent(R.layout.item_head_layout)
                 .addHeadComponent(R.layout.item_head_2_layout)
                 .addTailComponent(R.layout.item_tail_layout)

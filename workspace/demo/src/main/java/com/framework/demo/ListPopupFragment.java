@@ -92,7 +92,7 @@ public class ListPopupFragment extends UIListPopupFragment<String> {
                 .setTitleText("List Popup Fragment");
 
         this.getUIPageController()
-                .setGroupDefaultExpanded(true)
+                .setGroupExpanded(true)
                 .addHeadComponent(R.layout.item_head_layout)
                 .addHeadComponent(R.layout.item_head_2_layout)
                 .addTailComponent(R.layout.item_tail_layout)

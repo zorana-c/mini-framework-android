@@ -97,7 +97,7 @@ public class RecommendFragment extends UIListFragment<Video> {
 
         @Override
         public void onPageSelected(@NonNull RecyclerView recyclerView, int position) {
-            final Video video = RecommendFragment.this.requireDataSourceBy(position);
+            final Video video = RecommendFragment.this.requireDataBy(position);
 
             final long nanoId = video.nanoId();
             if (this.nanoId != nanoId) {

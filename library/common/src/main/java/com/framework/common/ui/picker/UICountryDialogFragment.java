@@ -114,7 +114,7 @@ public class UICountryDialogFragment extends UIDecorDialogFragment {
         int currentPosition;
         currentPosition = upstreamAd.getCurrentPosition();
         currentPosition -= upstreamAd.getHeadItemCount();
-        final UINode<?> node = upstreamAd.findDataSourceBy(currentPosition);
+        final UINode<?> node = upstreamAd.findDataBy(currentPosition);
         final String countryStr = node == null ? "不限" : node.toString();
         final AppCompatPickerView superUpstream = upstreamAd.getUpstream();
         if (superUpstream == null) {

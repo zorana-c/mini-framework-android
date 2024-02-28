@@ -63,7 +63,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
                 .addTailComponent(R.layout.item_tail_layout)
                 .setEmptyComponent(R.layout.ui_decor_list_empty_layout)
                 // 2.移除/删除数据(具有动画, 默认为: 展开状态)
-                .setGroupDefaultExpanded(true)
+                .setGroupExpanded(true)
                 .setItemAnimator(new DefaultItemAnimator())
                 .setLayoutManager(new GridLayoutManager(c)
                         .addFullSpanFlags(PositionType.TYPE_GROUP))
@@ -75,7 +75,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
     @Override
     public void onUIRefresh(@Nullable Bundle savedInstanceState, int page, int limit) {
         this.getUIPageController().postDelayed(() -> {
-            this.getUIPageController().putAll(Entry.queryBy(page, 3));
+            this.getUIPageController().putAll(Entry.queryBy(page, 1));
         }, 2000);
     }
 
@@ -93,7 +93,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
 
     @Override
     public void onBindViewHolder(@NonNull UIViewHolder<Entry> holder, int position) {
-        final Entry group = holder.requireDataSourceBy(position);
+        final Entry group = holder.requireData();
 
         final CustomViewHolder cvh = (CustomViewHolder) holder;
         final TextView text1 = cvh.text1;
@@ -112,7 +112,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
 
     @Override
     public void onBindChildViewHolder(@NonNull UIViewHolder<Entry> holder, int groupPosition, int childPosition) {
-        final Entry group = holder.requireDataSourceBy(groupPosition);
+        final Entry group = holder.requireData();
         final Entry child = group.findChildBy(childPosition);
 
         final TextView text1 = holder.requireViewById(android.R.id.text1);
@@ -125,7 +125,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
 
     @Override
     public int getChildItemCount(int groupPosition) {
-        return this.requireDataSourceBy(groupPosition).getChildItemCount();
+        return this.requireDataBy(groupPosition).getChildItemCount();
     }
 
     @Override
@@ -144,7 +144,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
 
     @Override
     public void onChildItemClick(@NonNull UIViewHolder<Entry> holder, @NonNull View target, int groupPosition, int childPosition) {
-        final Entry group = holder.requireDataSourceBy(groupPosition);
+        final Entry group = holder.requireData();
         final Entry child = group.findChildBy(childPosition);
 
         final UIDataController<Entry> dc = holder.getUIDataController();
@@ -155,7 +155,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
     public void onHeadItemClick(@NonNull UIListController.ViewHolder<Entry> holder, @NonNull View target, int position) {
         final UIDataController<Entry> dc = holder.getUIDataController();
         // Add
-        dc.addAll(Entry.queryBy(1, 2));
+        dc.addAll(Entry.queryBy(1, 1));
     }
 
     public void onTailItemClick(@NonNull UIListController.ViewHolder<Entry> holder, @NonNull View target, int position) {
@@ -164,15 +164,17 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
 
     @Override
     public long getItemId(int position) {
-        final Entry group = this.requireDataSourceBy(position);
-        return group.nanoId();
+//        final Entry group = this.requireDataBy(position);
+//        return group.nanoId();
+        return position;
     }
 
     @Override
     public long getChildItemId(int groupPosition, int childPosition) {
-        final Entry group = this.requireDataSourceBy(groupPosition);
-        final Entry child = group.findChildBy(childPosition);
-        return child.nanoId();
+//        final Entry group = this.requireDataBy(groupPosition);
+//        final Entry child = group.findChildBy(childPosition);
+//        return child.nanoId();
+        return childPosition;
     }
 
     public static class CustomViewHolder extends UIViewHolder<Entry> {

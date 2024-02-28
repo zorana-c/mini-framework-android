@@ -401,7 +401,7 @@ public class SliverFragment2 extends UIDecorFragment {
         public void onBindGroupViewHolder(@NonNull ViewHolder holder, int groupPosition) {
             final ImageView imageView = holder.requireViewById(R.id.image);
             Glide.with(imageView)
-                    .load(this.requireDataSourceBy(groupPosition))
+                    .load(this.requireDataBy(groupPosition))
                     .into(imageView);
         }
     }

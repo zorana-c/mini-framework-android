@@ -24,9 +24,7 @@ public class UIDecorController extends UIPageController {
 
         @NonNull
         default UIActionBarController getUIActionBarController() {
-            final UIDecorController uiDecorController;
-            uiDecorController = this.getUIPageController();
-            return uiDecorController.getUIActionBarController();
+            return this.<UIDecorController>getUIPageController().getUIActionBarController();
         }
     }
 

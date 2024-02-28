@@ -9,7 +9,6 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.framework.core.content.UIDataController;
 import com.framework.core.content.UIListController;
 import com.framework.widget.expand.ExpandableRecyclerView;
 
@@ -19,7 +18,8 @@ import com.framework.widget.expand.ExpandableRecyclerView;
  * @Description :
  */
 public abstract class UIListPopupFragment<T> extends UIDecorPopupFragment
-        implements UIListController.UIComponent<UIViewHolder<T>>,
+        implements UIListController.UIComponent<T>,
+        UIListController.Callback<UIViewHolder<T>>,
         ExpandableRecyclerView.OnItemClickListener<UIViewHolder<T>>,
         ExpandableRecyclerView.OnItemLongClickListener<UIViewHolder<T>>,
         ExpandableRecyclerView.OnChildItemClickListener<UIViewHolder<T>>,
@@ -120,20 +120,5 @@ public abstract class UIListPopupFragment<T> extends UIDecorPopupFragment
     @Override
     public UIListController<T> getUIPageController() {
         return this.mUIListController;
-    }
-
-    @NonNull
-    public final UIDataController<T> getUIDataController() {
-        return this.getUIPageController().getUIDataController();
-    }
-
-    @Nullable
-    public final <R extends T> R findDataSourceBy(int position) {
-        return this.getUIPageController().findDataSourceBy(position);
-    }
-
-    @NonNull
-    public final <R extends T> R requireDataSourceBy(int position) {
-        return this.getUIPageController().requireDataSourceBy(position);
     }
 }

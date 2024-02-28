@@ -1,6 +1,5 @@
 package com.framework.core.ui.adapter;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -9,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.framework.core.content.ExpandableObserver;
 import com.framework.core.content.UIDataController;
 import com.framework.widget.expand.ExpandableRecyclerView;
 
@@ -20,15 +20,14 @@ import com.framework.widget.expand.ExpandableRecyclerView;
 public abstract class UIExpandableAdapter<T>
         extends ExpandableRecyclerView.Adapter<UIExpandableAdapter.ViewHolder> {
     @NonNull
-    private final ComponentListener<T> mComponentListener;
+    private final ExpandableObserver mExpandableObserver;
     @NonNull
     private final UIDataController<T> mUIListDataController;
 
     public UIExpandableAdapter() {
-        this.mComponentListener = new ComponentListener<>(this);
+        this.mExpandableObserver = new ExpandableObserver(this);
         this.mUIListDataController = new UIDataController<>();
-        this.mUIListDataController.registerDataObserver(this.mComponentListener);
-        this.mUIListDataController.addOnDataChangedListener(this.mComponentListener);
+        this.mUIListDataController.registerObserver(this.mExpandableObserver);
     }
 
     @Override
@@ -114,86 +113,21 @@ public abstract class UIExpandableAdapter<T>
     }
 
     @Nullable
-    public final <R extends T> R findDataSourceBy(int position) {
-        return this.getUIListDataController().findDataSourceBy(position);
+    public final <R extends T> R findDataBy(int position) {
+        return this.getUIListDataController().findBy(position);
     }
 
     @NonNull
-    public final <R extends T> R requireDataSourceBy(int position) {
-        return this.getUIListDataController().requireDataSourceBy(position);
+    public final <R extends T> R requireDataBy(int position) {
+        return this.getUIListDataController().requireBy(position);
     }
 
-    public void setGroupDefaultExpanded(boolean groupDefaultExpanded) {
-        this.mComponentListener.setGroupDefaultExpanded(groupDefaultExpanded);
+    public boolean getGroupExpanded() {
+        return this.mExpandableObserver.getGroupExpanded();
     }
 
-    private static final class ComponentListener<T> implements
-            UIDataController.DataObserver,
-            UIDataController.OnDataChangedListener<T> {
-        @NonNull
-        private final UIExpandableAdapter<T> mUIExpandableAdapter;
-        private boolean mGroupDefaultExpanded;
-
-        ComponentListener(@NonNull UIExpandableAdapter<T> uiExpandableAdapter) {
-            this.mUIExpandableAdapter = uiExpandableAdapter;
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        @Override
-        public boolean onItemRangeInserted(int positionStart, int itemCount) {
-            final UIExpandableAdapter<T> adapter = this.mUIExpandableAdapter;
-            final int gItemCount = adapter.getGroupItemCount();
-            if (gItemCount == itemCount) {
-                adapter.notifyDataSetChanged();
-            } else {
-                final int cItemCount = gItemCount - positionStart;
-                final int tItemCount = adapter.getTailItemCount();
-                adapter.notifyGroupItemRangeInserted(positionStart, itemCount);
-                adapter.notifyGroupItemRangeChanged(positionStart, cItemCount);
-                adapter.notifyTailItemRangeChanged(0, tItemCount);
-            }
-            return true;
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        @Override
-        public boolean onItemRangeRemoved(int positionStart, int itemCount) {
-            final UIExpandableAdapter<T> adapter = this.mUIExpandableAdapter;
-            final int gItemCount = adapter.getGroupItemCount();
-            if (gItemCount == 0) {
-                adapter.notifyDataSetChanged();
-            } else {
-                final int cItemCount = gItemCount - positionStart;
-                final int tItemCount = adapter.getTailItemCount();
-                adapter.notifyGroupItemRangeRemoved(positionStart, itemCount);
-                adapter.notifyGroupItemRangeChanged(positionStart, cItemCount);
-                adapter.notifyTailItemRangeChanged(0, tItemCount);
-            }
-            return true;
-        }
-
-        @Override
-        public boolean onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            final UIExpandableAdapter<T> adapter = this.mUIExpandableAdapter;
-            final int positionStart = Math.min(fromPosition, toPosition);
-            final int cItemCount = Math.abs(fromPosition - toPosition) + 1;
-            adapter.notifyGroupItemRangeMoved(fromPosition, toPosition, itemCount);
-            adapter.notifyGroupItemRangeChanged(positionStart, cItemCount);
-            return true;
-        }
-
-        @Override
-        public void onItemRangeInserted(@NonNull UIDataController<T> uiDataController,
-                                        int positionStart,
-                                        int itemCount) {
-            if (this.mGroupDefaultExpanded) {
-                this.mUIExpandableAdapter.expandGroup(positionStart, itemCount);
-            }
-        }
-
-        public void setGroupDefaultExpanded(boolean groupDefaultExpanded) {
-            this.mGroupDefaultExpanded = groupDefaultExpanded;
-        }
+    public void setGroupExpanded(boolean groupExpanded) {
+        this.mExpandableObserver.setGroupExpanded(groupExpanded);
     }
 
     public static class ViewHolder extends ExpandableRecyclerView.ViewHolder {

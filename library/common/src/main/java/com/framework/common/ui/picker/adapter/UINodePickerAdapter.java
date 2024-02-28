@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.framework.common.R;
 import com.framework.common.ui.picker.bean.UINode;
 import com.framework.core.content.UIDataController;
-import com.framework.core.content.UIDataControllers;
 import com.framework.widget.recycler.picker.AppCompatPickerView;
 
 /**
@@ -19,7 +18,8 @@ import com.framework.widget.recycler.picker.AppCompatPickerView;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UIPickerViewHolder> {
+public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UIPickerViewHolder>
+        implements UIDataController.Adapter {
     @NonNull
     private final UIDataController<T> uiDataController;
     @Nullable
@@ -33,8 +33,7 @@ public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UI
 
     public UINodePickerAdapter(@Nullable AppCompatPickerView upstream) {
         super(upstream);
-        this.uiDataController = new UIDataController<>();
-        this.uiDataController.registerDataObserver(UIDataControllers.observer(this));
+        this.uiDataController = new UIDataController<>(this);
     }
 
     @Nullable
@@ -70,7 +69,7 @@ public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UI
     @Override
     public void onBindGroupViewHolder(@NonNull UIPickerViewHolder holder, int groupPosition) {
         final TextView textView = holder.requireViewById(android.R.id.text1);
-        textView.setText(this.requireDataSourceBy(groupPosition).toString());
+        textView.setText(this.requireDataBy(groupPosition).toString());
     }
 
     @Override
@@ -107,13 +106,13 @@ public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UI
     }
 
     @Nullable
-    public final <R extends T> R findDataSourceBy(int position) {
-        return this.uiDataController.findDataSourceBy(position);
+    public final <R extends T> R findDataBy(int position) {
+        return this.uiDataController.findBy(position);
     }
 
     @NonNull
-    public final <R extends T> R requireDataSourceBy(int position) {
-        return this.uiDataController.requireDataSourceBy(position);
+    public final <R extends T> R requireDataBy(int position) {
+        return this.uiDataController.requireBy(position);
     }
 
     @NonNull
@@ -131,7 +130,7 @@ public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UI
             return;
         }
         if (oldNode != null) {
-            this.uiDataController.clear();
+            this.uiDataController.removeAll();
         }
         this.upstreamNode = upstreamNode;
         if (upstreamNode != null) {
@@ -160,7 +159,7 @@ public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UI
         final int position;
         position = upstreamPosition - upstreamAd.getHeadItemCount();
         final UINode<? super T> upstreamNode;
-        upstreamNode = (UINode<? super T>) upstreamAd.findDataSourceBy(position);
+        upstreamNode = (UINode<? super T>) upstreamAd.findDataBy(position);
         this.setDataSources(upstreamNode);
     }
 }

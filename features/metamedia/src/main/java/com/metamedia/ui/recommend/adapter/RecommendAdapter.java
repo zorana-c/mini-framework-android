@@ -82,7 +82,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
     @Override
     public long getGroupItemId(int groupPosition) {
         // 很关键: 使ViewHolder具有唯一性, 保证每次刷新不被重置, 同时保存现有播放状态
-        final T item = this.requireDataSourceBy(groupPosition);
+        final T item = this.requireDataBy(groupPosition);
         return item.nanoId();
     }
 
@@ -168,7 +168,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
 
     private static final class ComponentListener<T extends Video>
             extends PagerLayoutManager.SimpleOnPageChangeListener
-            implements DefaultLifecycleObserver, UIDataController.OnDataChangedListener<T> {
+            implements DefaultLifecycleObserver, UIDataController.Observer {
         @NonNull
         private final Runnable mPlayAction = this::playWhen;
         @NonNull
@@ -181,7 +181,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
         public ComponentListener(@NonNull UIListController<T> uiListController) {
             this.mUIListController = uiListController;
             // listen data
-            uiListController.addOnDataChangedListener(this);
+            uiListController.registerObserver(this);
             // listen life
             final LifecycleOwner owner = uiListController.getUIComponent();
             final Lifecycle l = owner.getLifecycle();
@@ -195,17 +195,15 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
         }
 
         @Override
-        public void onItemRangeInserted(@NonNull UIDataController<T> uiDataController,
-                                        int positionStart,
-                                        int itemCount) {
+        public boolean onChanged() {
             this.postPlayWhen();
+            return false;
         }
 
         @Override
-        public void onItemRangeRemoved(@NonNull UIDataController<T> uiDataController,
-                                       int positionStart,
-                                       int itemCount) {
+        public boolean onRangeChanged(int positionStart, int itemCount) {
             this.postPlayWhen();
+            return false;
         }
 
         @Override
@@ -234,7 +232,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
             final UIListController<T> uiListController;
             uiListController = this.mUIListController;
             // un listen data
-            uiListController.removeOnDataChangedListener(this);
+            uiListController.unregisterObserver(this);
             // destroy player
             uiListController.clear();
             uiListController.setAdapter(null);
@@ -296,7 +294,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
                 return;
             }
             rv.removeCallbacks(this.mPlayAction);
-            rv.postDelayed(this.mPlayAction, 0);
+            rv.postDelayed(this.mPlayAction, 100);
         }
     }
 }

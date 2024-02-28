@@ -116,6 +116,7 @@ final class ExpandableController<VH extends ExpandableRecyclerView.ViewHolder> {
             final int groupPosition = positionMetadata.getGroupPosition();
             final int childPosition = positionMetadata.getChildPosition();
 
+            holder.addChangePayloads(payloads);
             holder.setRecyclerView(this.mRecyclerView);
             holder.mItemExpanded = positionMetadata.isExpanded();
             holder.mGroupPosition = groupPosition;
@@ -139,6 +140,7 @@ final class ExpandableController<VH extends ExpandableRecyclerView.ViewHolder> {
                     adapter.onBindChildViewHolder(holder, groupPosition, childPosition, payloads);
                     break;
             }
+            holder.clearPayloads();
         } finally {
             positionMetadata.recycle();
         }

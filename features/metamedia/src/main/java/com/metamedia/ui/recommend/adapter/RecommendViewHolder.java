@@ -79,7 +79,7 @@ public abstract class RecommendViewHolder<T extends Video> extends UIViewHolder<
     }
 
     public void bindItem() {
-        final T item = this.getCurrentDataSource();
+        final T item = this.findData();
         this.playerCommentLayout.setOnClickListener(widget -> {
             AppRoute.get()
                     .getDrawerController(this.getUIPageController().getUIComponent())
@@ -115,7 +115,7 @@ public abstract class RecommendViewHolder<T extends Video> extends UIViewHolder<
 
     @SuppressLint("UnsafeOptInUsageError")
     protected void previewPlayer() {
-        final T item = this.getCurrentDataSource();
+        final T item = this.findData();
         final Uri uri = RawResourceDataSource
                 .buildRawResourceUri(item.getRawId());
         final MediaItem mediaItem = MediaItem.fromUri(uri);

@@ -24,20 +24,20 @@ public abstract class UIViewHolder<T> extends UIListController.ViewHolder<T> {
     }
 
     @Nullable
-    public final <R extends T> R getCurrentDataSource() {
+    public final <R extends T> R findData() {
         final int groupPosition = this.getGroupPosition();
         if (groupPosition == RecyclerView.NO_POSITION) {
             return null;
         }
-        return this.findDataSourceBy(groupPosition);
+        return this.findDataBy(groupPosition);
     }
 
     @NonNull
-    public final <R extends T> R requireCurrentDataSource() {
-        final R dataSource = this.getCurrentDataSource();
-        if (dataSource == null) {
+    public final <R extends T> R requireData() {
+        final int groupPosition = this.getGroupPosition();
+        if (groupPosition == RecyclerView.NO_POSITION) {
             throw new NullPointerException("ERROR");
         }
-        return dataSource;
+        return this.requireDataBy(groupPosition);
     }
 }

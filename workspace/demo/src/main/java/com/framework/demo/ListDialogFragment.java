@@ -92,7 +92,7 @@ public class ListDialogFragment extends UIListDialogFragment<String> {
                 .setTitleText("List Dialog Fragment");
 
         this.getUIPageController()
-                .setGroupDefaultExpanded(true)
+                .setGroupExpanded(true)
                 .addHeadComponent(R.layout.item_head_layout)
                 .addHeadComponent(R.layout.item_head_2_layout)
                 .addTailComponent(R.layout.item_tail_layout)

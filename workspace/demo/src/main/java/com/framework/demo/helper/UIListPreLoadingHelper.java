@@ -54,9 +54,9 @@ public class UIListPreLoadingHelper {
 
         // 添加滑动监听事件
         pc.setRefreshLocate(rl);
+        pc.registerObserver(cc);
         pc.addTailComponent(cc);
         pc.addOnScrollListener(cc);
-        pc.registerDataObserver(cc);
         this.componentContainer = cc;
     }
 
@@ -70,7 +70,7 @@ public class UIListPreLoadingHelper {
 
     private static final class ComponentContainer<T> extends RecyclerView.OnScrollListener implements
             UIListController.ItemComponent<UIListController.ViewHolder<T>>,
-            UIDataController.DataObserver {
+            UIDataController.Observer {
         @NonNull
         private final UIListController<T> uiListController;
         @Nullable
@@ -198,7 +198,7 @@ public class UIListPreLoadingHelper {
         // DataObserver
 
         @Override
-        public boolean onItemRangeInserted(int positionStart, int itemCount) {
+        public boolean onRangeInserted(int positionStart, int itemCount) {
             final boolean moreData = itemCount >= UIListController.LIST_MIN_LIMIT;
             if (this.moreData != moreData) {
                 this.moreData = moreData;
