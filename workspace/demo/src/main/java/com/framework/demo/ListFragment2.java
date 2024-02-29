@@ -59,11 +59,11 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
         final UIListController<Entry> lc = this.getUIPageController();
         lc
                 .setAdapter(adapter)
+                // 2.移除/删除数据(具有动画, 默认为: 展开状态)
+                .setGroupExpanded(true)
                 .addHeadComponent(R.layout.item_head_layout)
                 .addTailComponent(R.layout.item_tail_layout)
                 .setEmptyComponent(R.layout.ui_decor_list_empty_layout)
-                // 2.移除/删除数据(具有动画, 默认为: 展开状态)
-                .setGroupExpanded(true)
                 .setItemAnimator(new DefaultItemAnimator())
                 .setLayoutManager(new GridLayoutManager(c)
                         .addFullSpanFlags(PositionType.TYPE_GROUP))
@@ -75,7 +75,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
     @Override
     public void onUIRefresh(@Nullable Bundle savedInstanceState, int page, int limit) {
         this.getUIPageController().postDelayed(() -> {
-            this.getUIPageController().putAll(Entry.queryBy(page, 1));
+            this.putAll(Entry.queryBy(page, 1));
         }, 2000);
     }
 
@@ -97,17 +97,14 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
 
         final CustomViewHolder cvh = (CustomViewHolder) holder;
         final TextView text1 = cvh.text1;
-        text1.setText(String.format("Group(%s) %s - %s - %s", group.nanoId(), position, holder.getLayoutPosition(), holder.getItemId()));
+        text1.setText(String.format("Group(%s)\n%s", position, holder.getItemId()));
         text1.setTextColor(Color.GRAY);
-
-        final View itemView = holder.itemView;
-        itemView.setBackgroundResource(R.color.decorBackground);
     }
 
     @NonNull
     @Override
     public View onCreateChildItemView(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, int itemViewType) {
-        return inflater.inflate(android.R.layout.simple_expandable_list_item_2, parent, false);
+        return inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
     }
 
     @Override
@@ -116,11 +113,8 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
         final Entry child = group.findChildBy(childPosition);
 
         final TextView text1 = holder.requireViewById(android.R.id.text1);
-        text1.setText(String.format("Child %s - %s - %s", groupPosition, childPosition, holder.getLayoutPosition()));
-        text1.setTextColor(Color.GRAY);
-        final TextView text2 = holder.requireViewById(android.R.id.text2);
-        text2.setText(child.text);
-        text2.setTextColor(Color.GRAY);
+        text1.setText(String.format("Child(%s)\n%s", childPosition, holder.getItemId()));
+        text1.setTextColor(Color.WHITE);
     }
 
     @Override
@@ -164,17 +158,17 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
 
     @Override
     public long getItemId(int position) {
-//        final Entry group = this.requireDataBy(position);
-//        return group.nanoId();
-        return position;
+        final Entry group = this.requireDataBy(position);
+        return group.nanoId();
+        // return position;
     }
 
     @Override
     public long getChildItemId(int groupPosition, int childPosition) {
-//        final Entry group = this.requireDataBy(groupPosition);
-//        final Entry child = group.findChildBy(childPosition);
-//        return child.nanoId();
-        return childPosition;
+        final Entry group = this.requireDataBy(groupPosition);
+        final Entry child = group.findChildBy(childPosition);
+        return child.nanoId();
+        // return childPosition;
     }
 
     public static class CustomViewHolder extends UIViewHolder<Entry> {

@@ -74,10 +74,10 @@ final class ExpandableController<VH extends ExpandableRecyclerView.ViewHolder> {
 
     @NonNull
     @SuppressLint("SwitchIntDef")
-    public VH onCreateViewHolder(@NonNull ViewGroup parent, int combinedItemType) {
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int combinedItemViewType) {
         final ExpandableAdapter<VH> adapter = this.mExpandableAdapter;
-        final int positionType = adapter.getPositionType(combinedItemType);
-        final int itemViewType = adapter.getUnCombinedItemType(combinedItemType);
+        final int positionType = adapter.getPositionType(combinedItemViewType);
+        final int itemViewType = adapter.getUnCombinedItemViewType(combinedItemViewType);
         VH holder = null;
 
         switch (positionType) {
@@ -155,30 +155,39 @@ final class ExpandableController<VH extends ExpandableRecyclerView.ViewHolder> {
             final int positionType = positionMetadata.getType();
             final int groupPosition = positionMetadata.getGroupPosition();
             final int childPosition = positionMetadata.getChildPosition();
-            long itemId = 0L;
+            long groupId = 0L;
+            long childId = 0L;
 
             switch (positionType) {
                 case PositionType.TYPE_HEAD:
-                    itemId = adapter.getHeadItemId(groupPosition);
+                    groupId = adapter.getHeadItemId(groupPosition);
                     break;
                 case PositionType.TYPE_TAIL:
-                    itemId = adapter.getTailItemId(groupPosition);
+                    groupId = adapter.getTailItemId(groupPosition);
                     break;
                 case PositionType.TYPE_EMPTY:
-                    itemId = adapter.getEmptyItemId(groupPosition);
+                    groupId = adapter.getEmptyItemId(groupPosition);
                     break;
                 case PositionType.TYPE_GROUP:
-                    itemId = adapter.getGroupItemId(groupPosition);
+                    groupId = adapter.getGroupItemId(groupPosition);
                     break;
                 case PositionType.TYPE_CHILD:
-                    itemId = adapter.getChildItemId(groupPosition, childPosition);
+                    groupId = adapter.getGroupItemId(groupPosition);
+                    childId = adapter.getChildItemId(groupPosition, childPosition);
                     break;
             }
-            if (itemId < 0) {
+            if (groupId < 0) {
                 throw new IllegalArgumentException(
-                        "ERROR ITEM ID(" + positionType + "): " + itemId);
+                        "ERROR GROUP ID(" + positionType + "): " + groupId);
             }
-            return adapter.getCombinedItemId(positionType, itemId);
+            if (childId < 0) {
+                throw new IllegalArgumentException(
+                        "ERROR CHILD ID(" + positionType + "): " + childId);
+            }
+            if (positionType != PositionType.TYPE_CHILD) {
+                return adapter.getCombinedGroupId(positionType, groupId);
+            }
+            return adapter.getCombinedChildId(positionType, groupId, childId);
         } finally {
             positionMetadata.recycle();
         }
@@ -216,7 +225,7 @@ final class ExpandableController<VH extends ExpandableRecyclerView.ViewHolder> {
                 throw new IllegalArgumentException(
                         "ERROR ITEM VIEW TYPE(" + positionType + "): " + itemViewType);
             }
-            return adapter.getCombinedItemType(positionType, itemViewType);
+            return adapter.getCombinedItemViewType(positionType, itemViewType);
         } finally {
             positionMetadata.recycle();
         }

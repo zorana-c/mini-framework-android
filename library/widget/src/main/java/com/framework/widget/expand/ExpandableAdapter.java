@@ -403,38 +403,25 @@ public interface ExpandableAdapter<VH extends RecyclerView.ViewHolder> {
 
     // Combined Item
 
-    default long getCombinedItemId(@PositionType int positionType, long itemId) {
-        final long combinedId;
-        combinedId = Long.MIN_VALUE | ((positionType & Integer.MAX_VALUE) << 32);
-        return combinedId | itemId;
+    default long getCombinedGroupId(@PositionType long positionType, long groupId) {
+        return ((positionType & Integer.MAX_VALUE) << 32) | groupId;
     }
 
-    default long getUnCombinedItemId(long combinedItemId) {
-        final long positionType = this.getPositionType(combinedItemId);
-        final long combinedId;
-        combinedId = Long.MIN_VALUE | ((positionType & Integer.MAX_VALUE) << 32);
-        return combinedId ^ combinedItemId;
+    default long getCombinedChildId(@PositionType long positionType, long groupId, long childId) {
+        return Long.MIN_VALUE | ((groupId & Integer.MAX_VALUE) << 32) | childId;
     }
 
-    default int getCombinedItemType(@PositionType int positionType, int itemType) {
-        final int combinedType;
-        combinedType = Integer.MIN_VALUE | ((positionType & Short.MAX_VALUE) << 16);
-        return combinedType | itemType;
+    default int getPositionType(int combinedItemViewType) {
+        return Math.toIntExact(combinedItemViewType >> 16);
     }
 
-    default int getUnCombinedItemType(int combinedItemType) {
-        final int positionType = this.getPositionType(combinedItemType);
-        final int combinedType;
-        combinedType = Integer.MIN_VALUE | ((positionType & Short.MAX_VALUE) << 16);
-        return combinedType ^ combinedItemType;
+    default int getCombinedItemViewType(@PositionType int positionType, int itemViewType) {
+        return ((positionType & Short.MAX_VALUE) << 16) | itemViewType;
     }
 
-    default int getPositionType(long combinedItemId) {
-        return Math.toIntExact((combinedItemId ^ Long.MIN_VALUE) >> 32);
-    }
-
-    default int getPositionType(int combinedItemType) {
-        return Math.toIntExact((combinedItemType ^ Integer.MIN_VALUE) >> 16);
+    default int getUnCombinedItemViewType(int combinedItemViewType) {
+        final int positionType = this.getPositionType(combinedItemViewType);
+        return ((positionType & Short.MAX_VALUE) << 16) ^ combinedItemViewType;
     }
 
     interface AdapterDataObserver {

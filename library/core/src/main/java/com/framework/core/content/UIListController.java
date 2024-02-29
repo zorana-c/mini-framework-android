@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.framework.core.compat.UILog;
 import com.framework.core.compat.UIRes;
 import com.framework.core.widget.UIDecorLayout;
 import com.framework.widget.expand.ExpandableRecyclerView;
@@ -40,6 +39,10 @@ public class UIListController<T> extends UIDecorController
     public interface UIComponent<T> extends UIDecorController.UIComponent {
 
         void onUIRefresh(@Nullable Bundle savedInstanceState, int page, int limit);
+
+        default void notifyDataSetChanged() {
+            this.<UIListController<T>>getUIPageController().notifyDataSetChanged();
+        }
 
         default void notifyDataSetLoadMore() {
             this.<UIListController<T>>getUIPageController().notifyDataSetLoadMore();
@@ -1108,17 +1111,6 @@ public class UIListController<T> extends UIDecorController
             this.mUIHeadDataController = new UIDataController<>(this);
             this.mUITailDataController = new UIDataController<>(this);
             this.mUIEmptyDataController = new UIDataController<>(this);
-        }
-
-        @Override
-        public void onViewAttachedToWindow(@NonNull VH holder) {
-            super.onViewAttachedToWindow(holder);
-            UILog.e("Pos: " + holder.getLayoutPosition()
-                    + "\nGroupPos: " + holder.getGroupPosition()
-                    + "\nChildPos: " + holder.getChildPosition()
-                    + "\nPositionType: " + holder.getPositionType()
-                    + "\nItemId: " + holder.getItemId()
-                    + "\nRealItemId: " + this.getUnCombinedItemId(holder.getItemId()));
         }
 
         // Head.

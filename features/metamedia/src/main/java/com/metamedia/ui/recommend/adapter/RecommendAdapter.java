@@ -234,7 +234,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
             // un listen data
             uiListController.unregisterObserver(this);
             // destroy player
-            uiListController.clear();
+            uiListController.getUIDataController().removeAll();
             uiListController.setAdapter(null);
             // un listen life
             final Lifecycle l = owner.getLifecycle();
