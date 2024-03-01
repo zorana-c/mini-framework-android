@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.framework.core.compat.UIRes;
 import com.framework.core.widget.UIDecorLayout;
+import com.framework.widget.expand.ExpandableAdapter;
 import com.framework.widget.expand.ExpandableRecyclerView;
 import com.framework.widget.expand.compat.LinearLayoutManager;
 import com.framework.widget.sliver.DefRefreshLoadView;
@@ -133,6 +134,7 @@ public class UIListController<T> extends UIDecorController
     }
 
     private final UIDataController<T> mUIDataController;
+    private final ExpandableObserver mExpandableObserver;
     private int mRefreshPageCount;
     private int mPendingPageCount;
     private Bundle mSavedState;
@@ -141,7 +143,9 @@ public class UIListController<T> extends UIDecorController
 
     public UIListController(@NonNull UIComponent<? super T> uiComponent) {
         super(uiComponent);
+        this.mExpandableObserver = new ExpandableObserver(this);
         this.mUIDataController = new UIDataController<>();
+        this.mUIDataController.registerObserver(this.mExpandableObserver);
     }
 
     @Override
@@ -536,8 +540,24 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
+    public final UIListController<T> registerAdapterDataObserver(@NonNull RecyclerView.AdapterDataObserver observer) {
+        this.requireAdapter().registerAdapterDataObserver(observer);
+        return this;
+    }
+
+    @NonNull
+    public final UIListController<T> unregisterAdapterDataObserver(@NonNull RecyclerView.AdapterDataObserver observer) {
+        this.requireAdapter().unregisterAdapterDataObserver(observer);
+        return this;
+    }
+
+    public boolean getGroupExpanded() {
+        return this.mExpandableObserver.getGroupExpanded();
+    }
+
+    @NonNull
     public UIListController<T> setGroupExpanded(boolean groupExpanded) {
-        this.requireAdapter().setGroupExpanded(groupExpanded);
+        this.mExpandableObserver.setGroupExpanded(groupExpanded);
         return this;
     }
 
@@ -1024,6 +1044,21 @@ public class UIListController<T> extends UIDecorController
         uiComponent.onUIRefresh(savedInstanceState, page, LIST_MIN_LIMIT);
     }
 
+    private final static class ExpandableObserver extends UIExpandableObserver {
+        @NonNull
+        private final UIListController<?> mUIListController;
+
+        public ExpandableObserver(@NonNull UIListController<?> uiListController) {
+            this.mUIListController = uiListController;
+        }
+
+        @NonNull
+        @Override
+        public ExpandableAdapter<?> getExpandableAdapter() {
+            return this.mUIListController.requireAdapter();
+        }
+    }
+
     public static class ViewHolder<T> extends ExpandableRecyclerView.ViewHolder
             implements UIPageControllerOwner {
 
@@ -1090,8 +1125,6 @@ public class UIListController<T> extends UIDecorController
     public static class Adapter<VH extends ViewHolder<?>> extends ExpandableRecyclerView.Adapter<VH>
             implements UIDataController.Adapter {
         @NonNull
-        private final ExpandableObserver mExpandableObserver;
-        @NonNull
         private final UIListController<?> mUIListController;
         @NonNull
         private final UIDataController<ItemComponent<VH>> mUIHeadDataController;
@@ -1105,9 +1138,7 @@ public class UIListController<T> extends UIDecorController
         }
 
         public <T> Adapter(@NonNull UIListController<T> uiListController) {
-            this.mExpandableObserver = new ExpandableObserver(this);
             this.mUIListController = uiListController;
-            this.mUIListController.registerObserver(this.mExpandableObserver);
             this.mUIHeadDataController = new UIDataController<>(this);
             this.mUITailDataController = new UIDataController<>(this);
             this.mUIEmptyDataController = new UIDataController<>(this);
@@ -1296,14 +1327,6 @@ public class UIListController<T> extends UIDecorController
         @Override
         public int getChildItemCount(int groupPosition) {
             return this.getCallback().getChildItemCount(groupPosition);
-        }
-
-        public final boolean getGroupExpanded() {
-            return this.mExpandableObserver.getGroupExpanded();
-        }
-
-        public final void setGroupExpanded(boolean groupExpanded) {
-            this.mExpandableObserver.setGroupExpanded(groupExpanded);
         }
 
         @NonNull

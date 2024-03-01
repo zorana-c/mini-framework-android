@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.framework.core.content.ExpandableObserver;
+import com.framework.core.content.UIExpandableObserver;
 import com.framework.core.content.UIDataController;
 import com.framework.widget.expand.ExpandableRecyclerView;
 
@@ -20,14 +20,14 @@ import com.framework.widget.expand.ExpandableRecyclerView;
 public abstract class UIExpandableAdapter<T>
         extends ExpandableRecyclerView.Adapter<UIExpandableAdapter.ViewHolder> {
     @NonNull
-    private final ExpandableObserver mExpandableObserver;
+    private final UIExpandableObserver mUIExpandableObserver;
     @NonNull
     private final UIDataController<T> mUIListDataController;
 
     public UIExpandableAdapter() {
-        this.mExpandableObserver = new ExpandableObserver(this);
+        this.mUIExpandableObserver = new UIExpandableObserver(this);
         this.mUIListDataController = new UIDataController<>();
-        this.mUIListDataController.registerObserver(this.mExpandableObserver);
+        this.mUIListDataController.registerObserver(this.mUIExpandableObserver);
     }
 
     @Override
@@ -123,11 +123,11 @@ public abstract class UIExpandableAdapter<T>
     }
 
     public boolean getGroupExpanded() {
-        return this.mExpandableObserver.getGroupExpanded();
+        return this.mUIExpandableObserver.getGroupExpanded();
     }
 
     public void setGroupExpanded(boolean groupExpanded) {
-        this.mExpandableObserver.setGroupExpanded(groupExpanded);
+        this.mUIExpandableObserver.setGroupExpanded(groupExpanded);
     }
 
     public static class ViewHolder extends ExpandableRecyclerView.ViewHolder {

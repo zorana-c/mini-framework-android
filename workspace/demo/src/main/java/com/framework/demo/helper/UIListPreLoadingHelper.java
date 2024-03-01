@@ -199,13 +199,14 @@ public class UIListPreLoadingHelper {
 
         @Override
         public boolean onRangeInserted(int positionStart, int itemCount) {
-            final boolean moreData = itemCount >= UIListController.LIST_MIN_LIMIT;
-            if (this.moreData != moreData) {
-                this.moreData = moreData;
-                final UIListController.Adapter<?> adapter = this.uiListController.getAdapter();
-                if (adapter != null) {
-                    adapter.notifyTailItemRangeChanged(0, adapter.getTailItemCount());
-                }
+            this.moreData = itemCount >= UIListController.LIST_MIN_LIMIT;
+            return false;
+        }
+
+        @Override
+        public boolean onRangeRemoved(int positionStart, int itemCount) {
+            if (itemCount != 0) {
+                this.moreData = true;
             }
             return false;
         }

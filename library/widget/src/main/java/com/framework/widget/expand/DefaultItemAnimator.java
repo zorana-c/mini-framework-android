@@ -23,12 +23,9 @@ public class DefaultItemAnimator extends androidx.recyclerview.widget.DefaultIte
     @Override
     public boolean animateChange(@NonNull RecyclerView.ViewHolder oldHolder,
                                  @NonNull RecyclerView.ViewHolder newHolder,
-                                 int fromX,
-                                 int fromY,
-                                 int toX,
-                                 int toY) {
-        final boolean handled;
-        handled = super.animateChange(oldHolder, newHolder, fromX, fromY, toX, toY);
+                                 @NonNull ItemHolderInfo preInfo,
+                                 @NonNull ItemHolderInfo postInfo) {
+        final boolean handled = super.animateChange(oldHolder, newHolder, preInfo, postInfo);
         this.resetItemAlpha(oldHolder);
         this.resetItemAlpha(newHolder);
         return handled;

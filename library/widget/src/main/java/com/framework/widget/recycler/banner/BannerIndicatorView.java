@@ -256,7 +256,7 @@ public class BannerIndicatorView extends View {
         }
     }
 
-    final class OnPageChangeListener extends PagerLayoutManager.SimpleOnPageChangeListener {
+    final class OnPageChangeListener implements PagerLayoutManager.OnPageChangeListener {
         @Override
         public void onPageScrolled(@NonNull RecyclerView recyclerView, int position,
                                    float positionOffset, int positionOffsetPixels) {

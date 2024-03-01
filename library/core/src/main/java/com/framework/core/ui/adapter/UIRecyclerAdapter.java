@@ -17,7 +17,7 @@ import com.framework.core.content.UIDataController;
  */
 public abstract class UIRecyclerAdapter<T>
         extends RecyclerView.Adapter<UIRecyclerAdapter.ViewHolder>
-        implements UIDataController.RecyclerAdapter {
+        implements UIDataController.Adapter {
     @NonNull
     private final UIDataController<T> mUIListDataController;
 

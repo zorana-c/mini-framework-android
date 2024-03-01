@@ -26,7 +26,6 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.media3.exoplayer.upstream.DefaultBandwidthMeter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.framework.core.content.UIDataController;
 import com.framework.core.content.UIListController;
 import com.framework.core.content.UIPageController;
 import com.framework.core.content.UIPageControllerOwner;
@@ -167,8 +166,8 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
     }
 
     private static final class ComponentListener<T extends Video>
-            extends PagerLayoutManager.SimpleOnPageChangeListener
-            implements DefaultLifecycleObserver, UIDataController.Observer {
+            extends RecyclerView.AdapterDataObserver
+            implements DefaultLifecycleObserver, PagerLayoutManager.OnPageChangeListener {
         @NonNull
         private final Runnable mPlayAction = this::playWhen;
         @NonNull
@@ -181,7 +180,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
         public ComponentListener(@NonNull UIListController<T> uiListController) {
             this.mUIListController = uiListController;
             // listen data
-            uiListController.registerObserver(this);
+            uiListController.registerAdapterDataObserver(this);
             // listen life
             final LifecycleOwner owner = uiListController.getUIComponent();
             final Lifecycle l = owner.getLifecycle();
@@ -195,15 +194,18 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
         }
 
         @Override
-        public boolean onChanged() {
-            this.postPlayWhen();
-            return false;
+        public void onPageSelected(@NonNull RecyclerView recyclerView, int position) {
+            this.playWhen();
         }
 
         @Override
-        public boolean onRangeChanged(int positionStart, int itemCount) {
+        public void onChanged() {
             this.postPlayWhen();
-            return false;
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount) {
+            this.postPlayWhen();
         }
 
         @Override
@@ -232,7 +234,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
             final UIListController<T> uiListController;
             uiListController = this.mUIListController;
             // un listen data
-            uiListController.unregisterObserver(this);
+            uiListController.unregisterAdapterDataObserver(this);
             // destroy player
             uiListController.getUIDataController().removeAll();
             uiListController.setAdapter(null);

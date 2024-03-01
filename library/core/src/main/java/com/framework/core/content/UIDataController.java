@@ -144,7 +144,6 @@ public class UIDataController<T> {
         index = Math.max(0, Math.min(index, N));
         this.mDataSourceList.addAll(index, c);
         this.notifyRangeInserted(index, c.size());
-        this.notifyRangeChanged(index, this.size() - index);
         return this;
     }
 
@@ -156,7 +155,6 @@ public class UIDataController<T> {
         final ArrayList<T> resultList = new ArrayList<>(collection);
         collection.clear();
         this.notifyRangeRemoved(0, resultList.size());
-        this.notifyRangeChanged(0, this.size());
         return resultList;
     }
 
@@ -174,7 +172,6 @@ public class UIDataController<T> {
             } else break;
         }
         this.notifyRangeRemoved(indexStart, resultList.size());
-        this.notifyRangeChanged(indexStart, this.size() - indexStart);
         return resultList;
     }
 
@@ -187,19 +184,13 @@ public class UIDataController<T> {
     public final Collection<T> removeIf(@NonNull Predicate<? super T> p) {
         final ArrayList<T> resultList = new ArrayList<>(this.size());
         int index = 0;
-        int indexStart = -1;
         while (this.containsAt(index)) {
             final T t = this.findBy(index);
             if (p.test(t)) {
-                if (indexStart == -1) {
-                    indexStart = index;
-                }
                 resultList.add(this.mDataSourceList.remove(index));
                 this.notifyRemoved(index);
             } else index++;
         }
-        indexStart = Math.max(0, indexStart);
-        this.notifyRangeChanged(indexStart, this.size() - indexStart);
         return resultList;
     }
 
@@ -282,12 +273,8 @@ public class UIDataController<T> {
             throw new IllegalArgumentException("Moving more than 1 item is not supported yet");
         }
         final ArrayList<T> list = this.mDataSourceList;
-        final T t = list.remove(fromIndex);
-        list.add(toIndex, t);
-        final int indexStart = Math.min(fromIndex, toIndex);
-        final int cItemCount = Math.abs(fromIndex - toIndex) + 1;
+        list.add(toIndex, list.remove(fromIndex));
         this.notifyRangeMoved(fromIndex, toIndex, itemCount);
-        this.notifyRangeChanged(indexStart, cItemCount);
         return true;
     }
 
@@ -471,59 +458,31 @@ public class UIDataController<T> {
 
         @Override
         public boolean onRangeInserted(int positionStart, int itemCount) {
-            final Adapter adapter = this.mAdapter;
-            if (adapter instanceof RecyclerAdapter) {
-                final RecyclerAdapter recyclerAdapter = (RecyclerAdapter) adapter;
-                recyclerAdapter.notifyItemRangeInserted(positionStart, itemCount);
-            }
+            this.mAdapter.notifyDataSetChanged();
             return true;
         }
 
         @Override
         public boolean onRangeRemoved(int positionStart, int itemCount) {
-            final Adapter adapter = this.mAdapter;
-            if (adapter instanceof RecyclerAdapter) {
-                final RecyclerAdapter recyclerAdapter = (RecyclerAdapter) adapter;
-                recyclerAdapter.notifyItemRangeRemoved(positionStart, itemCount);
-            }
+            this.mAdapter.notifyDataSetChanged();
             return true;
         }
 
         @Override
         public boolean onRangeChanged(int positionStart, int itemCount) {
-            final Adapter adapter = this.mAdapter;
-            if (adapter instanceof RecyclerAdapter) {
-                final RecyclerAdapter recyclerAdapter = (RecyclerAdapter) adapter;
-                recyclerAdapter.notifyItemRangeChanged(positionStart, itemCount);
-            } else {
-                adapter.notifyDataSetChanged();
-            }
+            this.mAdapter.notifyDataSetChanged();
             return true;
         }
 
         @Override
         public boolean onRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            final Adapter adapter = this.mAdapter;
-            if (adapter instanceof RecyclerAdapter) {
-                final RecyclerAdapter recyclerAdapter = (RecyclerAdapter) adapter;
-                recyclerAdapter.notifyItemMoved(fromPosition, toPosition);
-            }
+            this.mAdapter.notifyDataSetChanged();
             return true;
         }
     }
 
     public interface Adapter {
         void notifyDataSetChanged();
-    }
-
-    public interface RecyclerAdapter extends Adapter {
-        void notifyItemRangeInserted(int positionStart, int itemCount);
-
-        void notifyItemRangeRemoved(int positionStart, int itemCount);
-
-        void notifyItemRangeChanged(int positionStart, int itemCount);
-
-        void notifyItemMoved(int fromPosition, int toPosition);
     }
 
     public interface Observer {

@@ -683,24 +683,16 @@ public class PagerLayoutManager extends LinearLayoutManager implements
 
     public interface OnPageChangeListener {
 
-        void onPageScrollStateChanged(@NonNull RecyclerView recyclerView, int scrollState);
-
-        void onPageScrolled(@NonNull RecyclerView recyclerView, int position, float positionOffset, int positionOffsetPixels);
-
-        void onPageSelected(@NonNull RecyclerView recyclerView, int position);
-    }
-
-    public static abstract class SimpleOnPageChangeListener implements OnPageChangeListener {
-        @Override
-        public void onPageScrollStateChanged(@NonNull RecyclerView recyclerView, int scrollState) {
+        default void onPageScrollStateChanged(@NonNull RecyclerView recyclerView, int scrollState) {
+            // nothing
         }
 
-        @Override
-        public void onPageScrolled(@NonNull RecyclerView recyclerView, int position, float positionOffset, int positionOffsetPixels) {
+        default void onPageScrolled(@NonNull RecyclerView recyclerView, int position, float positionOffset, int positionOffsetPixels) {
+            // nothing
         }
 
-        @Override
-        public void onPageSelected(@NonNull RecyclerView recyclerView, int position) {
+        default void onPageSelected(@NonNull RecyclerView recyclerView, int position) {
+            // nothing
         }
     }
 }

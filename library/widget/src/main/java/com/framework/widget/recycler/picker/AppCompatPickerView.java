@@ -240,7 +240,7 @@ public class AppCompatPickerView extends ExpandableRecyclerView {
         }
     }
 
-    private final class OnPageChangeListener extends PagerLayoutManager.SimpleOnPageChangeListener {
+    private final class OnPageChangeListener implements PagerLayoutManager.OnPageChangeListener {
         private int mLastPosition = RecyclerView.NO_POSITION;
 
         @Override

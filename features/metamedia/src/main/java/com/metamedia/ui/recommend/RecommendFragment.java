@@ -92,7 +92,7 @@ public class RecommendFragment extends UIListFragment<Video> {
                 .setCommentComponent(CommentFragment.class, args);
     }
 
-    final class ComponentListener extends PagerLayoutManager.SimpleOnPageChangeListener {
+    final class ComponentListener implements PagerLayoutManager.OnPageChangeListener {
         private long nanoId;
 
         @Override

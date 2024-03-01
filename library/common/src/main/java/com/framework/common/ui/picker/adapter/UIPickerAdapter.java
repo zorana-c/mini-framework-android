@@ -101,9 +101,9 @@ public abstract class UIPickerAdapter<VH extends UIPickerViewHolder>
         this.onUpstreamPositionChanged(upstreamPosition);
     }
 
-    private static class UpstreamComponent
-            extends PagerLayoutManager.SimpleOnPageChangeListener
-            implements AppCompatPickerView.OnAdapterChangedListener {
+    private static class UpstreamComponent implements
+            PagerLayoutManager.OnPageChangeListener,
+            AppCompatPickerView.OnAdapterChangedListener {
         private final UIPickerAdapter<?> ad;
         private UpstreamComponent.AdapterDataObserver ado;
 

@@ -29,7 +29,7 @@ import retrofit2.HttpException;
  * @Description :
  */
 public class UIDecorOptions implements UIPageOptions {
-    public static final long MS_ANIM = 350L;
+    public static final long MS_ANIM = 400L;
 
     interface RuntimeAction {
         void apply(@NonNull UIDecorController uiDecorController);
