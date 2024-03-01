@@ -70,11 +70,6 @@ public class PagerSnapHelper extends RecyclerView.OnFlingListener {
         if (recyclerView == null) {
             return false;
         }
-        final int minFlingVelocity = recyclerView.getMinFlingVelocity();
-        if (Math.abs(velocityX) <= minFlingVelocity
-                && Math.abs(velocityY) <= minFlingVelocity) {
-            return false;
-        }
         final RecyclerView.Adapter<?> adapter = recyclerView.getAdapter();
         if (adapter == null) {
             return false;
@@ -132,12 +127,11 @@ public class PagerSnapHelper extends RecyclerView.OnFlingListener {
         if (helper == null) {
             return null;
         }
+        final boolean forwardDir = this.isForwardFling(layoutManager, velocityX, velocityY);
         // A child that is exactly in the center is eligible for both before and after
         View closestChildBeforeCenter = null;
-        View closestChildBeforeLast = null;
         int distanceBefore = Integer.MIN_VALUE;
         View closestChildAfterCenter = null;
-        View closestChildAfterLast = null;
         int distanceAfter = Integer.MAX_VALUE;
         // Find the first view before the center, and the first view after the center
         for (int index = 0; index < childCount; index++) {
@@ -146,31 +140,29 @@ public class PagerSnapHelper extends RecyclerView.OnFlingListener {
                 continue;
             }
             final int distance = this.distanceToCenter(helper, child);
-            if (distance <= 0 && distance > distanceBefore) {
+            final boolean containBefore;
+            final boolean containAfter;
+            // Child direction in the center and closer then the previous best
+            if (forwardDir) {
+                containBefore = distance <= 0;
+                containAfter = distance > 0;
+            } else {
+                containBefore = distance < 0;
+                containAfter = distance >= 0;
+            }
+            if (containBefore && distance > distanceBefore) {
                 // Child is before the center and closer then the previous best
                 distanceBefore = distance;
-                closestChildBeforeLast = closestChildBeforeCenter;
                 closestChildBeforeCenter = child;
             }
-            if (distance >= 0 && distance < distanceAfter) {
+            if (containAfter && distance < distanceAfter) {
                 // Child is after the center and closer then the previous best
                 distanceAfter = distance;
-                closestChildAfterLast = closestChildAfterCenter;
                 closestChildAfterCenter = child;
             }
         }
         // Return the position of the first child from the center, in the direction of the fling
-        final boolean forwardDirection = this.isForwardFling(layoutManager, velocityX, velocityY);
-        if (forwardDirection && closestChildAfterCenter != null) {
-            return closestChildAfterCenter;
-        } else if (!forwardDirection && closestChildBeforeCenter != null) {
-            return closestChildBeforeCenter;
-        }
-        // There is no child in the direction of the fling. Either it doesn't exist (start/end of
-        // the list), or it is not yet attached (very rare case when children are larger then the
-        // viewport). Extrapolate from the child that is visible to get the position of the view to
-        // snap to.
-        return forwardDirection ? closestChildAfterLast : closestChildBeforeLast;
+        return forwardDir ? closestChildAfterCenter : closestChildBeforeCenter;
     }
 
     @Nullable

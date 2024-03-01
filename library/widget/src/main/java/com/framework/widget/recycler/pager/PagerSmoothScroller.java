@@ -105,6 +105,7 @@ public class PagerSmoothScroller extends LinearSmoothScroller {
         if (helper == null) {
             return super.findViewByPosition(targetPosition);
         }
+        final boolean forwardDir = SCROLL_TO_HEAD == targetDirection;
         // A child that is exactly in the center is eligible for both before and after
         View closestChildBeforeCenter = null;
         int distanceBefore = Integer.MIN_VALUE;
@@ -123,7 +124,7 @@ public class PagerSmoothScroller extends LinearSmoothScroller {
             final boolean containBefore;
             final boolean containAfter;
             // Child direction in the center and closer then the previous best
-            if (SCROLL_TO_HEAD == targetDirection) {
+            if (forwardDir) {
                 containBefore = distance <= 0;
                 containAfter = distance > 0;
             } else {
@@ -150,11 +151,7 @@ public class PagerSmoothScroller extends LinearSmoothScroller {
             }
         }
         // Return the position of the first child from the center
-        if (SCROLL_TO_HEAD == targetDirection) {
-            return closestChildAfterCenter;
-        } else {
-            return closestChildBeforeCenter;
-        }
+        return forwardDir ? closestChildAfterCenter : closestChildBeforeCenter;
     }
 
     @Direction
