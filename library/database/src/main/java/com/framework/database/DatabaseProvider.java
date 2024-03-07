@@ -3,6 +3,7 @@ package com.framework.database;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -15,6 +16,7 @@ public interface DatabaseProvider {
     /**
      * Prefix for tables that can be read and written by media library components.
      */
+    @NonNull
     String TABLE_PREFIX = "MiniFramework";
 
     /**

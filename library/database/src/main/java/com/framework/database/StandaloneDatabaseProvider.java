@@ -16,38 +16,62 @@ import androidx.annotation.RequiresApi;
  * @Description :
  */
 public class StandaloneDatabaseProvider extends SQLiteOpenHelper implements DatabaseProvider {
-    public static final String DATABASE_NAME = "mini_framework_internal.db";
-    public static final int VERSION = 1;
+    private static final String DATABASE_NAME = "mini_framework_internal.db";
+    private static final int DATABASE_VERSION = 1;
 
-    public StandaloneDatabaseProvider(@Nullable Context context,
-                                      @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, version);
+    public StandaloneDatabaseProvider(@NonNull Context context) {
+        this(context, /* factory= */ (SQLiteDatabase.CursorFactory) null);
     }
 
-    public StandaloneDatabaseProvider(@Nullable Context context,
+    public StandaloneDatabaseProvider(@NonNull Context context,
+                                      @Nullable SQLiteDatabase.CursorFactory factory) {
+        this(context, factory, /* errorHandler= */ null);
+    }
+
+    public StandaloneDatabaseProvider(@NonNull Context context,
+                                      @Nullable DatabaseErrorHandler errorHandler) {
+        this(context, /* factory= */ null, errorHandler);
+    }
+
+    public StandaloneDatabaseProvider(@NonNull Context context,
                                       @Nullable SQLiteDatabase.CursorFactory factory,
-                                      @Nullable DatabaseErrorHandler errorHandler, int version) {
-        super(context, DATABASE_NAME, factory, version, errorHandler);
+                                      @Nullable DatabaseErrorHandler errorHandler) {
+        super(context.getApplicationContext(), DATABASE_NAME, factory, DATABASE_VERSION, errorHandler);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)
-    public StandaloneDatabaseProvider(@Nullable Context context,
-                                      @NonNull SQLiteDatabase.OpenParams openParams, int version) {
-        super(context, DATABASE_NAME, version, openParams);
+    public StandaloneDatabaseProvider(@NonNull Context context,
+                                      @NonNull SQLiteDatabase.OpenParams openParams) {
+        super(context.getApplicationContext(), DATABASE_NAME, DATABASE_VERSION, openParams);
     }
 
+    // 数据库配置选项
+    @Override
+    public void onConfigure(@NonNull SQLiteDatabase db) {
+        // no-op
+    }
+
+    // 数据库已经创建
     @Override
     public void onCreate(@NonNull SQLiteDatabase db) {
         // no-op
     }
 
+    // 数据库版本升级
     @Override
     public void onUpgrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
         // no-op
     }
 
+    // 数据库版本降级
     @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onDowngrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
+        // no-op
+    }
+
+    // 数据库已经打开
+    @Override
+    public void onOpen(@NonNull SQLiteDatabase db) {
         // no-op
     }
 }
