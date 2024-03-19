@@ -123,7 +123,10 @@ public class LettersRecyclerView extends ExpandableRecyclerView {
         if (holder == null) {
             return false;
         }
-        final Adapter<?> adapter = holder.requireAdapter();
+        final Adapter<?> adapter = holder.getAdapter();
+        if (adapter == null) {
+            return false;
+        }
         final ExpandableRecyclerView.Adapter<?> targetAdapter = adapter.getTargetAdapter();
 
         if (targetAdapter == null) {

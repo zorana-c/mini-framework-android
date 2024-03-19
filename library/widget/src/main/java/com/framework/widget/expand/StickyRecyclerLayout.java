@@ -274,6 +274,9 @@ public class StickyRecyclerLayout extends FrameLayout {
         final ExpandableAdapter<?> adapter = target.requireAdapter();
         final int adapterPosition;
         adapterPosition = adapter.getAdapterPositionByPositionType(PositionType.TYPE_GROUP, groupPosition);
+        if (adapterPosition < 0 || adapterPosition >= adapter.getGroupItemCount()) {
+            return;
+        }
         this.startingBindViewHolder(target, this.mLastHolder, adapterPosition);
     }
 
