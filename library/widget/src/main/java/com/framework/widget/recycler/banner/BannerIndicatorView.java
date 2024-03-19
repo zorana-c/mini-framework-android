@@ -1,10 +1,12 @@
 package com.framework.widget.recycler.banner;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
@@ -175,6 +177,7 @@ public class BannerIndicatorView extends View {
     private RecyclerView.AdapterDataObserver mAdapterDataObserver;
     private PagerLayoutManager.OnPageChangeListener mOnPageChangeListener;
 
+    @SuppressLint("NotifyDataSetChanged")
     public void attachToRecyclerView(@Nullable RecyclerView recyclerView) {
         final RecyclerView oldRecyclerView = this.mRecyclerView;
         if (oldRecyclerView == recyclerView) {
@@ -233,6 +236,9 @@ public class BannerIndicatorView extends View {
                 itemCount = ad.getItemCount();
             }
         }
+        if (this.isReverseLayout(recyclerView)) {
+            position = itemCount - 1 - position;
+        }
         position = Math.max(0, Math.min(position, itemCount - 1));
         if (this.mIndicatorCount != itemCount) {
             this.mIndicatorCount = itemCount;
@@ -242,6 +248,24 @@ public class BannerIndicatorView extends View {
             this.mCurrentPosition = position;
             this.invalidate();
         }
+    }
+
+    private boolean isReverseLayout(@Nullable RecyclerView recyclerView) {
+        if (recyclerView == null) {
+            return false;
+        }
+        final RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
+        if (lm instanceof RecyclerView.SmoothScroller.ScrollVectorProvider) {
+            final int itemCount = lm.getItemCount() - 1;
+            final RecyclerView.SmoothScroller.ScrollVectorProvider vectorProvider;
+            vectorProvider = (RecyclerView.SmoothScroller.ScrollVectorProvider) lm;
+            final PointF vectorForEnd;
+            vectorForEnd = vectorProvider.computeScrollVectorForPosition(itemCount);
+            if (vectorForEnd != null) {
+                return vectorForEnd.x < 0 || vectorForEnd.y < 0;
+            }
+        }
+        return false;
     }
 
     final class AdapterDataObserver extends RecyclerView.AdapterDataObserver {

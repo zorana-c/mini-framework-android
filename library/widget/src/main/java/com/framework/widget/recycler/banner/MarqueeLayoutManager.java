@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.framework.widget.recycler.pager.PagerSmoothScroller;
-
 /**
  * @Author create by Zhengzelong on 2023-03-30
  * @Email : 171905184@qq.com
@@ -47,11 +45,6 @@ public class MarqueeLayoutManager extends BannerLayoutManager {
         final MarqueeSmoothScroller smoothScroller;
         smoothScroller = new MarqueeSmoothScroller(recyclerView.getContext());
         smoothScroller.setMarqueeSpeedPixel(this.mMarqueeSpeedPixel);
-        smoothScroller.setTargetDirection(this.isLoopScrollEnabled()
-                ? this.getReverseLayout()
-                ? PagerSmoothScroller.SCROLL_TO_TAIL
-                : PagerSmoothScroller.SCROLL_TO_HEAD
-                : PagerSmoothScroller.SCROLL_TO_ANY);
         smoothScroller.setTargetPosition(position);
         this.startSmoothScroll(smoothScroller);
     }

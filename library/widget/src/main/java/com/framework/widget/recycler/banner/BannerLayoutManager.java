@@ -105,11 +105,6 @@ public class BannerLayoutManager extends PagerLayoutManager {
                                        @NonNull RecyclerView.State state, int position) {
         final PagerSmoothScroller smoothScroller;
         smoothScroller = new PagerSmoothScroller(recyclerView.getContext());
-        smoothScroller.setTargetDirection(this.isLoopScrollEnabled()
-                ? this.getReverseLayout()
-                ? PagerSmoothScroller.SCROLL_TO_TAIL
-                : PagerSmoothScroller.SCROLL_TO_HEAD
-                : PagerSmoothScroller.SCROLL_TO_ANY);
         smoothScroller.setTargetPosition(position);
         this.startSmoothScroll(smoothScroller);
     }
@@ -267,7 +262,7 @@ public class BannerLayoutManager extends PagerLayoutManager {
         }
         int position;
         position = this.getCurrentPosition() + 1;
-        position = this.swapLayoutPosition(position);
+        position = this.convertLayoutPosition(position);
         this.setCurrentPosition(position, true);
 
         final boolean needsPlay;

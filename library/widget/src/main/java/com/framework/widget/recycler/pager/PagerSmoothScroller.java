@@ -1,21 +1,15 @@
 package com.framework.widget.recycler.pager;
 
 import android.content.Context;
-import android.graphics.PointF;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.framework.widget.recycler.LinearSmoothScroller;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * @Author create by Zhengzelong on 2023-03-27
@@ -23,18 +17,6 @@ import java.lang.annotation.RetentionPolicy;
  * @Description :
  */
 public class PagerSmoothScroller extends LinearSmoothScroller {
-    public static final int SCROLL_TO_ANY = 0;
-    public static final int SCROLL_TO_HEAD = 1;
-    public static final int SCROLL_TO_TAIL = -1;
-
-    @IntDef({SCROLL_TO_ANY,
-            SCROLL_TO_HEAD,
-            SCROLL_TO_TAIL})
-    @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-    public @interface Direction {
-    }
-
     public static final float MILLISECONDS_PER_INCH = 100f;
     public static final int MAX_SCROLL_ON_FLING_DURATION = 100;
 
@@ -42,8 +24,6 @@ public class PagerSmoothScroller extends LinearSmoothScroller {
     private OrientationHelper mVerticalHelper;
     @Nullable
     private OrientationHelper mHorizontalHelper;
-    @Direction
-    private int mTargetDirection = SCROLL_TO_ANY;
 
     public PagerSmoothScroller(@NonNull Context context) {
         super(context);
@@ -70,29 +50,8 @@ public class PagerSmoothScroller extends LinearSmoothScroller {
         return MILLISECONDS_PER_INCH / (float) displayMetrics.densityDpi;
     }
 
-    @Nullable
-    @Override
-    public PointF computeScrollVectorForPosition(int targetPosition) {
-        final int targetDirection = this.mTargetDirection;
-        if (SCROLL_TO_ANY == targetDirection) {
-            return super.computeScrollVectorForPosition(targetPosition);
-        }
-        final RecyclerView.LayoutManager lm = this.getLayoutManager();
-        if (lm == null) {
-            return super.computeScrollVectorForPosition(targetPosition);
-        }
-        if (lm.canScrollVertically()) {
-            return new PointF(0, targetDirection);
-        }
-        return new PointF(targetDirection, 0);
-    }
-
     @Override
     public View findViewByPosition(int targetPosition) {
-        final int targetDirection = this.mTargetDirection;
-        if (SCROLL_TO_ANY == targetDirection) {
-            return super.findViewByPosition(targetPosition);
-        }
         final RecyclerView.LayoutManager lm = this.getLayoutManager();
         if (lm == null) {
             return super.findViewByPosition(targetPosition);
@@ -105,7 +64,7 @@ public class PagerSmoothScroller extends LinearSmoothScroller {
         if (helper == null) {
             return super.findViewByPosition(targetPosition);
         }
-        final boolean forwardDir = SCROLL_TO_HEAD == targetDirection;
+        final boolean forwardDir = !this.isReverseLayout(lm);
         // A child that is exactly in the center is eligible for both before and after
         View closestChildBeforeCenter = null;
         int distanceBefore = Integer.MIN_VALUE;
@@ -152,15 +111,6 @@ public class PagerSmoothScroller extends LinearSmoothScroller {
         }
         // Return the position of the first child from the center
         return forwardDir ? closestChildAfterCenter : closestChildBeforeCenter;
-    }
-
-    @Direction
-    public int getTargetDirection() {
-        return this.mTargetDirection;
-    }
-
-    public void setTargetDirection(@Direction int targetDirection) {
-        this.mTargetDirection = targetDirection;
     }
 
     public int distanceToCenter(@NonNull OrientationHelper helper,

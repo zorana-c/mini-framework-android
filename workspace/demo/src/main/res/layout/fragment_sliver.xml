@@ -131,7 +131,7 @@
                     android:text="Center"
                     android:textColor="@android:color/white" />
 
-                <com.framework.demo.widget.CustomSliverScrollView
+                <com.framework.widget.sliver.SliverScrollView
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:orientation="horizontal">
@@ -201,7 +201,7 @@
                             android:layout_height="match_parent"
                             android:background="@android:color/holo_green_light" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
-                </com.framework.demo.widget.CustomSliverScrollView>
+                </com.framework.widget.sliver.SliverScrollView>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"

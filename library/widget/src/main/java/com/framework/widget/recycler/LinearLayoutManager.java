@@ -395,14 +395,14 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
     }
 
     /**
-     * @return true Unlimited sliding enabled
+     * @return true Unlimited sliding enabled.
      */
     public boolean isLoopScrollEnabled() {
         return mLoopScrollEnabled;
     }
 
     /**
-     * Whether unlimited sliding is enabled
+     * Whether unlimited sliding is enabled.
      */
     public void setLoopScrollEnabled(boolean enabled) {
         assertNotInLayoutOrScroll(null);
@@ -413,21 +413,20 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
         requestLayout();
     }
 
-    public int swapLayoutPosition(int position) {
+    /**
+     * Convert the actual position of the loop.
+     */
+    public final int convertLayoutPosition(int position) {
         if (this.mLoopScrollEnabled) {
-            final int N;
-            N = Math.max(1, this.getItemCount());
-            final int absPosition;
-            absPosition = Math.abs(position + N);
-            final int loopPosition = absPosition % N;
-            return loopPosition;
+            final int N = Math.max(1, this.getItemCount());
+            return Math.abs(position + N) % N;
         }
         return position;
     }
 
     private void updateCurrentPosition(@NonNull LayoutState layoutState) {
         final int position = layoutState.mCurrentPosition;
-        layoutState.mCurrentPosition = this.swapLayoutPosition(position);
+        layoutState.mCurrentPosition = this.convertLayoutPosition(position);
     }
 
     @Nullable
@@ -666,8 +665,13 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
         if (getChildCount() == 0) {
             return null;
         }
-        final int firstChildPos = getPosition(getChildAt(0));
-        final int direction = targetPosition < firstChildPos != mShouldReverseLayout ? -1 : 1;
+        final int direction;
+        if (mLoopScrollEnabled) {
+            direction = mShouldReverseLayout ? -1 : 1;
+        } else {
+            final int firstChildPos = getPosition(getChildAt(0));
+            direction = targetPosition < firstChildPos != mShouldReverseLayout ? -1 : 1;
+        }
         if (mOrientation == HORIZONTAL) {
             return new PointF(direction, 0);
         } else {
@@ -803,6 +807,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             updateLayoutStateToFillEnd(mAnchorInfo);
             mLayoutState.mExtraFillSpace = extraForEnd;
             mLayoutState.mCurrentPosition += mLayoutState.mItemDirection;
+            updateCurrentPosition(mLayoutState);
             fill(recycler, mLayoutState, state, false);
             endOffset = mLayoutState.mOffset;
 
@@ -828,6 +833,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             updateLayoutStateToFillStart(mAnchorInfo);
             mLayoutState.mExtraFillSpace = extraForStart;
             mLayoutState.mCurrentPosition += mLayoutState.mItemDirection;
+            updateCurrentPosition(mLayoutState);
             fill(recycler, mLayoutState, state, false);
             startOffset = mLayoutState.mOffset;
 

@@ -1,8 +1,11 @@
 package com.framework.widget.recycler;
 
 import android.content.Context;
+import android.graphics.PointF;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @Author create by Zhengzelong on 2021/12/30
@@ -14,6 +17,15 @@ public class LinearSmoothScroller extends androidx.recyclerview.widget.LinearSmo
 
     public LinearSmoothScroller(@NonNull Context context) {
         super(context);
+    }
+
+    public boolean isReverseLayout(@Nullable RecyclerView.LayoutManager layoutManager) {
+        final int itemCount = layoutManager.getItemCount() - 1;
+        final PointF vectorForEnd = this.computeScrollVectorForPosition(itemCount);
+        if (vectorForEnd != null) {
+            return vectorForEnd.x < 0 || vectorForEnd.y < 0;
+        }
+        return false;
     }
 
     @Override
