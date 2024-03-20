@@ -21,8 +21,6 @@ import com.guide.ui.GuideFragment;
  */
 @AutoService(UIRoute.class)
 public class GuideRouteImpl implements GuideRoute {
-    private static final int CODE = 0x01;
-
     @Override
     public void init(@NonNull Context context) {
         GuideInit.init(context);
@@ -39,7 +37,7 @@ public class GuideRouteImpl implements GuideRoute {
 
             owner.getUIPageController()
                     .getUINavigatorController()
-                    .startFragmentForResult(GuideFragment.class, CODE, args);
+                    .startFragment(GuideFragment.class, args);
             return true;
         }
         return false;

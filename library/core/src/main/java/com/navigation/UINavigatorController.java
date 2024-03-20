@@ -7,17 +7,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.ActivityResultRegistry;
 import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;
-import androidx.annotation.CallSuper;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentFactory;
@@ -291,6 +293,8 @@ public class UINavigatorController {
     @NonNull
     private final UIPageController mUIPageController;
     @NonNull
+    private final UINavigatorLauncher mUINavigatorLauncher;
+    @NonNull
     private UINavigatorOptions mUINavigatorOptions = UINavigatorOptions.EMPTY;
 
     public UINavigatorController(@NonNull UIPageControllerOwner owner) {
@@ -299,29 +303,7 @@ public class UINavigatorController {
 
     public UINavigatorController(@NonNull UIPageController uiPageController) {
         this.mUIPageController = uiPageController;
-
-        final UINavigatorEvent uiNavigatorEvent = new UINavigatorEvent();
-        final LifecycleOwner owner = uiPageController.getUIComponent();
-        final Lifecycle l = owner.getLifecycle();
-        l.addObserver(uiNavigatorEvent);
-
-        final UIActivityDispatcher ad = uiPageController.getUIActivityDispatcher();
-        if (ad != null) {
-            ad.addCallback(l, uiNavigatorEvent);
-        }
-    }
-
-    @CallSuper
-    public void onNewIntent(@NonNull Intent intent) {
-        final UIPageController.UIComponent uiComponent;
-        uiComponent = this.mUIPageController.getUIComponent();
-
-        if (uiComponent instanceof FragmentActivity) {
-            final FragmentActivity fragmentActivity;
-            fragmentActivity = (FragmentActivity) uiComponent;
-            fragmentActivity.setIntent(intent);
-            UINavigatorController.initMainRoute(fragmentActivity);
-        }
+        this.mUINavigatorLauncher = new UINavigatorLauncher(uiPageController);
     }
 
     @NonNull
@@ -529,7 +511,7 @@ public class UINavigatorController {
 
     @NonNull
     public final UINavigatorController launch(@NonNull String className) {
-        return this.launch(className, null);
+        return this.launch(className, (Bundle) null);
     }
 
     @NonNull
@@ -538,7 +520,12 @@ public class UINavigatorController {
     }
 
     @NonNull
-    public UINavigatorController launch(@NonNull String className, @Nullable Bundle arguments, @Nullable Bundle options) {
+    public final UINavigatorController launch(@NonNull String className, @Nullable ActivityOptionsCompat options) {
+        return this.launch(className, null, options);
+    }
+
+    @NonNull
+    public UINavigatorController launch(@NonNull String className, @Nullable Bundle arguments, @Nullable ActivityOptionsCompat options) {
         final Class<?> tClass = this.generateClassForName(className);
         if (tClass == null) {
             throw new IllegalStateException("Not found class: " + className);
@@ -555,25 +542,30 @@ public class UINavigatorController {
     // launchForResult
 
     @NonNull
-    public final UINavigatorController launchForResult(@NonNull String className, int requestCode) {
-        return this.launchForResult(className, requestCode, null);
+    public final ResultContract launchForResult(@NonNull String className) {
+        return this.launchForResult(className, (Bundle) null);
     }
 
     @NonNull
-    public final UINavigatorController launchForResult(@NonNull String className, int requestCode, @Nullable Bundle arguments) {
-        return this.launchForResult(className, requestCode, arguments, null);
+    public final ResultContract launchForResult(@NonNull String className, @Nullable Bundle arguments) {
+        return this.launchForResult(className, arguments, null);
     }
 
     @NonNull
-    public UINavigatorController launchForResult(@NonNull String className, int requestCode, @Nullable Bundle arguments, @Nullable Bundle options) {
+    public final ResultContract launchForResult(@NonNull String className, @Nullable ActivityOptionsCompat options) {
+        return this.launchForResult(className, null, options);
+    }
+
+    @NonNull
+    public ResultContract launchForResult(@NonNull String className, @Nullable Bundle arguments, @Nullable ActivityOptionsCompat options) {
         final Class<?> tClass = this.generateClassForName(className);
         if (tClass == null) {
             throw new IllegalStateException("Not found class: " + className);
         }
         if (Fragment.class.isAssignableFrom(tClass)) {
-            return this.startFragmentForResult((Class<? extends Fragment>) tClass, requestCode, arguments, options);
+            return this.startFragmentForResult((Class<? extends Fragment>) tClass, arguments, options);
         } else if (Activity.class.isAssignableFrom(tClass)) {
-            return this.startActivityForResult((Class<? extends Activity>) tClass, requestCode, arguments, options);
+            return this.startActivityForResult((Class<? extends Activity>) tClass, arguments, options);
         } else {
             throw new IllegalStateException("Not supported");
         }
@@ -583,7 +575,7 @@ public class UINavigatorController {
 
     @NonNull
     public final UINavigatorController startFragment(@NonNull Class<? extends Fragment> fragmentClass) {
-        return this.startFragment(fragmentClass, null);
+        return this.startFragment(fragmentClass, (Bundle) null);
     }
 
     @NonNull
@@ -592,7 +584,12 @@ public class UINavigatorController {
     }
 
     @NonNull
-    public UINavigatorController startFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle arguments, @Nullable Bundle options) {
+    public final UINavigatorController startFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable ActivityOptionsCompat options) {
+        return this.startFragment(fragmentClass, null, options);
+    }
+
+    @NonNull
+    public UINavigatorController startFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle arguments, @Nullable ActivityOptionsCompat options) {
         final Context context = this.mUIPageController.requireContext();
         return this.startActivity(parseFragmentRouteIntent(context, fragmentClass), arguments, options);
     }
@@ -600,26 +597,31 @@ public class UINavigatorController {
     // startFragmentForResult
 
     @NonNull
-    public final UINavigatorController startFragmentForResult(@NonNull Class<? extends Fragment> fragmentClass, int requestCode) {
-        return this.startFragmentForResult(fragmentClass, requestCode, null);
+    public final ResultContract startFragmentForResult(@NonNull Class<? extends Fragment> fragmentClass) {
+        return this.startFragmentForResult(fragmentClass, (Bundle) null);
     }
 
     @NonNull
-    public final UINavigatorController startFragmentForResult(@NonNull Class<? extends Fragment> fragmentClass, int requestCode, @Nullable Bundle arguments) {
-        return this.startFragmentForResult(fragmentClass, requestCode, arguments, null);
+    public final ResultContract startFragmentForResult(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle arguments) {
+        return this.startFragmentForResult(fragmentClass, arguments, null);
     }
 
     @NonNull
-    public UINavigatorController startFragmentForResult(@NonNull Class<? extends Fragment> fragmentClass, int requestCode, @Nullable Bundle arguments, @Nullable Bundle options) {
+    public final ResultContract startFragmentForResult(@NonNull Class<? extends Fragment> fragmentClass, @Nullable ActivityOptionsCompat options) {
+        return this.startFragmentForResult(fragmentClass, null, options);
+    }
+
+    @NonNull
+    public ResultContract startFragmentForResult(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle arguments, @Nullable ActivityOptionsCompat options) {
         final Context context = this.mUIPageController.requireContext();
-        return this.startActivityForResult(parseFragmentRouteIntent(context, fragmentClass), requestCode, arguments, options);
+        return this.startActivityForResult(parseFragmentRouteIntent(context, fragmentClass), arguments, options);
     }
 
     // startActivity
 
     @NonNull
     public final UINavigatorController startActivity(@NonNull Class<? extends Activity> activityClass) {
-        return this.startActivity(activityClass, null);
+        return this.startActivity(activityClass, (Bundle) null);
     }
 
     @NonNull
@@ -628,14 +630,19 @@ public class UINavigatorController {
     }
 
     @NonNull
-    public final UINavigatorController startActivity(@NonNull Class<? extends Activity> activityClass, @Nullable Bundle arguments, @Nullable Bundle options) {
+    public final UINavigatorController startActivity(@NonNull Class<? extends Activity> activityClass, @Nullable ActivityOptionsCompat options) {
+        return this.startActivity(activityClass, null, options);
+    }
+
+    @NonNull
+    public final UINavigatorController startActivity(@NonNull Class<? extends Activity> activityClass, @Nullable Bundle arguments, @Nullable ActivityOptionsCompat options) {
         final Context context = this.mUIPageController.requireContext();
         return this.startActivity(parseActivityRouteIntent(context, activityClass), arguments, options);
     }
 
     @NonNull
     public final UINavigatorController startActivity(@NonNull Intent intent) {
-        return this.startActivity(intent, null);
+        return this.startActivity(intent, (Bundle) null);
     }
 
     @NonNull
@@ -644,67 +651,61 @@ public class UINavigatorController {
     }
 
     @NonNull
-    public UINavigatorController startActivity(@NonNull Intent intent, @Nullable Bundle arguments, @Nullable Bundle options) {
-        final UINavigatorOptions uiNavigatorOptions = this.mUINavigatorOptions;
-        intent.putExtra(KEY_POP_ENTER_ANIM, uiNavigatorOptions.getPopEnterAnim());
-        intent.putExtra(KEY_POP_EXIT_ANIM, uiNavigatorOptions.getPopExitAnim());
-        intent.putExtra(KEY_NAV_DATA, arguments);
+    public final UINavigatorController startActivity(@NonNull Intent intent, @Nullable ActivityOptionsCompat options) {
+        return this.startActivity(intent, null, options);
+    }
 
-        final UIPageController.UIComponent uiComponent = this.mUIPageController.getUIComponent();
-        if (uiComponent instanceof Fragment) {
-            ((Fragment) uiComponent).startActivity(intent, options);
-        } else if (uiComponent instanceof FragmentActivity) {
-            ((FragmentActivity) uiComponent).startActivity(intent, options);
-        } else {
-            throw new IllegalStateException("ERROR UIComponent");
-        }
-        return this.overridePendingTransition();
+    @NonNull
+    public UINavigatorController startActivity(@NonNull Intent intent, @Nullable Bundle arguments, @Nullable ActivityOptionsCompat options) {
+        this.startActivityForResult(intent, arguments, options);
+        return this;
     }
 
     // startActivityForResult
 
     @NonNull
-    public final UINavigatorController startActivityForResult(@NonNull Class<? extends Activity> activityClass, int requestCode) {
-        return this.startActivityForResult(activityClass, requestCode, null);
+    public final ResultContract startActivityForResult(@NonNull Class<? extends Activity> activityClass) {
+        return this.startActivityForResult(activityClass, (Bundle) null);
     }
 
     @NonNull
-    public final UINavigatorController startActivityForResult(@NonNull Class<? extends Activity> activityClass, int requestCode, @Nullable Bundle arguments) {
-        return this.startActivityForResult(activityClass, requestCode, arguments, null);
+    public final ResultContract startActivityForResult(@NonNull Class<? extends Activity> activityClass, @Nullable Bundle arguments) {
+        return this.startActivityForResult(activityClass, arguments, null);
     }
 
     @NonNull
-    public final UINavigatorController startActivityForResult(@NonNull Class<? extends Activity> activityClass, int requestCode, @Nullable Bundle arguments, @Nullable Bundle options) {
+    public final ResultContract startActivityForResult(@NonNull Class<? extends Activity> activityClass, @Nullable ActivityOptionsCompat options) {
+        return this.startActivityForResult(activityClass, null, options);
+    }
+
+    @NonNull
+    public final ResultContract startActivityForResult(@NonNull Class<? extends Activity> activityClass, @Nullable Bundle arguments, @Nullable ActivityOptionsCompat options) {
         final Context context = this.mUIPageController.requireContext();
-        return this.startActivityForResult(parseActivityRouteIntent(context, activityClass), requestCode, arguments, options);
+        return this.startActivityForResult(parseActivityRouteIntent(context, activityClass), arguments, options);
     }
 
     @NonNull
-    public final UINavigatorController startActivityForResult(@NonNull Intent intent, int requestCode) {
-        return this.startActivityForResult(intent, requestCode, null);
+    public final ResultContract startActivityForResult(@NonNull Intent intent) {
+        return this.startActivityForResult(intent, (Bundle) null);
     }
 
     @NonNull
-    public final UINavigatorController startActivityForResult(@NonNull Intent intent, int requestCode, @Nullable Bundle arguments) {
-        return this.startActivityForResult(intent, requestCode, arguments, null);
+    public final ResultContract startActivityForResult(@NonNull Intent intent, @Nullable Bundle arguments) {
+        return this.startActivityForResult(intent, arguments, null);
     }
 
     @NonNull
-    public UINavigatorController startActivityForResult(@NonNull Intent intent, int requestCode, @Nullable Bundle arguments, @Nullable Bundle options) {
+    public final ResultContract startActivityForResult(@NonNull Intent intent, @Nullable ActivityOptionsCompat options) {
+        return this.startActivityForResult(intent, null, options);
+    }
+
+    @NonNull
+    public ResultContract startActivityForResult(@NonNull Intent intent, @Nullable Bundle arguments, @Nullable ActivityOptionsCompat options) {
         final UINavigatorOptions uiNavigatorOptions = this.mUINavigatorOptions;
         intent.putExtra(KEY_POP_ENTER_ANIM, uiNavigatorOptions.getPopEnterAnim());
         intent.putExtra(KEY_POP_EXIT_ANIM, uiNavigatorOptions.getPopExitAnim());
         intent.putExtra(KEY_NAV_DATA, arguments);
-
-        final UIPageController.UIComponent uiComponent = this.mUIPageController.getUIComponent();
-        if (uiComponent instanceof Fragment) {
-            ((Fragment) uiComponent).startActivityForResult(intent, requestCode, options);
-        } else if (uiComponent instanceof FragmentActivity) {
-            ((FragmentActivity) uiComponent).startActivityForResult(intent, requestCode, options);
-        } else {
-            throw new IllegalStateException("ERROR UIComponent");
-        }
-        return this.overridePendingTransition();
+        return this.mUINavigatorLauncher.launch(intent, options);
     }
 
     @NonNull
@@ -927,25 +928,96 @@ public class UINavigatorController {
         return intent;
     }
 
-    private final class UINavigatorEvent extends UIActivityCallback implements DefaultLifecycleObserver {
-        private UINavigatorEvent() {
+    private final class UINavigatorLauncher extends UIActivityCallback implements ResultContract,
+            DefaultLifecycleObserver {
+        @Nullable
+        private ResultCallback mResultCallback;
+        @Nullable
+        private ActivityResultLauncher<Intent> mActivityResultLauncher;
+
+        private UINavigatorLauncher(@NonNull UIPageController uiPageController) {
             super(/* Enabled */ true);
+            final LifecycleOwner owner = uiPageController.getUIComponent();
+            final Lifecycle l = owner.getLifecycle();
+            l.addObserver(this);
+
+            final UIActivityDispatcher ad = uiPageController.getUIActivityDispatcher();
+            if (ad != null) {
+                ad.addCallback(l, this);
+            }
+        }
+
+        @Override
+        public void onCreate(@NonNull LifecycleOwner owner) {
+            final ActivityResultContract<Intent, ActivityResult> contract;
+            contract = new ActivityResultContracts.StartActivityForResult();
+            this.mActivityResultLauncher = registerForActivityResult(contract, it -> {
+                // 执行结果回调
+                this.dispatchOnResult(it.getResultCode(), it.getData());
+            });
         }
 
         @Override
         public void onNewIntent(@NonNull Intent intent) {
-            UINavigatorController.this.onNewIntent(intent);
+            final UIPageController.UIComponent uiComponent;
+            uiComponent = getUIPageController().getUIComponent();
+
+            if (uiComponent instanceof FragmentActivity) {
+                final FragmentActivity fragmentActivity;
+                fragmentActivity = (FragmentActivity) uiComponent;
+                fragmentActivity.setIntent(intent);
+                UINavigatorController.initMainRoute(fragmentActivity);
+            }
         }
 
         @Override
         public boolean onBackPressed() {
-            return UINavigatorController.this.navigateUp();
+            return navigateUp();
         }
 
         @Override
-        public void onDestroy(@NonNull LifecycleOwner owner) {
-            final Lifecycle l = owner.getLifecycle();
-            l.removeObserver(this);
+        public void listen(@Nullable ResultCallback callback) {
+            this.mResultCallback = callback;
         }
+
+        @NonNull
+        public UINavigatorLauncher launch(@NonNull Intent intent,
+                                          @Nullable ActivityOptionsCompat options) {
+            if (this.mActivityResultLauncher != null) {
+                this.mActivityResultLauncher.launch(intent, options);
+                overridePendingTransition();
+            }
+            return this;
+        }
+
+        private void dispatchOnResult(int resultCode, @Nullable Intent data) {
+            if (this.mResultCallback != null) {
+                this.mResultCallback.onResult(resultCode, data);
+                this.mResultCallback = null;
+            }
+        }
+    }
+
+    public interface ResultContract {
+        /**
+         * 监听回执
+         *
+         * @param callback 结果回执
+         */
+        void listen(@Nullable ResultCallback callback);
+    }
+
+    public interface ResultCallback {
+        /**
+         * <pre>
+         * 状态码:
+         * @see Activity#RESULT_OK
+         * @see Activity#RESULT_CANCELED
+         * </pre>
+         *
+         * @param resultCode 状态码
+         * @param data       源数据
+         */
+        void onResult(int resultCode, @Nullable Intent data);
     }
 }
