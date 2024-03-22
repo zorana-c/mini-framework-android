@@ -19,4 +19,7 @@
     <color name="colorStatusBar">@android:color/transparent</color>
     <!-- 导航栏颜色-->
     <color name="colorNavigationBar">@android:color/transparent</color>
+
+    <!-- 金额颜色-->
+    <color name="colorAmount">#fff91c12</color>
 </resources>

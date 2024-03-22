@@ -27,36 +27,29 @@ public class EditTextContainer extends SliverContainer {
         this(context, null);
     }
 
-    public EditTextContainer(@NonNull Context context,
-                             @Nullable AttributeSet attrs) {
+    public EditTextContainer(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public EditTextContainer(@NonNull Context context,
-                             @Nullable AttributeSet attrs, int defStyleAttr) {
+    public EditTextContainer(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        final LayoutParams layoutParams;
-        layoutParams = this.generateDefaultLayoutParams();
+        final LayoutParams layoutParams = this.generateDefaultLayoutParams();
         layoutParams.width = LayoutParams.MATCH_PARENT;
         layoutParams.height = LayoutParams.MATCH_PARENT;
 
-        final LinearLayoutCompat linearLayout;
-        linearLayout = new LinearLayoutCompat(context);
+        final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
         linearLayout.setOrientation(LinearLayoutCompat.VERTICAL);
         linearLayout.setLayoutParams(layoutParams);
         this.attachViewToParent(linearLayout, 0, layoutParams);
         this.mContainer = linearLayout;
 
-        final LinearLayoutCompat.LayoutParams cLayoutParam;
-        cLayoutParam = new LinearLayoutCompat.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        final LinearLayoutCompat.LayoutParams cLayoutParam = new LinearLayoutCompat.LayoutParams(
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT);
         cLayoutParam.weight = 1.f;
         final View occupyingView = new View(context);
         occupyingView.setLayoutParams(cLayoutParam);
-        occupyingView.setOnClickListener(widget -> {
-            this.dismiss();
-        });
+        occupyingView.setOnClickListener(widget -> this.dismiss());
         this.addView(occupyingView);
         this.setUserScrollEnabled(false);
         this.setBackgroundColor(Color.TRANSPARENT);
@@ -71,8 +64,7 @@ public class EditTextContainer extends SliverContainer {
     }
 
     @Override
-    public void addView(@NonNull View child,
-                        @NonNull ViewGroup.LayoutParams params) {
+    public void addView(@NonNull View child, @NonNull ViewGroup.LayoutParams params) {
         if (this.mContainer.getChildCount() > 1) {
             throw new IllegalStateException("Container can host only one direct child");
         }
@@ -80,18 +72,11 @@ public class EditTextContainer extends SliverContainer {
     }
 
     @Override
-    public void addView(@NonNull View child, int index,
-                        @NonNull ViewGroup.LayoutParams params) {
+    public void addView(@NonNull View child, int index, @NonNull ViewGroup.LayoutParams params) {
         if (this.mContainer.getChildCount() > 1) {
             throw new IllegalStateException("Container can host only one direct child");
         }
         this.mContainer.addView(child, index, params);
-    }
-
-    public void dismiss() {
-        if (this.mDismissEnforcement != null) {
-            this.mDismissEnforcement.dismiss();
-        }
     }
 
     @Nullable
@@ -101,6 +86,12 @@ public class EditTextContainer extends SliverContainer {
 
     public void setDismissEnforcement(@Nullable DismissEnforcement enforcement) {
         this.mDismissEnforcement = enforcement;
+    }
+
+    public final void dismiss() {
+        if (this.mDismissEnforcement != null) {
+            this.mDismissEnforcement.dismiss();
+        }
     }
 
     public interface DismissEnforcement {

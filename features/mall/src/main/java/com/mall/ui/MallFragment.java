@@ -8,8 +8,10 @@ import androidx.annotation.Nullable;
 
 import com.framework.core.compat.UIRes;
 import com.framework.core.content.UIActionBarController;
+import com.framework.core.rx.view.RxView;
 import com.framework.core.ui.abs.UIDecorFragment;
 import com.mall.R;
+import com.mall.ui.detail.DetailFragment;
 
 /**
  * @Author create by Zhengzelong on 2024-01-30
@@ -32,6 +34,12 @@ public class MallFragment extends UIDecorFragment {
         View view;
         view = this.getView();
         view.setBackgroundColor(UIRes.getColor(R.color.colorBackground));
+
+        RxView.of(this)
+                .click(it -> {
+                    this.getUINavigatorController()
+                            .startFragment(DetailFragment.class);
+                }, R.id.detail);
     }
 
     @Override
