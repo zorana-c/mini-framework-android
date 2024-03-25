@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.framework.widget.expand.ExpandableRecyclerView;
 
@@ -86,6 +87,13 @@ public class BannerRecyclerView extends ExpandableRecyclerView {
         final LayoutManager layoutManager = this.getLayoutManager();
         if (layoutManager instanceof BannerLayoutManager) {
             ((BannerLayoutManager) layoutManager).setLifecycle(owner);
+        }
+    }
+
+    public void setOrientation(@RecyclerView.Orientation int orientation) {
+        final LayoutManager layoutManager = this.getLayoutManager();
+        if (layoutManager instanceof BannerLayoutManager) {
+            ((BannerLayoutManager) layoutManager).setOrientation(orientation);
         }
     }
 }
