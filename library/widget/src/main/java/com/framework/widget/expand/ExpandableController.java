@@ -122,6 +122,7 @@ final class ExpandableController<VH extends ExpandableRecyclerView.ViewHolder> {
             holder.mGroupPosition = groupPosition;
             holder.mChildPosition = childPosition;
             holder.mItemLetter = this.getItemLetter(positionMetadata);
+            holder.onInit(payloads);
 
             switch (positionType) {
                 case PositionType.TYPE_HEAD:

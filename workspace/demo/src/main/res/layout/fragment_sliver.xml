@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            app:layoutManager="com.framework.widget.recycler.banner.BannerLayoutManager"
             tools:itemCount="20"
             tools:listitem="@layout/item_match_layout" />
 
@@ -37,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:orientation="horizontal"
-        app:layoutManager="com.framework.widget.recycler.banner.MarqueeLayoutManager"
         tools:itemCount="20"
         tools:listitem="@layout/item_match_2_layout" />
 

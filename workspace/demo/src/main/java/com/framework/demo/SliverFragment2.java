@@ -29,7 +29,6 @@ import com.framework.demo.widget.CustomRefreshLoadView;
 import com.framework.widget.ScrollingIndicatorView;
 import com.framework.widget.compat.UIViewCompat;
 import com.framework.widget.recycler.banner.BannerIndicatorView;
-import com.framework.widget.recycler.banner.BannerLayoutManager;
 import com.framework.widget.recycler.banner.BannerRecyclerView;
 import com.framework.widget.sliver.SliverContainer;
 import com.framework.widget.sliver.SliverRefreshLayout;
@@ -93,30 +92,22 @@ public class SliverFragment2 extends UIDecorFragment {
     }
 
     private void initBanner() {
-        final Context c = this.requireContext();
         final BannerRecyclerView brv;
         brv = this.requireViewById(R.id.bannerRecyclerView);
-
-        BannerLayoutManager blm = (BannerLayoutManager) brv.getLayoutManager();
-        if (blm == null) {
-            blm = new BannerLayoutManager(c);
-
-            brv.setLayoutManager(blm);
-        }
-        blm.setLifecycle(this);
 
         SliverBannerAdapter sba = (SliverBannerAdapter) brv.getAdapter();
         if (sba == null) {
             sba = new SliverBannerAdapter();
 
             brv.setHasFixedSize(true);
+            brv.setLifecycle(this);
             brv.setAdapter(sba);
+
+            final BannerIndicatorView biv;
+            biv = this.requireViewById(R.id.bannerIndicatorView);
+            biv.attachToRecyclerView(brv);
         }
         sba.getUIListDataController().setAll(Arrays.asList(_urls));
-
-        final BannerIndicatorView biv;
-        biv = this.requireViewById(R.id.bannerIndicatorView);
-        biv.attachToRecyclerView(brv);
     }
 
     private void initHorList() {

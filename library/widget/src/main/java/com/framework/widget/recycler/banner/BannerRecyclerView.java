@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.framework.widget.expand.ExpandableRecyclerView;
 
@@ -30,6 +31,11 @@ public class BannerRecyclerView extends ExpandableRecyclerView {
 
     public BannerRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        LayoutManager layoutManager = this.getLayoutManager();
+        if (layoutManager == null) {
+            layoutManager = new BannerLayoutManager(context, attrs);
+        }
+        this.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -74,5 +80,12 @@ public class BannerRecyclerView extends ExpandableRecyclerView {
 
     public void setUserScrollEnabled(boolean enabled) {
         this.mIsUserScrollEnabled = enabled;
+    }
+
+    public void setLifecycle(@NonNull LifecycleOwner owner) {
+        final LayoutManager layoutManager = this.getLayoutManager();
+        if (layoutManager instanceof BannerLayoutManager) {
+            ((BannerLayoutManager) layoutManager).setLifecycle(owner);
+        }
     }
 }

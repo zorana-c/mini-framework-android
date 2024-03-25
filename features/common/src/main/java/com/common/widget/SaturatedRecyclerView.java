@@ -29,7 +29,7 @@ public class SaturatedRecyclerView extends ExpandableRecyclerView {
         super(context, attrs, defStyleAttr);
         LayoutManager layoutManager = this.getLayoutManager();
         if (layoutManager == null) {
-            layoutManager = new LinearLayoutManager(context);
+            layoutManager = new LinearLayoutManager(context, attrs, defStyleAttr, 0);
         }
         this.setLayoutManager(layoutManager);
         this.setNestedScrollingEnabled(false);

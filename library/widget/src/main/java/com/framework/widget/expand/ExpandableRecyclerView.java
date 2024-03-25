@@ -429,6 +429,11 @@ public class ExpandableRecyclerView extends SliverRecyclerView {
         }
 
         @CallSuper
+        public void onInit(@NonNull List<Object> payloads) {
+            // nothing
+        }
+
+        @CallSuper
         public void onRecycled() {
             // nothing
         }
