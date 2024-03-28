@@ -390,13 +390,13 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> addHeadComponent(@NonNull ItemComponent<ViewHolder<T>> component) {
+    public final UIListController<T> addHeadComponent(@NonNull ItemComponent<? extends ViewHolder<T>> component) {
         return this.addHeadComponent(-1, component);
     }
 
     @NonNull
-    public final UIListController<T> addHeadComponent(int index, @NonNull ItemComponent<ViewHolder<T>> component) {
-        this.getUIHeadComponentController().add(index, component);
+    public final UIListController<T> addHeadComponent(int index, @NonNull ItemComponent<? extends ViewHolder<T>> component) {
+        this.getUIHeadComponentController().add(index, (ItemComponent<ViewHolder<T>>) component);
         return this;
     }
 
@@ -407,8 +407,8 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> removeHeadComponent(@NonNull ItemComponent<ViewHolder<T>> component) {
-        this.getUIHeadComponentController().remove(component);
+    public final UIListController<T> removeHeadComponent(@NonNull ItemComponent<? extends ViewHolder<T>> component) {
+        this.getUIHeadComponentController().remove((ItemComponent<ViewHolder<T>>) component);
         return this;
     }
 
@@ -423,13 +423,13 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> addTailComponent(@NonNull ItemComponent<ViewHolder<T>> component) {
+    public final UIListController<T> addTailComponent(@NonNull ItemComponent<? extends ViewHolder<T>> component) {
         return this.addTailComponent(-1, component);
     }
 
     @NonNull
-    public final UIListController<T> addTailComponent(int index, @NonNull ItemComponent<ViewHolder<T>> component) {
-        this.getUITailComponentController().add(index, component);
+    public final UIListController<T> addTailComponent(int index, @NonNull ItemComponent<? extends ViewHolder<T>> component) {
+        this.getUITailComponentController().add(index, (ItemComponent<ViewHolder<T>>) component);
         return this;
     }
 
@@ -440,8 +440,8 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> removeTailComponent(@NonNull ItemComponent<ViewHolder<T>> component) {
-        this.getUITailComponentController().remove(component);
+    public final UIListController<T> removeTailComponent(@NonNull ItemComponent<? extends ViewHolder<T>> component) {
+        this.getUITailComponentController().remove((ItemComponent<ViewHolder<T>>) component);
         return this;
     }
 
@@ -451,11 +451,11 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> setEmptyComponent(@Nullable ItemComponent<ViewHolder<T>> component) {
+    public final UIListController<T> setEmptyComponent(@Nullable ItemComponent<? extends ViewHolder<T>> component) {
         if (component == null) {
             this.getUIEmptyComponentController().removeAll();
         } else {
-            this.getUIEmptyComponentController().set(component);
+            this.getUIEmptyComponentController().set((ItemComponent<ViewHolder<T>>) component);
         }
         return this;
     }

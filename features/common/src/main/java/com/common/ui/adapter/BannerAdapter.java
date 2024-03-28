@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.common.R;
-import com.common.bean.Banner;
+import com.common.bean.IBanner;
 import com.framework.core.ui.adapter.UIExpandableAdapter;
 import com.framework.core.widget.UIImageView;
 
@@ -15,7 +15,7 @@ import com.framework.core.widget.UIImageView;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class BannerAdapter<T extends Banner> extends UIExpandableAdapter<T> {
+public class BannerAdapter<T extends IBanner> extends UIExpandableAdapter<T> {
     @NonNull
     @Override
     public View onCreateGroupItemView(@NonNull ViewGroup parent, int itemViewType) {

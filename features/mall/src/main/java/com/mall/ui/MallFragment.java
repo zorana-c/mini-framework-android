@@ -11,7 +11,7 @@ import com.framework.core.content.UIActionBarController;
 import com.framework.core.rx.view.RxView;
 import com.framework.core.ui.abs.UIDecorFragment;
 import com.mall.R;
-import com.mall.ui.detail.DetailFragment;
+import com.mall.ui.commodity.CommodityDetailFragment;
 
 /**
  * @Author create by Zhengzelong on 2024-01-30
@@ -38,7 +38,7 @@ public class MallFragment extends UIDecorFragment {
         RxView.of(this)
                 .click(it -> {
                     this.getUINavigatorController()
-                            .startFragment(DetailFragment.class);
+                            .startFragment(CommodityDetailFragment.class);
                 }, R.id.detail);
     }
 

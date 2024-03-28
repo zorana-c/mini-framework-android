@@ -7,5 +7,5 @@ import com.framework.core.bean.UIModelInterface;
  * @Email : 171905184@qq.com
  * @Description : 轮播图模型
  */
-public class Banner implements UIModelInterface {
+public interface IBanner extends UIModelInterface {
 }
