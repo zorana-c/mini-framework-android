@@ -129,4 +129,19 @@ public class StaggeredGridLayoutManager extends androidx.recyclerview.widget.Sta
         }
         return PositionType.TYPE_NONE;
     }
+
+    public final int getRetItemViewType(@NonNull View itemView) {
+        final RecyclerView recyclerView = this.recyclerView;
+        if (recyclerView == null) {
+            return -1;
+        }
+        final RecyclerView.ViewHolder holder;
+        holder = recyclerView.getChildViewHolder(itemView);
+        if (holder instanceof ExpandableRecyclerView.ViewHolder) {
+            final ExpandableRecyclerView.ViewHolder expHolder;
+            expHolder = (ExpandableRecyclerView.ViewHolder) holder;
+            return (expHolder).getRetItemViewType();
+        }
+        return holder.getItemViewType();
+    }
 }
