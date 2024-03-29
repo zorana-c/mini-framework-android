@@ -91,7 +91,11 @@ public class BannerLayoutManager extends PagerLayoutManager {
     public void onAdapterChanged(@Nullable RecyclerView.Adapter oldAdapter,
                                  @Nullable RecyclerView.Adapter newAdapter) {
         super.onAdapterChanged(oldAdapter, newAdapter);
-        this.restorePendingPlayState();
+        if (newAdapter == null) {
+            this.destroyPlay();
+        } else {
+            this.restorePendingPlayState();
+        }
     }
 
     @Override
