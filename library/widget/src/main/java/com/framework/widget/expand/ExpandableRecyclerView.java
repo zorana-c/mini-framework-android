@@ -448,6 +448,16 @@ public class ExpandableRecyclerView extends SliverRecyclerView {
             // nothing
         }
 
+        public boolean onItemClick(@NonNull View target) {
+            // nothing
+            return false;
+        }
+
+        public boolean onItemLongClick(@NonNull View target) {
+            // nothing
+            return false;
+        }
+
         @PositionType
         public final int getPositionType() {
             return this.mPositionType;
@@ -616,6 +626,9 @@ public class ExpandableRecyclerView extends SliverRecyclerView {
                     || recyclerView.isAnimating()) {
                 return;
             }
+            if (this.onItemClick(target)) {
+                return;
+            }
             recyclerView.dispatchOnItemClick(this, target);
         }
 
@@ -625,6 +638,9 @@ public class ExpandableRecyclerView extends SliverRecyclerView {
             if (recyclerView == null
                     || recyclerView.isAnimating()) {
                 return false;
+            }
+            if (this.onItemLongClick(target)) {
+                return true;
             }
             return recyclerView.dispatchOnItemLongClick(this, target);
         }
