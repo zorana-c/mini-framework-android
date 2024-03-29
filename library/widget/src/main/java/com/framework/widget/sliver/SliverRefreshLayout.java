@@ -712,10 +712,16 @@ public class SliverRefreshLayout extends SliverContainer {
                 + "\n[InheritScrollParent=" + this.getInheritScrollParent() + "]"
                 + "\n[InheritScrollTarget=" + this.getInheritScrollTarget() + "]"
         );
-        return SCROLL_STATE_DRAGGING == this.getScrollState()
-                || SliverCompat.SCROLL_AXIS_NONE != this.getSliverScrollAxes()
+        final int scrollState = this.getScrollState();
+        if (SCROLL_STATE_DRAGGING == scrollState
                 || SliverCompat.SCROLL_AXIS_NONE != this.getNestedScrollAxes()
-                || SliverCompat.SCROLL_AXIS_NONE != this.getInheritScrollAxes();
+                || SliverCompat.SCROLL_AXIS_NONE != this.getInheritScrollAxes()) {
+            return true;
+        }
+        if (SCROLL_STATE_SETTLING == scrollState) {
+            return false;
+        }
+        return SliverCompat.SCROLL_AXIS_NONE != this.getSliverScrollAxes();
     }
 
     private void dispatchOnRefresh(int locate) {
