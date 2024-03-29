@@ -14,6 +14,7 @@ import com.framework.core.rx.view.RxView;
 import com.framework.core.ui.abs.UIFragment;
 import com.guide.R;
 import com.guide.bean.GuideStatus;
+import com.guide.constant.Constants;
 import com.guide.ui.adapter.GuidePagerAdapter;
 
 /**
@@ -36,7 +37,7 @@ public class GuideFragment extends UIFragment {
     @Override
     public void onUIRefresh(@Nullable Bundle savedInstanceState) {
         final Bundle args = this.requireArguments();
-        final int[] data = args.getIntArray("Data");
+        final int[] data = args.getIntArray(Constants.KEY_PARAM);
         if (data == null) {
             throw new IllegalStateException("Parameter abnormality");
         }

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.common.route.MallRoute;
+import com.common.route.IMallRoute;
 import com.framework.core.route.UIRoute;
 import com.google.auto.service.AutoService;
 
@@ -14,7 +14,7 @@ import com.google.auto.service.AutoService;
  * @Description :
  */
 @AutoService(UIRoute.class)
-public class MallRouteImpl implements MallRoute {
+public class MallRouteImpl implements IMallRoute {
     @Override
     public void init(@NonNull Context context) {
         MallInit.init(context);

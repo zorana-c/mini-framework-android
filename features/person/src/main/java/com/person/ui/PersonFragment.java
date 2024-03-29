@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-import com.common.route.AppRoute;
+import com.common.route.IAppRoute;
 import com.framework.core.content.UIActionBarController;
 import com.framework.core.content.UIDecorController;
 import com.framework.core.content.UIDecorOptions;
@@ -85,8 +85,7 @@ public class PersonFragment extends UIDecorFragment {
     private void onClick(@NonNull View view) {
         final int id = view.getId();
         if (R.id.functs == id) {
-            AppRoute.get()
-                    .getDrawerController(this)
+            IAppRoute.drawerController(this)
                     .openSubtleComponent();
         }
     }

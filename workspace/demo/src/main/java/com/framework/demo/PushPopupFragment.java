@@ -8,7 +8,7 @@ import android.widget.PopupWindow;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.common.route.ChatRoute;
+import com.common.route.IChatRoute;
 import com.framework.core.rx.view.RxView;
 import com.framework.core.ui.abs.UIDecorPopupFragment;
 import com.navigation.floating.UIPopupFragmentCompat;
@@ -71,9 +71,7 @@ public class PushPopupFragment extends UIDecorPopupFragment {
     }
 
     private void navChatFragment() {
-        ChatRoute.get().startChat(this, ChatRoute.obtain()
-                .setChatId(String.valueOf(System.currentTimeMillis()))
-                .setChatType(ChatRoute.TYPE_CHAT));
+        IChatRoute.navigator().pushChat(this);
     }
 
     private void navChildFragment() {

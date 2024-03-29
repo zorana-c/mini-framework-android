@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.common.route.AppRoute;
+import com.common.route.IAppRoute;
 import com.framework.core.compat.UILog;
 import com.framework.core.compat.UIRes;
 import com.framework.core.content.UIActionBarController;
@@ -34,7 +34,7 @@ import com.metamedia.constant.Constants;
  * @Description :
  */
 public class CommentFragment extends UIListFragment<String>
-        implements AppRoute.DrawerCallback {
+        implements IAppRoute.IDrawerCallback {
     @NonNull
     public static Bundle asBundle(@NonNull String commentId) {
         final Bundle args = new Bundle();
@@ -128,8 +128,7 @@ public class CommentFragment extends UIListFragment<String>
         uiActionBarController.setTitleTextColor(Color.BLACK);
         uiActionBarController.setBackgroundColor(Color.WHITE);
         uiActionBarController.setBackClickListener(widget -> {
-            AppRoute.get()
-                    .getDrawerController(this)
+            IAppRoute.drawerController(this)
                     .closeDrawerComponent(this);
         });
 

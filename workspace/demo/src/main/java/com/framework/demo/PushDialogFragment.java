@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
 
-import com.common.route.ChatRoute;
+import com.common.route.IChatRoute;
 import com.framework.core.rx.view.RxView;
 import com.framework.core.ui.abs.UIDecorDialogFragment;
 import com.navigation.floating.UIDialogFragmentCompat;
@@ -68,9 +68,7 @@ public class PushDialogFragment extends UIDecorDialogFragment {
     }
 
     private void navChatFragment() {
-        ChatRoute.get().startChat(this, ChatRoute.obtain()
-                .setChatId(String.valueOf(System.currentTimeMillis()))
-                .setChatType(ChatRoute.TYPE_CHAT));
+        IChatRoute.navigator().pushChat(this);
     }
 
     private void navChildFragment() {

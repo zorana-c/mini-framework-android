@@ -13,7 +13,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager.widget.ViewPager;
 
-import com.common.route.AppRoute;
+import com.common.route.IAppRoute;
 import com.framework.core.content.UIPageController;
 import com.framework.core.content.UIPageControllerOwner;
 import com.framework.widget.drawer.DrawerLayout;
@@ -26,7 +26,7 @@ import com.tiktok.app.R;
  * @Description :
  */
 public class MainController implements
-        AppRoute.DrawerController, DrawerLayout.DrawerListener {
+        IAppRoute.IDrawerController, DrawerLayout.DrawerListener {
     @NonNull
     public static MainController with(@NonNull UIPageControllerOwner owner) {
         return new MainController(owner.getUIPageController());
@@ -240,8 +240,8 @@ public class MainController implements
 
     private void dispatchOnNewArguments(@NonNull Fragment fragment,
                                         @NonNull Bundle arguments) {
-        if (fragment instanceof AppRoute.DrawerCallback) {
-            ((AppRoute.DrawerCallback) fragment).onNewArguments(arguments);
+        if (fragment instanceof IAppRoute.IDrawerCallback) {
+            ((IAppRoute.IDrawerCallback) fragment).onNewArguments(arguments);
         } else {
             throw new IllegalStateException(
                     "Not has implements AppRoute.DrawerCallback!");

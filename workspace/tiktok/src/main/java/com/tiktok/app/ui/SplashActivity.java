@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.common.route.GuideRoute;
+import com.common.route.IGuideRoute;
 import com.framework.core.compat.UILog;
 import com.framework.core.rx.permission.RxPermission;
 import com.framework.core.ui.abs.UIFragmentActivity;
@@ -70,7 +70,7 @@ public class SplashActivity extends UIFragmentActivity {
     }
 
     private void launchMainPage() {
-        if (GuideRoute.get().startGuide(this, Constants.GUIDES)) {
+        if (IGuideRoute.navigator().pushGuide(this, Constants.GUIDES)) {
             return;
         }
         this.getUINavigatorController()

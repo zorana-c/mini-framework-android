@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.common.route.ChatRoute;
+import com.common.route.IChatRoute;
 import com.framework.common.palette.GlidePalette;
 import com.framework.common.palette.PaletteListener;
 import com.framework.common.palette.Profile;
@@ -174,9 +174,7 @@ public class MainActivity extends UIDecorFragmentActivity {
     }
 
     public void joinChatFragmentActivity(@NonNull View view) {
-        ChatRoute.get().startChat(this, ChatRoute.obtain()
-                .setChatId(String.valueOf(System.currentTimeMillis()))
-                .setChatType(ChatRoute.TYPE_GROUP));
+        IChatRoute.navigator().pushChat(this);
     }
 
     public void joinSliverFragment(@NonNull View view) {

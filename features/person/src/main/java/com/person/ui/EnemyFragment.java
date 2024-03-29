@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-import com.common.route.AppRoute;
+import com.common.route.IAppRoute;
 import com.framework.core.compat.UILog;
 import com.framework.core.content.UIActionBarController;
 import com.framework.core.content.UIDecorController;
@@ -27,7 +27,7 @@ import com.person.ui.adapter.PersonPagerAdapter;
  * @Description :
  */
 public class EnemyFragment extends UIDecorFragment
-        implements AppRoute.DrawerCallback {
+        implements IAppRoute.IDrawerCallback {
     @NonNull
     public static Bundle asBundle(@NonNull String personId) {
         final Bundle args = new Bundle();
@@ -47,8 +47,7 @@ public class EnemyFragment extends UIDecorFragment
         uiActionBarController.setBackgroundColor(Color.WHITE);
         uiActionBarController.setBackgroundAlpha(0.f);
         uiActionBarController.setBackClickListener(widget -> {
-            AppRoute.get()
-                    .getDrawerController(this)
+            IAppRoute.drawerController(this)
                     .closeDrawerComponent(this);
         });
 

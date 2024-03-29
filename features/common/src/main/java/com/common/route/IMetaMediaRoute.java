@@ -9,9 +9,9 @@ import com.framework.core.route.UIRoute;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public interface MetaMediaRoute extends UIRoute {
+public interface IMetaMediaRoute extends UIRoute {
     @NonNull
-    static MetaMediaRoute get() {
-        return UIRoute.get(MetaMediaRoute.class);
+    static IMetaMediaRoute get() {
+        return UIRoute.get(IMetaMediaRoute.class);
     }
 }

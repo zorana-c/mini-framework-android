@@ -26,7 +26,7 @@ import androidx.media3.exoplayer.trackselection.TrackSelector;
 import androidx.media3.exoplayer.upstream.BandwidthMeter;
 import androidx.media3.exoplayer.upstream.DefaultBandwidthMeter;
 
-import com.common.route.AppRoute;
+import com.common.route.IAppRoute;
 import com.framework.core.compat.UILog;
 import com.framework.core.ui.abs.UIViewHolder;
 import com.framework.core.widget.UIImageView;
@@ -34,6 +34,8 @@ import com.metamedia.R;
 import com.metamedia.bean.Video;
 import com.metamedia.widget.PlayerView;
 import com.metamedia.widget.SimplePlayerLayout;
+
+import java.util.List;
 
 /**
  * @Author create by Zhengzelong on 2024-01-15
@@ -78,16 +80,16 @@ public abstract class RecommendViewHolder<T extends Video> extends UIViewHolder<
         this.destroy();
     }
 
-    public void bindItem() {
+    @Override
+    public void onInit(@NonNull List<Object> payloads) {
+        super.onInit(payloads);
         final T item = this.findData();
         this.playerCommentLayout.setOnClickListener(widget -> {
-            AppRoute.get()
-                    .getDrawerController(this.getUIPageController().getUIComponent())
+            IAppRoute.drawerController(this)
                     .openCommentComponent();
         });
         this.playerPersonImageView.setOnClickListener(widget -> {
-            AppRoute.get()
-                    .getDrawerController(this.getUIPageController().getUIComponent())
+            IAppRoute.drawerController(this)
                     .openPersonComponent();
         });
     }

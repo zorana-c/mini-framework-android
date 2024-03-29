@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.common.route.AppRoute;
+import com.common.route.IAppRoute;
 import com.framework.core.content.UIActionBarController;
 import com.framework.core.content.UIListController;
 import com.framework.core.ui.abs.UIListFragment;
@@ -51,8 +51,6 @@ public class RecommendFragment extends UIListFragment<Video> {
 
     @Override
     public void onBindViewHolder(@NonNull UIViewHolder<Video> holder, int position) {
-        final RecommendViewHolder<Video> recHolder = (RecommendViewHolder<Video>) holder;
-        recHolder.bindItem();
     }
 
     @Override
@@ -82,13 +80,11 @@ public class RecommendFragment extends UIListFragment<Video> {
     private void setPersonDetailDrawer(@NonNull Video video) {
         Bundle args;
         args = EnemyFragment.asBundle(String.valueOf(video.nanoId()));
-        AppRoute.get()
-                .getDrawerController(this)
+        IAppRoute.drawerController(this)
                 .setPersonComponent(EnemyFragment.class, args);
 
         args = CommentFragment.asBundle(String.valueOf(video.nanoId()));
-        AppRoute.get()
-                .getDrawerController(this)
+        IAppRoute.drawerController(this)
                 .setCommentComponent(CommentFragment.class, args);
     }
 

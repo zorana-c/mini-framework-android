@@ -9,9 +9,9 @@ import io.reactivex.rxjava3.annotations.NonNull;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public interface PersonRoute extends UIRoute {
+public interface IPersonRoute extends UIRoute {
     @NonNull
-    static PersonRoute get() {
-        return UIRoute.get(PersonRoute.class);
+    static IPersonRoute get() {
+        return UIRoute.get(IPersonRoute.class);
     }
 }

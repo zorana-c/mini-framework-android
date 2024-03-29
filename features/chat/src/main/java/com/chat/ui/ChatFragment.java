@@ -5,9 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.chat.constant.Constants;
-import com.common.route.ChatRoute;
-import com.framework.core.compat.UIToast;
+import com.common.route.IChatRoute;
 import com.framework.core.content.UIActionBarController;
 import com.framework.core.ui.abs.UIDecorFragment;
 import com.navigation.UINavigatorController;
@@ -36,17 +34,11 @@ public class ChatFragment extends UIDecorFragment {
 
         uiActionBarController.setMenuText("Chat");
         uiActionBarController.setMenuClickListener(view -> {
-            ChatRoute.get().startChat(this, ChatRoute.obtain()
-                    .setChatId(String.valueOf(System.currentTimeMillis()))
-                    .setChatType(ChatRoute.TYPE_CHAT));
+            IChatRoute.navigator().pushChat(this);
         });
     }
 
     @Override
     public void onUIRefresh(@Nullable Bundle savedInstanceState) {
-        final Bundle args = this.requireArguments();
-        final ChatRoute.Options options;
-        options = (ChatRoute.Options) args.getSerializable(Constants.KEY_PARAM);
-        UIToast.asyncToast(options.getChatId());
     }
 }

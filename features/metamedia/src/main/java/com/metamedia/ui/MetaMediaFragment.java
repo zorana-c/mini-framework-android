@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-import com.common.route.AppRoute;
+import com.common.route.IAppRoute;
 import com.framework.core.rx.view.RxView;
 import com.framework.core.ui.abs.UIFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -49,8 +49,7 @@ public class MetaMediaFragment extends UIFragment {
     private void onClick(@NonNull View view) {
         final int id = view.getId();
         if (R.id.functs == id) {
-            AppRoute.get()
-                    .getDrawerController(this)
+            IAppRoute.drawerController(this)
                     .openSimpleComponent();
         }
     }

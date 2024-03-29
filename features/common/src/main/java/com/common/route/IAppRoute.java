@@ -12,26 +12,41 @@ import com.framework.core.route.UIRoute;
 import com.framework.widget.drawer.DrawerLayout;
 
 /**
- * @Author create by Zhengzelong on 2024-01-30
+ * @Author create by Zhengzelong on 2024-03-29
  * @Email : 171905184@qq.com
  * @Description :
  */
-public interface AppRoute extends UIRoute {
+public interface IAppRoute extends UIRoute {
     @NonNull
-    static AppRoute get() {
-        return UIRoute.get(AppRoute.class);
+    static IAppRoute get() {
+        return UIRoute.get(IAppRoute.class);
     }
 
-    default void startMain(@NonNull UIPageControllerOwner owner) {
-        this.startMain(owner, 0);
+    @NonNull
+    static INavigator navigator() {
+        return IAppRoute.get().getNavigator();
     }
 
-    void startMain(@NonNull UIPageControllerOwner owner, int position);
+    @NonNull
+    static IDrawerController drawerController(@NonNull UIPageControllerOwner owner) {
+        return IAppRoute.get().getDrawerController(owner);
+    }
 
     @NonNull
-    DrawerController getDrawerController(@NonNull UIPageControllerOwner owner);
+    INavigator getNavigator();
 
-    interface DrawerController {
+    @NonNull
+    IDrawerController getDrawerController(@NonNull UIPageControllerOwner owner);
+
+    interface INavigator {
+        default void pushMain(@NonNull UIPageControllerOwner owner) {
+            this.pushMain(owner, 0);
+        }
+
+        void pushMain(@NonNull UIPageControllerOwner owner, int position);
+    }
+
+    interface IDrawerController {
         void setSubtleComponent(@NonNull Class<? extends Fragment> tClass);
 
         void setSimpleComponent(@NonNull Class<? extends Fragment> tClass);
@@ -56,7 +71,7 @@ public interface AppRoute extends UIRoute {
                                @NonNull DrawerLayout.DrawerListener listener);
     }
 
-    interface DrawerCallback {
+    interface IDrawerCallback {
         void onNewArguments(@NonNull Bundle arguments);
     }
 }

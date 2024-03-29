@@ -9,9 +9,9 @@ import io.reactivex.rxjava3.annotations.NonNull;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public interface MallRoute extends UIRoute {
+public interface IMallRoute extends UIRoute {
     @NonNull
-    static MallRoute get() {
-        return UIRoute.get(MallRoute.class);
+    static IMallRoute get() {
+        return UIRoute.get(IMallRoute.class);
     }
 }

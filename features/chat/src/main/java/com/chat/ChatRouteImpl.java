@@ -1,13 +1,11 @@
 package com.chat;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.chat.constant.Constants;
 import com.chat.ui.ChatFragment;
-import com.common.route.ChatRoute;
+import com.common.route.IChatRoute;
 import com.framework.core.content.UIPageControllerOwner;
 import com.framework.core.route.UIRoute;
 import com.google.auto.service.AutoService;
@@ -18,19 +16,27 @@ import com.google.auto.service.AutoService;
  * @Description :
  */
 @AutoService(UIRoute.class)
-public class ChatRouteImpl implements ChatRoute {
+public class ChatRouteImpl implements IChatRoute {
+    @NonNull
+    private final INavigator mNavigator = new NavigatorImpl();
+
     @Override
     public void init(@NonNull Context context) {
         ChatInit.init(context);
     }
 
+    @NonNull
     @Override
-    public void startChat(@NonNull UIPageControllerOwner owner, @NonNull Options options) {
-        final Bundle args = new Bundle();
-        args.putSerializable(Constants.KEY_PARAM, options);
+    public INavigator getNavigator() {
+        return this.mNavigator;
+    }
 
-        owner.getUIPageController()
-                .getUINavigatorController()
-                .startFragment(ChatFragment.class, args);
+    private static final class NavigatorImpl implements INavigator {
+        @Override
+        public void pushChat(@NonNull UIPageControllerOwner owner) {
+            owner.getUIPageController()
+                    .getUINavigatorController()
+                    .startFragment(ChatFragment.class);
+        }
     }
 }
