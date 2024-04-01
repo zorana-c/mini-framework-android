@@ -83,13 +83,6 @@ public class BannerRecyclerView extends ExpandableRecyclerView {
         this.mIsUserScrollEnabled = enabled;
     }
 
-    public void destroyPlay() {
-        final LayoutManager layoutManager = this.getLayoutManager();
-        if (layoutManager instanceof BannerLayoutManager) {
-            ((BannerLayoutManager) layoutManager).destroyPlay();
-        }
-    }
-
     public void setLifecycle(@NonNull LifecycleOwner owner) {
         final LayoutManager layoutManager = this.getLayoutManager();
         if (layoutManager instanceof BannerLayoutManager) {

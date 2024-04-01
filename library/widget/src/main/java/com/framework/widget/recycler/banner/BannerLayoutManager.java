@@ -49,6 +49,10 @@ public class BannerLayoutManager extends PagerLayoutManager {
      */
     private BannerPlayLiO mBannerPlayLiO;
     /**
+     * 播放资源监听
+     */
+    private BannerPlayAdo mBannerPlayAdo;
+    /**
      * 播放操作执行类
      */
     private BannerPlayExec mBannerPlayExec;
@@ -91,11 +95,18 @@ public class BannerLayoutManager extends PagerLayoutManager {
     public void onAdapterChanged(@Nullable RecyclerView.Adapter oldAdapter,
                                  @Nullable RecyclerView.Adapter newAdapter) {
         super.onAdapterChanged(oldAdapter, newAdapter);
-        if (newAdapter == null) {
-            this.destroyPlay();
-        } else {
-            this.restorePendingPlayState();
+        if (this.mBannerPlayAdo != null) {
+            if (oldAdapter != null) {
+                oldAdapter.unregisterAdapterDataObserver(this.mBannerPlayAdo);
+            }
         }
+        if (this.mBannerPlayAdo == null) {
+            this.mBannerPlayAdo = new BannerPlayAdo();
+        }
+        if (newAdapter != null) {
+            newAdapter.registerAdapterDataObserver(this.mBannerPlayAdo);
+        }
+        this.restorePendingPlayState();
     }
 
     @Override
@@ -190,15 +201,22 @@ public class BannerLayoutManager extends PagerLayoutManager {
         this.mPlayDelayMillis = delayMillis;
     }
 
-    public void setLifecycle(@NonNull LifecycleOwner owner) {
-        this.setLifecycle(owner.getLifecycle());
+    public void setLifecycle(@Nullable LifecycleOwner owner) {
+        if (owner == null) {
+            this.setLifecycle((Lifecycle) null);
+        } else {
+            this.setLifecycle(owner.getLifecycle());
+        }
     }
 
-    public void setLifecycle(@NonNull Lifecycle lifecycle) {
+    public void setLifecycle(@Nullable Lifecycle lifecycle) {
         if (this.mBannerPlayLiO != null) {
             this.mBannerPlayLiO.destroy();
+            this.mBannerPlayLiO = null;
         }
-        this.mBannerPlayLiO = new BannerPlayLiO(lifecycle);
+        if (lifecycle != null) {
+            this.mBannerPlayLiO = new BannerPlayLiO(lifecycle);
+        }
     }
 
     public synchronized boolean startPlay() {
@@ -346,6 +364,18 @@ public class BannerLayoutManager extends PagerLayoutManager {
                 this.lifecycle = null;
             }
             BannerLayoutManager.this.destroyPlay();
+        }
+    }
+
+    private final class BannerPlayAdo extends RecyclerView.AdapterDataObserver {
+        @Override
+        public void onChanged() {
+            BannerLayoutManager.this.restorePendingPlayState();
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount) {
+            BannerLayoutManager.this.restorePendingPlayState();
         }
     }
 
