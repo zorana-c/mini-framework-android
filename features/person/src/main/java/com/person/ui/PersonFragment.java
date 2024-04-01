@@ -85,7 +85,9 @@ public class PersonFragment extends UIDecorFragment {
     private void onClick(@NonNull View view) {
         final int id = view.getId();
         if (R.id.functs == id) {
-            IAppRoute.drawerController(this)
+            IAppRoute
+                    .get()
+                    .getDrawerController(this)
                     .openSubtleComponent();
         }
     }

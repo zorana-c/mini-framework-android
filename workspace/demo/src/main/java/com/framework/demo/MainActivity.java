@@ -174,7 +174,7 @@ public class MainActivity extends UIDecorFragmentActivity {
     }
 
     public void joinChatFragmentActivity(@NonNull View view) {
-        IChatRoute.navigator().pushChat(this);
+        IChatRoute.get().getNavigator().pushChat(this);
     }
 
     public void joinSliverFragment(@NonNull View view) {

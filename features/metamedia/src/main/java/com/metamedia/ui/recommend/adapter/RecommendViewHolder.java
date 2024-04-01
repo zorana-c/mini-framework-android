@@ -85,11 +85,15 @@ public abstract class RecommendViewHolder<T extends Video> extends UIViewHolder<
         super.onInit(payloads);
         final T item = this.findData();
         this.playerCommentLayout.setOnClickListener(widget -> {
-            IAppRoute.drawerController(this)
+            IAppRoute
+                    .get()
+                    .getDrawerController(this)
                     .openCommentComponent();
         });
         this.playerPersonImageView.setOnClickListener(widget -> {
-            IAppRoute.drawerController(this)
+            IAppRoute
+                    .get()
+                    .getDrawerController(this)
                     .openPersonComponent();
         });
     }

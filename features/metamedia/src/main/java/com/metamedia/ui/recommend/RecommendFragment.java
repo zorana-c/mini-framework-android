@@ -80,11 +80,15 @@ public class RecommendFragment extends UIListFragment<Video> {
     private void setPersonDetailDrawer(@NonNull Video video) {
         Bundle args;
         args = EnemyFragment.asBundle(String.valueOf(video.nanoId()));
-        IAppRoute.drawerController(this)
+        IAppRoute
+                .get()
+                .getDrawerController(this)
                 .setPersonComponent(EnemyFragment.class, args);
 
         args = CommentFragment.asBundle(String.valueOf(video.nanoId()));
-        IAppRoute.drawerController(this)
+        IAppRoute
+                .get()
+                .getDrawerController(this)
                 .setCommentComponent(CommentFragment.class, args);
     }
 

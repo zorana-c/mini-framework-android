@@ -128,7 +128,9 @@ public class CommentFragment extends UIListFragment<String>
         uiActionBarController.setTitleTextColor(Color.BLACK);
         uiActionBarController.setBackgroundColor(Color.WHITE);
         uiActionBarController.setBackClickListener(widget -> {
-            IAppRoute.drawerController(this)
+            IAppRoute
+                    .get()
+                    .getDrawerController(this)
                     .closeDrawerComponent(this);
         });
 

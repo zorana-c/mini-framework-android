@@ -34,7 +34,7 @@ public class ChatFragment extends UIDecorFragment {
 
         uiActionBarController.setMenuText("Chat");
         uiActionBarController.setMenuClickListener(view -> {
-            IChatRoute.navigator().pushChat(this);
+            IChatRoute.get().getNavigator().pushChat(this);
         });
     }
 

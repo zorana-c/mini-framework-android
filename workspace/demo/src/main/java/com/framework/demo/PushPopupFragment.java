@@ -71,7 +71,7 @@ public class PushPopupFragment extends UIDecorPopupFragment {
     }
 
     private void navChatFragment() {
-        IChatRoute.navigator().pushChat(this);
+        IChatRoute.get().getNavigator().pushChat(this);
     }
 
     private void navChildFragment() {

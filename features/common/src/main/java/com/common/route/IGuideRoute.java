@@ -17,11 +17,6 @@ public interface IGuideRoute extends UIRoute {
     }
 
     @NonNull
-    static INavigator navigator() {
-        return IGuideRoute.get().getNavigator();
-    }
-
-    @NonNull
     INavigator getNavigator();
 
     interface INavigator {

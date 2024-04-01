@@ -70,7 +70,10 @@ public class SplashActivity extends UIFragmentActivity {
     }
 
     private void launchMainPage() {
-        if (IGuideRoute.navigator().pushGuide(this, Constants.GUIDES)) {
+        if (IGuideRoute
+                .get()
+                .getNavigator()
+                .pushGuide(this, Constants.GUIDES)) {
             return;
         }
         this.getUINavigatorController()

@@ -49,7 +49,9 @@ public class MetaMediaFragment extends UIFragment {
     private void onClick(@NonNull View view) {
         final int id = view.getId();
         if (R.id.functs == id) {
-            IAppRoute.drawerController(this)
+            IAppRoute
+                    .get()
+                    .getDrawerController(this)
                     .openSimpleComponent();
         }
     }

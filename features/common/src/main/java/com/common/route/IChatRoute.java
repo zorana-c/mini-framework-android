@@ -17,11 +17,6 @@ public interface IChatRoute extends UIRoute {
     }
 
     @NonNull
-    static INavigator navigator() {
-        return IChatRoute.get().getNavigator();
-    }
-
-    @NonNull
     INavigator getNavigator();
 
     interface INavigator {

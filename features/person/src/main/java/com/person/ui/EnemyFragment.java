@@ -47,7 +47,9 @@ public class EnemyFragment extends UIDecorFragment
         uiActionBarController.setBackgroundColor(Color.WHITE);
         uiActionBarController.setBackgroundAlpha(0.f);
         uiActionBarController.setBackClickListener(widget -> {
-            IAppRoute.drawerController(this)
+            IAppRoute
+                    .get()
+                    .getDrawerController(this)
                     .closeDrawerComponent(this);
         });
 

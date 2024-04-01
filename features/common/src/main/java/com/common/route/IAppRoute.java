@@ -23,16 +23,6 @@ public interface IAppRoute extends UIRoute {
     }
 
     @NonNull
-    static INavigator navigator() {
-        return IAppRoute.get().getNavigator();
-    }
-
-    @NonNull
-    static IDrawerController drawerController(@NonNull UIPageControllerOwner owner) {
-        return IAppRoute.get().getDrawerController(owner);
-    }
-
-    @NonNull
     INavigator getNavigator();
 
     @NonNull
