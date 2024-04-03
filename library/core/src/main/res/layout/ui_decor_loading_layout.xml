@@ -16,7 +16,7 @@
             android:layout_height="25.0dip"
             android:layout_gravity="center"
             android:layout_margin="20.0dip"
-            android:indeterminateTint="@android:color/white"
+            android:indeterminateTint="@color/colorAccent"
             android:indeterminateTintMode="src_atop"
             tools:targetApi="lollipop" />
     </FrameLayout>
