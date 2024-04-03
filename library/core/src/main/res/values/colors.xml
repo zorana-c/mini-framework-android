@@ -17,4 +17,17 @@
     <color name="colorStatusBar">@android:color/transparent</color>
     <!-- 导航栏颜色-->
     <color name="colorNavigationBar">@android:color/transparent</color>
+
+    <!-- ToolsBar 返回键Icon颜色-->
+    <color name="colorBackIcon">@android:color/white</color>
+    <!-- ToolsBar 返回键Text颜色-->
+    <color name="colorBackText">@android:color/white</color>
+    <!-- ToolsBar 标题Icon颜色-->
+    <color name="colorTitleIcon">@android:color/white</color>
+    <!-- ToolsBar 标题Text颜色-->
+    <color name="colorTitleText">@android:color/white</color>
+    <!-- ToolsBar 菜单Icon颜色-->
+    <color name="colorMenuIcon">@android:color/white</color>
+    <!-- ToolsBar 菜单Text颜色-->
+    <color name="colorMenuText">@android:color/white</color>
 </resources>

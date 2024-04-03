@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:tint="@color/colorBackIcon"
             app:srcCompat="@drawable/ic_arrow_white" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorBackText"
             android:textSize="14sp" />
     </FrameLayout>
 
@@ -48,7 +49,8 @@
             android:id="@+id/uiDecorToolsTitleIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:tint="@color/colorTitleIcon" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/uiDecorToolsTitleText"
@@ -56,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorTitleText"
             android:textSize="16sp" />
     </FrameLayout>
 
@@ -74,7 +76,8 @@
             android:id="@+id/uiDecorToolsMenuIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:tint="@color/colorMenuIcon" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/uiDecorToolsMenuText"
@@ -82,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorMenuText"
             android:textSize="14sp" />
     </FrameLayout>
 
