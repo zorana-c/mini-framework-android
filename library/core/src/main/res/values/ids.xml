@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="uiDecorActionBar" type="id" />
-    <item name="uiDecorContainer" type="id" />
+    <item name="ui_decor_action_bar" type="id" />
+    <item name="ui_decor_container" type="id" />
 
-    <item name="uiDecorRefreshView" type="id" />
-    <item name="uiDecorRecyclerView" type="id" />
+    <item name="ui_decor_refresh_view" type="id" />
+    <item name="ui_decor_recycler_view" type="id" />
 </resources>

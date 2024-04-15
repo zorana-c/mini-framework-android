@@ -20,14 +20,14 @@
         android:paddingStart="2.5dip"
         android:paddingEnd="2.5dip"
         android:text="1970"
-        android:textColor="@color/pickerTextColor"
+        android:textColor="@color/ui_picker_text_color"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:overFakeBoldText="true"
-        app:overTextColor="@color/pickerOverTextColor"
+        app:overTextColor="@color/ui_picker_over_text_color"
         app:overTextSize="15sp"
         tools:targetApi="o" />
 
@@ -45,13 +45,13 @@
         android:paddingStart="2.5dip"
         android:paddingEnd="2.5dip"
         android:text="Year"
-        android:textColor="@color/pickerTextColor"
+        android:textColor="@color/ui_picker_text_color"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/text"
         app:layout_constraintLeft_toRightOf="@id/text"
         app:layout_constraintTop_toTopOf="@id/text"
         app:overFakeBoldText="true"
-        app:overTextColor="@color/pickerOverTextColor"
+        app:overTextColor="@color/ui_picker_over_text_color"
         app:overTextSize="15sp"
         tools:targetApi="o" />
 </com.framework.widget.recycler.picker.PickerItemContainer>

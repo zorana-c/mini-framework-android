@@ -42,7 +42,7 @@ public class UIDecorController extends UIPageController {
                                 @Nullable View contentView,
                                 @Nullable Bundle savedInstanceState) {
         final UIDecorLayout uiDecorLayout = new UIDecorLayout(inflater.getContext());
-        uiDecorLayout.setId(R.id.uiDecorContainer);
+        uiDecorLayout.setId(R.id.ui_decor_container);
         uiDecorLayout.setContentView(contentView);
         return uiDecorLayout;
     }
@@ -93,7 +93,7 @@ public class UIDecorController extends UIPageController {
         T uiDecorLayout = null;
         final View root = this.getContentView();
         if (root != null) {
-            uiDecorLayout = root.findViewById(R.id.uiDecorContainer);
+            uiDecorLayout = root.findViewById(R.id.ui_decor_container);
         }
         if (uiDecorLayout == null) {
             throw new NullPointerException("NOT DECOR VIEW.");

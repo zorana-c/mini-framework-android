@@ -15,8 +15,8 @@
     android:paddingStart="2.5dip"
     android:paddingEnd="2.5dip"
     android:text="Picker Text"
-    android:textColor="@color/pickerTextColor"
+    android:textColor="@color/ui_picker_text_color"
     android:textSize="14sp"
     app:overFakeBoldText="true"
-    app:overTextColor="@color/pickerOverTextColor"
+    app:overTextColor="@color/ui_picker_over_text_color"
     tools:targetApi="o" />

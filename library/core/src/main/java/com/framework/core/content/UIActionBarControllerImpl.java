@@ -55,7 +55,7 @@ final class UIActionBarControllerImpl implements UIActionBarController {
         appCompatActionBar.setToolsBar(R.layout.ui_decor_toolsbar_layout);
         appCompatActionBar.setToolsBarEnabled(true);
         appCompatActionBar.setToolsBarBackgroundColor(toolsBarColorInt);
-        appCompatActionBar.setId(R.id.uiDecorActionBar);
+        appCompatActionBar.setId(R.id.ui_decor_action_bar);
         appCompatActionBar.setBackgroundColor(backgroundColorInt);
         parent.setActionBar(appCompatActionBar);
 

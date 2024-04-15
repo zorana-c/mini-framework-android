@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="uiNetworkExceptionTitle">网络已经断开, 请刷新重试</string>
-    <string name="uiNetworkExceptionSubtitle">请尝试检查您的设备网络状况</string>
+    <string name="ui_network_exception_title">网络已经断开, 请刷新重试</string>
+    <string name="ui_network_exception_title_sub">请尝试检查您的设备网络状况</string>
 
-    <string name="uiRefresh">刷新</string>
+    <string name="ui_refresh">刷新</string>
 </resources>

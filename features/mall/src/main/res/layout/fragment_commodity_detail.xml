@@ -8,14 +8,14 @@
     android:orientation="vertical">
 
     <com.framework.widget.sliver.SliverRefreshLayout
-        android:id="@+id/uiDecorRefreshView"
+        android:id="@+id/ui_decor_refresh_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <com.framework.widget.expand.ExpandableRecyclerView
-            android:id="@+id/uiDecorRecyclerView"
+            android:id="@+id/ui_decor_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"

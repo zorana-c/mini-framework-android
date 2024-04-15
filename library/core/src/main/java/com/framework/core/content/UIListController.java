@@ -250,9 +250,9 @@ public class UIListController<T> extends UIDecorController
         if (this.mSliverRefreshLayout != null) {
             return (V) this.mSliverRefreshLayout;
         }
-        final V sliverRefreshLayout = this.findViewById(R.id.uiDecorRefreshView);
+        final V sliverRefreshLayout = this.findViewById(R.id.ui_decor_refresh_view);
         if (sliverRefreshLayout == null) {
-            throw new NullPointerException("Xml not find Id: @id/uiDecorRefreshView");
+            throw new NullPointerException("Xml not find Id: @id/ui_decor_refresh_view");
         }
         return (V) (this.mSliverRefreshLayout = sliverRefreshLayout);
     }
@@ -262,9 +262,9 @@ public class UIListController<T> extends UIDecorController
         if (this.mExpandableRecyclerView != null) {
             return (V) this.mExpandableRecyclerView;
         }
-        final V recyclerView = this.findViewById(R.id.uiDecorRecyclerView);
+        final V recyclerView = this.findViewById(R.id.ui_decor_recycler_view);
         if (recyclerView == null) {
-            throw new NullPointerException("Xml not find Id: @id/uiDecorRecyclerView");
+            throw new NullPointerException("Xml not find Id: @id/ui_decor_recycler_view");
         }
         return (V) (this.mExpandableRecyclerView = recyclerView);
     }

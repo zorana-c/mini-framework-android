@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/uiReconfirmTips"
+            android:text="@string/ui_reconfirm_tips"
             android:textColor="#ff333333"
             android:textSize="16sp" />
 
@@ -50,7 +50,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:padding="12dip"
-            android:text="@string/uiReconfirmCancel"
+            android:text="@string/ui_reconfirm_cancel"
             android:textColor="#ff333333"
             android:textSize="14sp" />
 
@@ -65,7 +65,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:padding="12dip"
-            android:text="@string/uiReconfirmConfirm"
+            android:text="@string/ui_reconfirm_confirm"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>

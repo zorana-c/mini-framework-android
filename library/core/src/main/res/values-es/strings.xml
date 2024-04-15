@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="uiNetworkExceptionTitle">The network has been disconnected. Please refresh and try again</string>
-    <string name="uiNetworkExceptionSubtitle">Please try checking the network condition of your device</string>
+    <string name="ui_network_exception_title">The network has been disconnected. Please refresh and try again</string>
+    <string name="ui_network_exception_title_sub">Please try checking the network condition of your device</string>
 
-    <string name="uiRefresh">Refresh</string>
+    <string name="ui_refresh">Refresh</string>
 </resources>

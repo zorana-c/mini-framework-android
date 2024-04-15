@@ -42,7 +42,7 @@ public class SliverFragment3 extends UIDecorFragment {
         final Context c = this.requireContext();
         int heightUsed = 0;
         heightUsed += UIViewCompat.getStatusBarHeight(c);
-        heightUsed += UIRes.getDimensionPixelSize(c, R.dimen.uiActionBarHeight);
+        heightUsed += UIRes.getDimensionPixelSize(c, R.dimen.ui_action_bar_height);
 
         SliverRefreshLayout srl;
         srl = this.requireViewById(R.id.hRefreshLayout);

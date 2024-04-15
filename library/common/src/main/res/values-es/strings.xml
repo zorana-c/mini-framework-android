@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="uiReconfirmTips">Tips</string>
-    <string name="uiReconfirmCancel">Cancel</string>
-    <string name="uiReconfirmConfirm">Confirm</string>
+    <string name="ui_reconfirm_tips">Tips</string>
+    <string name="ui_reconfirm_cancel">Cancel</string>
+    <string name="ui_reconfirm_confirm">Confirm</string>
 
-    <string name="uiReminderConfirm">I See</string>
+    <string name="ui_reminder_confirm">I See</string>
 
-    <string name="uiSysPictureTake">Take Photos</string>
-    <string name="uiSysPictureGallery">Select From Gallery</string>
-    <string name="uiSysPictureCancel">Cancel</string>
+    <string name="ui_system_picture_take">Take Photos</string>
+    <string name="ui_system_picture_gallery">Select From Gallery</string>
+    <string name="ui_system_picture_cancel">Cancel</string>
 
-    <string name="uiYear">Year</string>
-    <string name="uiMonth">Month</string>
-    <string name="uiDayOfMonth">Day</string>
+    <string name="ui_date_year">Year</string>
+    <string name="ui_date_month">Month</string>
+    <string name="ui_date_day">Day</string>
 </resources>

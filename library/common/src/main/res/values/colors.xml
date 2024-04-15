@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Picker Background-->
-    <color name="pickerBackground">#fff2f2f2</color>
+    <color name="ui_picker_background">#fff2f2f2</color>
     <!-- Picker TextColor-->
-    <color name="pickerTextColor">#ff999999</color>
+    <color name="ui_picker_text_color">#ff999999</color>
     <!-- Picker OverTextColor-->
-    <color name="pickerOverTextColor">#ff333333</color>
+    <color name="ui_picker_over_text_color">#ff333333</color>
 </resources>

@@ -24,7 +24,7 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="@dimen/uiActionBarHeight"
+            android:layout_height="@dimen/ui_action_bar_height"
             android:orientation="horizontal">
 
             <View
@@ -36,7 +36,7 @@
         <com.framework.demo.widget.CollapsingBarLayout
             android:id="@+id/collapsingBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/uiActionBarHeight"
+            android:layout_height="@dimen/ui_action_bar_height"
             app:headAnchorId="@+id/uiDecorToolsBack"
             app:tailAnchorId="@+id/uiDecorToolsMenu">
 
@@ -88,7 +88,7 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/uiActionBarHeight"
+                android:layout_height="@dimen/ui_action_bar_height"
                 android:background="@color/decorBackground"
                 app:tabIndicator="@drawable/ic_indicator_background"
                 app:tabIndicatorAnimationMode="elastic"
@@ -126,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:sliverBounceLocate="tail"
-            app:sliverHeightUsed="@dimen/uiActionBarHeight"
+            app:sliverHeightUsed="@dimen/ui_action_bar_height"
             app:sliverRefreshLocate="tail">
 
             <com.framework.widget.sliver.SliverScrollView

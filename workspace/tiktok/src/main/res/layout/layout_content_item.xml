@@ -16,7 +16,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/pageTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/uiNavigatorBarHeight"
+        android:layout_height="@dimen/ui_navigator_bar_height"
         android:layout_gravity="bottom"
         app:tabIndicator="@null"
         app:tabRippleColor="@null"

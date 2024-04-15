@@ -56,11 +56,11 @@ public class UIDateTimePickerAdapter extends UIPickerAdapter<UIPickerViewHolder>
         final int field = this.field;
         final String suffix;
         if (Calendar.YEAR == field) {
-            suffix = UIRes.getString(R.string.uiYear);
+            suffix = UIRes.getString(R.string.ui_date_year);
         } else if (Calendar.MONTH == field) {
-            suffix = UIRes.getString(R.string.uiMonth);
+            suffix = UIRes.getString(R.string.ui_date_month);
         } else if (Calendar.DAY_OF_MONTH == field) {
-            suffix = UIRes.getString(R.string.uiDayOfMonth);
+            suffix = UIRes.getString(R.string.ui_date_day);
         } else {
             throw new IllegalStateException("ERROR");
         }

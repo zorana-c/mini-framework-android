@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.framework.widget.sliver.SliverRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/uiDecorRefreshView"
+    android:id="@id/ui_decor_refresh_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <com.framework.widget.expand.ExpandableRecyclerView
-        android:id="@id/uiDecorRecyclerView"
+        android:id="@id/ui_decor_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" />
