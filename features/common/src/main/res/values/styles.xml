@@ -50,6 +50,8 @@
         <item name="android:enabled">true</item>
         <item name="android:gravity">center</item>
         <item name="android:hint">取消</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorPrimary</item>
@@ -65,6 +67,8 @@
         <item name="android:enabled">true</item>
         <item name="android:gravity">center</item>
         <item name="android:hint">确认</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorHint">@android:color/white</item>
