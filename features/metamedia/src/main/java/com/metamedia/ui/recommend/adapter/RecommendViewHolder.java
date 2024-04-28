@@ -42,7 +42,7 @@ import java.util.List;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public abstract class RecommendViewHolder<T extends Video> extends UIViewHolder<T> {
+public abstract class RecommendViewHolder extends UIViewHolder {
     @NonNull
     protected final SimplePlayerLayout playerLayout;
     @NonNull
@@ -83,17 +83,17 @@ public abstract class RecommendViewHolder<T extends Video> extends UIViewHolder<
     @Override
     public void onInit(@NonNull List<Object> payloads) {
         super.onInit(payloads);
-        final T item = this.findData();
+        final Video item = this.findData();
         this.playerCommentLayout.setOnClickListener(widget -> {
             IAppRoute
                     .get()
-                    .getDrawerController(this)
+                    .getDrawerController(this.owner())
                     .openCommentComponent();
         });
         this.playerPersonImageView.setOnClickListener(widget -> {
             IAppRoute
                     .get()
-                    .getDrawerController(this)
+                    .getDrawerController(this.owner())
                     .openPersonComponent();
         });
     }
@@ -121,11 +121,11 @@ public abstract class RecommendViewHolder<T extends Video> extends UIViewHolder<
 
     @SuppressLint("UnsafeOptInUsageError")
     protected void previewPlayer() {
-        final T item = this.findData();
+        final Video item = this.findData();
         final Uri uri = RawResourceDataSource
                 .buildRawResourceUri(item.getRawId());
         final MediaItem mediaItem = MediaItem.fromUri(uri);
-        final RecommendAdapter<T> ad = this.requireAdapter();
+        final RecommendAdapter ad = this.requireAdapter();
         final MediaSource mediaSource;
         mediaSource = ad.getMediaSource(mediaItem);
         final SimplePlayerLayout pl = this.playerLayout;

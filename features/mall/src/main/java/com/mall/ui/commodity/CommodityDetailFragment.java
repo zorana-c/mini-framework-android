@@ -30,8 +30,8 @@ public class CommodityDetailFragment extends UIListFragment<Commodity> {
 
     @NonNull
     @Override
-    public UIViewHolder<Commodity> onCreateViewHolder(@NonNull LayoutInflater inflater,
-                                                      @NonNull ViewGroup parent, int itemViewType) {
+    public UIViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater,
+                                           @NonNull ViewGroup parent, int itemViewType) {
         return CommodityViewHolder.create(inflater, parent);
     }
 

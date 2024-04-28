@@ -77,7 +77,7 @@ public class UIListController<T> extends UIDecorController
         }
     }
 
-    public interface Callback<VH extends ViewHolder<?>> {
+    public interface Callback<VH extends ViewHolder> {
 
         @NonNull
         VH onCreateViewHolder(@NonNull LayoutInflater inflater,
@@ -365,18 +365,18 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIDataController<ItemComponent<ViewHolder<T>>> getUIHeadComponentController() {
-        return this.<Adapter<ViewHolder<T>>>requireAdapter().getUIHeadComponentController();
+    public final UIDataController<ItemComponent<ViewHolder>> getUIHeadComponentController() {
+        return this.<Adapter<ViewHolder>>requireAdapter().getUIHeadComponentController();
     }
 
     @NonNull
-    public final UIDataController<ItemComponent<ViewHolder<T>>> getUITailComponentController() {
-        return this.<Adapter<ViewHolder<T>>>requireAdapter().getUITailComponentController();
+    public final UIDataController<ItemComponent<ViewHolder>> getUITailComponentController() {
+        return this.<Adapter<ViewHolder>>requireAdapter().getUITailComponentController();
     }
 
     @NonNull
-    public final UIDataController<ItemComponent<ViewHolder<T>>> getUIEmptyComponentController() {
-        return this.<Adapter<ViewHolder<T>>>requireAdapter().getUIEmptyComponentController();
+    public final UIDataController<ItemComponent<ViewHolder>> getUIEmptyComponentController() {
+        return this.<Adapter<ViewHolder>>requireAdapter().getUIEmptyComponentController();
     }
 
     @NonNull
@@ -390,13 +390,13 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> addHeadComponent(@NonNull ItemComponent<? extends ViewHolder<T>> component) {
+    public final UIListController<T> addHeadComponent(@NonNull ItemComponent<? extends ViewHolder> component) {
         return this.addHeadComponent(-1, component);
     }
 
     @NonNull
-    public final UIListController<T> addHeadComponent(int index, @NonNull ItemComponent<? extends ViewHolder<T>> component) {
-        this.getUIHeadComponentController().add(index, (ItemComponent<ViewHolder<T>>) component);
+    public final UIListController<T> addHeadComponent(int index, @NonNull ItemComponent<? extends ViewHolder> component) {
+        this.getUIHeadComponentController().add(index, (ItemComponent<ViewHolder>) component);
         return this;
     }
 
@@ -407,8 +407,8 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> removeHeadComponent(@NonNull ItemComponent<? extends ViewHolder<T>> component) {
-        this.getUIHeadComponentController().remove((ItemComponent<ViewHolder<T>>) component);
+    public final UIListController<T> removeHeadComponent(@NonNull ItemComponent<? extends ViewHolder> component) {
+        this.getUIHeadComponentController().remove((ItemComponent<ViewHolder>) component);
         return this;
     }
 
@@ -423,13 +423,13 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> addTailComponent(@NonNull ItemComponent<? extends ViewHolder<T>> component) {
+    public final UIListController<T> addTailComponent(@NonNull ItemComponent<? extends ViewHolder> component) {
         return this.addTailComponent(-1, component);
     }
 
     @NonNull
-    public final UIListController<T> addTailComponent(int index, @NonNull ItemComponent<? extends ViewHolder<T>> component) {
-        this.getUITailComponentController().add(index, (ItemComponent<ViewHolder<T>>) component);
+    public final UIListController<T> addTailComponent(int index, @NonNull ItemComponent<? extends ViewHolder> component) {
+        this.getUITailComponentController().add(index, (ItemComponent<ViewHolder>) component);
         return this;
     }
 
@@ -440,8 +440,8 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> removeTailComponent(@NonNull ItemComponent<? extends ViewHolder<T>> component) {
-        this.getUITailComponentController().remove((ItemComponent<ViewHolder<T>>) component);
+    public final UIListController<T> removeTailComponent(@NonNull ItemComponent<? extends ViewHolder> component) {
+        this.getUITailComponentController().remove((ItemComponent<ViewHolder>) component);
         return this;
     }
 
@@ -451,11 +451,11 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> setEmptyComponent(@Nullable ItemComponent<? extends ViewHolder<T>> component) {
+    public final UIListController<T> setEmptyComponent(@Nullable ItemComponent<? extends ViewHolder> component) {
         if (component == null) {
             this.getUIEmptyComponentController().removeAll();
         } else {
-            this.getUIEmptyComponentController().set((ItemComponent<ViewHolder<T>>) component);
+            this.getUIEmptyComponentController().set((ItemComponent<ViewHolder>) component);
         }
         return this;
     }
@@ -723,61 +723,61 @@ public class UIListController<T> extends UIDecorController
     }
 
     @NonNull
-    public final UIListController<T> setOnHeadItemClickListener(@Nullable ExpandableRecyclerView.OnItemClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnHeadItemClickListener(@Nullable ExpandableRecyclerView.OnItemClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnHeadItemClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnHeadItemLongClickListener(@Nullable ExpandableRecyclerView.OnItemLongClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnHeadItemLongClickListener(@Nullable ExpandableRecyclerView.OnItemLongClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnHeadItemLongClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnTailItemClickListener(@Nullable ExpandableRecyclerView.OnItemClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnTailItemClickListener(@Nullable ExpandableRecyclerView.OnItemClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnTailItemClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnTailItemLongClickListener(@Nullable ExpandableRecyclerView.OnItemLongClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnTailItemLongClickListener(@Nullable ExpandableRecyclerView.OnItemLongClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnTailItemLongClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnEmptyItemClickListener(@Nullable ExpandableRecyclerView.OnItemClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnEmptyItemClickListener(@Nullable ExpandableRecyclerView.OnItemClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnEmptyItemClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnEmptyItemLongClickListener(@Nullable ExpandableRecyclerView.OnItemLongClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnEmptyItemLongClickListener(@Nullable ExpandableRecyclerView.OnItemLongClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnEmptyItemLongClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnItemClickListener(@Nullable ExpandableRecyclerView.OnItemClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnItemClickListener(@Nullable ExpandableRecyclerView.OnItemClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnGroupItemClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnItemLongClickListener(@Nullable ExpandableRecyclerView.OnItemLongClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnItemLongClickListener(@Nullable ExpandableRecyclerView.OnItemLongClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnGroupItemLongClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnChildItemClickListener(@Nullable ExpandableRecyclerView.OnChildItemClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnChildItemClickListener(@Nullable ExpandableRecyclerView.OnChildItemClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnChildItemClickListener(listener);
         return this;
     }
 
     @NonNull
-    public final UIListController<T> setOnChildItemLongClickListener(@Nullable ExpandableRecyclerView.OnChildItemLongClickListener<? extends ViewHolder<T>> listener) {
+    public final UIListController<T> setOnChildItemLongClickListener(@Nullable ExpandableRecyclerView.OnChildItemLongClickListener<? extends ViewHolder> listener) {
         this.getExpandableRecyclerView().setOnChildItemLongClickListener(listener);
         return this;
     }
@@ -1059,15 +1059,32 @@ public class UIListController<T> extends UIDecorController
         }
     }
 
-    public static class ViewHolder<T> extends ExpandableRecyclerView.ViewHolder
-            implements UIPageControllerOwner {
+    public static class ViewHolder extends ExpandableRecyclerView.ViewHolder {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
         @Nullable
-        public final <P extends T> P findDataBy(int position) {
+        public final <T> T findData() {
+            final int groupPosition = this.getGroupPosition();
+            if (groupPosition == RecyclerView.NO_POSITION) {
+                return null;
+            }
+            return this.findDataBy(groupPosition);
+        }
+
+        @NonNull
+        public final <T> T requireData() {
+            final int groupPosition = this.getGroupPosition();
+            if (groupPosition == RecyclerView.NO_POSITION) {
+                throw new NullPointerException("ERROR");
+            }
+            return this.requireDataBy(groupPosition);
+        }
+
+        @Nullable
+        public final <T> T findDataBy(int position) {
             final UIDataController<T> uiDataController = this.getUIDataController();
             if (uiDataController == null) {
                 return null;
@@ -1076,7 +1093,7 @@ public class UIListController<T> extends UIDecorController
         }
 
         @NonNull
-        public final <P extends T> P requireDataBy(int position) {
+        public final <T> T requireDataBy(int position) {
             final UIDataController<T> uiDataController = this.getUIDataController();
             if (uiDataController == null) {
                 throw new NullPointerException("ERROR");
@@ -1084,10 +1101,9 @@ public class UIListController<T> extends UIDecorController
             return uiDataController.requireBy(position);
         }
 
-        @Nullable
-        @Override
-        public final UIListController<T> getUIPageController() {
-            final Adapter<ViewHolder<T>> adapter = this.getAdapter();
+        @NonNull
+        public final <T> UIListController<T> getUIPageController() {
+            final Adapter<ViewHolder> adapter = this.getAdapter();
             if (adapter == null) {
                 return null;
             }
@@ -1095,7 +1111,7 @@ public class UIListController<T> extends UIDecorController
         }
 
         @NonNull
-        public final UIListController<T> requireUIPageController() {
+        public final <T> UIListController<T> requireUIPageController() {
             final UIListController<T> uiListController = this.getUIPageController();
             if (uiListController == null) {
                 throw new NullPointerException("ERROR");
@@ -1104,7 +1120,7 @@ public class UIListController<T> extends UIDecorController
         }
 
         @Nullable
-        public final UIDataController<T> getUIDataController() {
+        public final <T> UIDataController<T> getUIDataController() {
             final UIListController<T> uiListController = this.getUIPageController();
             if (uiListController == null) {
                 return null;
@@ -1113,7 +1129,7 @@ public class UIListController<T> extends UIDecorController
         }
 
         @NonNull
-        public final UIDataController<T> requireUIDataController() {
+        public final <T> UIDataController<T> requireUIDataController() {
             final UIDataController<T> uiDataController = this.getUIDataController();
             if (uiDataController == null) {
                 throw new NullPointerException("ERROR");
@@ -1122,7 +1138,7 @@ public class UIListController<T> extends UIDecorController
         }
     }
 
-    public static class Adapter<VH extends ViewHolder<?>> extends ExpandableRecyclerView.Adapter<VH>
+    public static class Adapter<VH extends ViewHolder> extends ExpandableRecyclerView.Adapter<VH>
             implements UIDataController.Adapter {
         @NonNull
         private final UIListController<?> mUIListController;
@@ -1154,7 +1170,8 @@ public class UIListController<T> extends UIDecorController
         }
 
         @Override
-        public void onBindHeadViewHolder(@NonNull VH holder, int position, @NonNull List<Object> payloads) {
+        public void onBindHeadViewHolder(@NonNull VH holder,
+                                         int position, @NonNull List<Object> payloads) {
             super.onBindHeadViewHolder(holder, position, payloads);
             this.mUIHeadDataController.requireBy(position).onBindViewHolder(holder, position, payloads);
         }
@@ -1190,7 +1207,8 @@ public class UIListController<T> extends UIDecorController
         }
 
         @Override
-        public void onBindTailViewHolder(@NonNull VH holder, int position, @NonNull List<Object> payloads) {
+        public void onBindTailViewHolder(@NonNull VH holder,
+                                         int position, @NonNull List<Object> payloads) {
             super.onBindTailViewHolder(holder, position, payloads);
             this.mUITailDataController.requireBy(position).onBindViewHolder(holder, position, payloads);
         }
@@ -1226,7 +1244,8 @@ public class UIListController<T> extends UIDecorController
         }
 
         @Override
-        public void onBindEmptyViewHolder(@NonNull VH holder, int position, @NonNull List<Object> payloads) {
+        public void onBindEmptyViewHolder(@NonNull VH holder,
+                                          int position, @NonNull List<Object> payloads) {
             super.onBindEmptyViewHolder(holder, position, payloads);
             this.mUIEmptyDataController.requireBy(position).onBindViewHolder(holder, position, payloads);
         }
@@ -1262,7 +1281,8 @@ public class UIListController<T> extends UIDecorController
         }
 
         @Override
-        public void onBindGroupViewHolder(@NonNull VH holder, int groupPosition, @NonNull List<Object> payloads) {
+        public void onBindGroupViewHolder(@NonNull VH holder,
+                                          int groupPosition, @NonNull List<Object> payloads) {
             super.onBindGroupViewHolder(holder, groupPosition, payloads);
             this.getCallback().onBindViewHolder(holder, groupPosition, payloads);
         }
@@ -1303,7 +1323,9 @@ public class UIListController<T> extends UIDecorController
         }
 
         @Override
-        public void onBindChildViewHolder(@NonNull VH holder, int groupPosition, int childPosition, @NonNull List<Object> payloads) {
+        public void onBindChildViewHolder(@NonNull VH holder,
+                                          int groupPosition,
+                                          int childPosition, @NonNull List<Object> payloads) {
             super.onBindChildViewHolder(holder, groupPosition, childPosition, payloads);
             this.getCallback().onBindChildViewHolder(holder, groupPosition, childPosition, payloads);
         }
@@ -1334,6 +1356,16 @@ public class UIListController<T> extends UIDecorController
             return this.mUIListController.getUIComponent();
         }
 
+        @Nullable
+        public final <T> T findDataBy(int position) {
+            return this.<T>getUIDataController().findBy(position);
+        }
+
+        @NonNull
+        public final <T> T requireDataBy(int position) {
+            return this.<T>getUIDataController().requireBy(position);
+        }
+
         @NonNull
         public final <T> UIDataController<T> getUIDataController() {
             return this.<T>getUIPageController().getUIDataController();
@@ -1360,28 +1392,18 @@ public class UIListController<T> extends UIDecorController
         }
     }
 
-    public static abstract class LazyAdapter<T> extends Adapter<ViewHolder<T>> {
+    public static abstract class LazyAdapter<VH extends ViewHolder> extends Adapter<VH> {
 
-        public LazyAdapter(@NonNull UIPageControllerOwner owner) {
+        public <T> LazyAdapter(@NonNull UIPageControllerOwner owner) {
             this(owner.<UIListController<T>>getUIPageController());
         }
 
-        public LazyAdapter(@NonNull UIListController<T> uiListController) {
+        public <T> LazyAdapter(@NonNull UIListController<T> uiListController) {
             super(uiListController);
-        }
-
-        @Nullable
-        public final <P extends T> P findDataBy(int position) {
-            return this.getUIDataController().findBy(position);
-        }
-
-        @NonNull
-        public final <P extends T> P requireDataBy(int position) {
-            return this.getUIDataController().requireBy(position);
         }
     }
 
-    public interface ItemComponent<VH extends ViewHolder<?>> {
+    public interface ItemComponent<VH extends ViewHolder> {
 
         @NonNull
         VH onCreateViewHolder(@NonNull LayoutInflater inflater,
@@ -1410,7 +1432,7 @@ public class UIListController<T> extends UIDecorController
         }
     }
 
-    public static abstract class SimpleItemComponent<VH extends ViewHolder<?>>
+    public static abstract class SimpleItemComponent<VH extends ViewHolder>
             implements ItemComponent<VH> {
         @NonNull
         @Override
@@ -1424,7 +1446,7 @@ public class UIListController<T> extends UIDecorController
         }
     }
 
-    public static class LayoutItemComponent<T> extends SimpleItemComponent<ViewHolder<T>> {
+    public static class LayoutItemComponent<T> extends SimpleItemComponent<ViewHolder> {
         @LayoutRes
         protected final int mLayoutId;
 
@@ -1434,9 +1456,9 @@ public class UIListController<T> extends UIDecorController
 
         @NonNull
         @Override
-        public ViewHolder<T> onCreateViewHolder(@NonNull LayoutInflater inflater,
-                                                @NonNull ViewGroup parent, int itemViewType) {
-            return new ViewHolder<>(inflater.inflate(this.mLayoutId, parent, false));
+        public ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater,
+                                             @NonNull ViewGroup parent, int itemViewType) {
+            return new ViewHolder(inflater.inflate(this.mLayoutId, parent, false));
         }
     }
 }

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-import com.common.util.AppUtils;
+import com.common.util.CommonUtils;
 import com.framework.core.compat.UIToast;
 import com.framework.core.ui.abs.UIFragmentActivity;
 import com.google.android.material.tabs.TabLayout;
@@ -105,7 +105,7 @@ public class MainActivity extends UIFragmentActivity {
                 // 结束界面
                 this.getUINavigatorController().navigateUp();
                 // 结束程序
-                AppUtils.exitApplication();
+                CommonUtils.exitApplication();
             }
             return true;
         }

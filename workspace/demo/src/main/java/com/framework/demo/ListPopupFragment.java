@@ -40,14 +40,14 @@ public class ListPopupFragment extends UIListPopupFragment<String> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UIViewHolder<String> holder, int position) {
+    public void onBindViewHolder(@NonNull UIViewHolder holder, int position) {
         holder.<TextView>requireViewById(android.R.id.text1).setText(String.format("%s", holder.getItemLetter()));
         holder.<TextView>requireViewById(android.R.id.text1).setTextColor(Color.GRAY);
         holder.itemView.setBackgroundResource(R.color.decorBackground);
     }
 
     @Override
-    public void onBindChildViewHolder(@NonNull UIViewHolder<String> holder, int groupPosition, int childPosition) {
+    public void onBindChildViewHolder(@NonNull UIViewHolder holder, int groupPosition, int childPosition) {
         holder.<TextView>requireViewById(android.R.id.text1).setText(String.format("Item %s - %s - %s", holder.getLayoutPosition(), groupPosition, childPosition));
         holder.<TextView>requireViewById(android.R.id.text1).setTextColor(Color.GRAY);
     }
@@ -64,7 +64,7 @@ public class ListPopupFragment extends UIListPopupFragment<String> {
     }
 
     @Override
-    public void onItemClick(@NonNull UIViewHolder<String> holder, @NonNull View target, int position) {
+    public void onItemClick(@NonNull UIViewHolder holder, @NonNull View target, int position) {
         this.getUIPageController().smoothScrollToGroupPosition(position);
         if (holder.getItemExpanded()) {
             this.getUIPageController().collapseGroup(position);
@@ -74,7 +74,7 @@ public class ListPopupFragment extends UIListPopupFragment<String> {
     }
 
     @Override
-    public void onChildItemClick(@NonNull UIViewHolder<String> holder, @NonNull View target, int groupPosition, int childPosition) {
+    public void onChildItemClick(@NonNull UIViewHolder holder, @NonNull View target, int groupPosition, int childPosition) {
         UIToast.asyncToast("Item " + holder.getLayoutPosition() + " => " + groupPosition + " " + childPosition);
     }
 

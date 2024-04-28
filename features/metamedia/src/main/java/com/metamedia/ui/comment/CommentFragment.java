@@ -62,7 +62,7 @@ public class CommentFragment extends UIListFragment<String>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UIViewHolder<String> holder,
+    public void onBindViewHolder(@NonNull UIViewHolder holder,
                                  int position) {
         holder.<UIImageView>requireViewById(R.id.picImageView)
                 .setImageUrl("https://t14.baidu.com/it/u=2451480495," +
@@ -88,7 +88,7 @@ public class CommentFragment extends UIListFragment<String>
     }
 
     @Override
-    public void onBindChildViewHolder(@NonNull UIViewHolder<String> holder,
+    public void onBindChildViewHolder(@NonNull UIViewHolder holder,
                                       int groupPosition,
                                       int childPosition) {
         holder.<UIImageView>requireViewById(R.id.picImageView)

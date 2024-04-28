@@ -49,8 +49,8 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
         abc.setMenuText("All Switch");
         abc.setTitleText("List Fragment2");
 
-        final UIListController.Adapter<UIListController.ViewHolder<Entry>> adapter;
-        adapter = new UIListController.LazyAdapter<Entry>(this) {
+        final UIListController.Adapter<UIListController.ViewHolder> adapter;
+        adapter = new UIListController.LazyAdapter<UIListController.ViewHolder>(this) {
         };
         // 1.移除/删除数据(具有动画, 前提: 每一个Item赋予Id)
         adapter.setHasStableIds(true);
@@ -81,7 +81,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
 
     @NonNull
     @Override
-    public UIViewHolder<Entry> onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, int itemViewType) {
+    public UIViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent, int itemViewType) {
         return new CustomViewHolder(this.onCreateItemView(inflater, parent, itemViewType));
     }
 
@@ -92,7 +92,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UIViewHolder<Entry> holder, int position) {
+    public void onBindViewHolder(@NonNull UIViewHolder holder, int position) {
         final Entry group = holder.requireData();
 
         final CustomViewHolder cvh = (CustomViewHolder) holder;
@@ -108,7 +108,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
     }
 
     @Override
-    public void onBindChildViewHolder(@NonNull UIViewHolder<Entry> holder, int groupPosition, int childPosition) {
+    public void onBindChildViewHolder(@NonNull UIViewHolder holder, int groupPosition, int childPosition) {
         final Entry group = holder.requireData();
         final Entry child = group.findChildBy(childPosition);
 
@@ -123,8 +123,8 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
     }
 
     @Override
-    public void onItemClick(@NonNull UIViewHolder<Entry> holder, @NonNull View target, int position) {
-        final ExpandableRecyclerView.Adapter<UIViewHolder<Entry>> adapter = holder.requireAdapter();
+    public void onItemClick(@NonNull UIViewHolder holder, @NonNull View target, int position) {
+        final ExpandableRecyclerView.Adapter<UIViewHolder> adapter = holder.requireAdapter();
         if (holder.getItemExpanded()) {
             adapter.collapseGroup(position);
         } else {
@@ -137,7 +137,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
     }
 
     @Override
-    public void onChildItemClick(@NonNull UIViewHolder<Entry> holder, @NonNull View target, int groupPosition, int childPosition) {
+    public void onChildItemClick(@NonNull UIViewHolder holder, @NonNull View target, int groupPosition, int childPosition) {
         final Entry group = holder.requireData();
         final Entry child = group.findChildBy(childPosition);
 
@@ -146,13 +146,13 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
         dc.removeAt(groupPosition);
     }
 
-    public void onHeadItemClick(@NonNull UIListController.ViewHolder<Entry> holder, @NonNull View target, int position) {
+    public void onHeadItemClick(@NonNull UIListController.ViewHolder holder, @NonNull View target, int position) {
         final UIDataController<Entry> dc = holder.getUIDataController();
         // Add
         dc.addAll(Entry.queryBy(1, 1));
     }
 
-    public void onTailItemClick(@NonNull UIListController.ViewHolder<Entry> holder, @NonNull View target, int position) {
+    public void onTailItemClick(@NonNull UIListController.ViewHolder holder, @NonNull View target, int position) {
         UIToast.asyncToast(String.format("TAIL - %s", holder.getLayoutPosition()));
     }
 
@@ -171,7 +171,7 @@ public class ListFragment2 extends UIListFragment<ListFragment2.Entry> {
         // return childPosition;
     }
 
-    public static class CustomViewHolder extends UIViewHolder<Entry> {
+    public static class CustomViewHolder extends UIViewHolder {
         public final TextView text1;
 
         public CustomViewHolder(@NonNull View itemView) {

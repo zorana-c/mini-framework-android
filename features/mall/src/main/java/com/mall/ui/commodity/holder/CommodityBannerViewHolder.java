@@ -14,7 +14,6 @@ import com.framework.widget.recycler.banner.BannerIndicatorView;
 import com.framework.widget.recycler.banner.BannerRecyclerView;
 import com.mall.R;
 import com.mall.bean.Banner;
-import com.mall.bean.Commodity;
 
 import java.util.List;
 
@@ -23,13 +22,13 @@ import java.util.List;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class CommodityBannerViewHolder<T extends Commodity> extends UIViewHolder<T> {
+public class CommodityBannerViewHolder extends UIViewHolder {
     @NonNull
-    public static <T extends Commodity> CommodityBannerViewHolder<T> create(@NonNull LayoutInflater inflater,
-                                                                            @NonNull ViewGroup parent) {
+    public static CommodityBannerViewHolder create(@NonNull LayoutInflater inflater,
+                                                   @NonNull ViewGroup parent) {
         final View itemView;
         itemView = inflater.inflate(R.layout.item_commodity_banner_layout, parent, false);
-        return new CommodityBannerViewHolder<>(itemView);
+        return new CommodityBannerViewHolder(itemView);
     }
 
     @NonNull

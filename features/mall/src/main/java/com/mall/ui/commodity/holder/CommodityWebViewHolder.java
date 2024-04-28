@@ -20,13 +20,13 @@ import java.util.List;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class CommodityWebViewHolder<T extends Commodity> extends UIViewHolder<T> {
+public class CommodityWebViewHolder extends UIViewHolder {
     @NonNull
-    public static <T extends Commodity> CommodityWebViewHolder<T> create(@NonNull LayoutInflater inflater,
-                                                                         @NonNull ViewGroup parent) {
+    public static CommodityWebViewHolder create(@NonNull LayoutInflater inflater,
+                                                @NonNull ViewGroup parent) {
         final View itemView;
         itemView = inflater.inflate(R.layout.item_commodity_web_layout, parent, false);
-        return new CommodityWebViewHolder<>(itemView);
+        return new CommodityWebViewHolder(itemView);
     }
 
     @NonNull

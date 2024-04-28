@@ -4,9 +4,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.framework.core.content.UIListController;
+import com.framework.core.content.UIPageController;
+import com.framework.core.content.UIPageControllerOwner;
 import com.framework.widget.expand.compat.ViewHolderCompat;
 
 /**
@@ -17,27 +18,33 @@ import com.framework.widget.expand.compat.ViewHolderCompat;
  * </p>
  * 边界处理 {@link ViewHolderCompat}
  */
-public abstract class UIViewHolder<T> extends UIListController.ViewHolder<T> {
+public abstract class UIViewHolder extends UIListController.ViewHolder {
+    @Nullable
+    private UIPageControllerOwner mUIPageControllerOwner;
 
     public UIViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    @Nullable
-    public final <R extends T> R findData() {
-        final int groupPosition = this.getGroupPosition();
-        if (groupPosition == RecyclerView.NO_POSITION) {
-            return null;
-        }
-        return this.findDataBy(groupPosition);
+    @Override
+    public void onRecycled() {
+        super.onRecycled();
+        this.mUIPageControllerOwner = null;
     }
 
     @NonNull
-    public final <R extends T> R requireData() {
-        final int groupPosition = this.getGroupPosition();
-        if (groupPosition == RecyclerView.NO_POSITION) {
-            throw new NullPointerException("ERROR");
+    public final UIPageControllerOwner owner() {
+        if (this.mUIPageControllerOwner == null) {
+            this.mUIPageControllerOwner = new UIPageControllerOwnerImpl();
         }
-        return this.requireDataBy(groupPosition);
+        return this.mUIPageControllerOwner;
+    }
+
+    private final class UIPageControllerOwnerImpl implements UIPageControllerOwner {
+        @NonNull
+        @Override
+        public <T extends UIPageController> T getUIPageController() {
+            return (T) UIViewHolder.this.getUIPageController();
+        }
     }
 }

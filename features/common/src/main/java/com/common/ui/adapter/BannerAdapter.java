@@ -26,7 +26,7 @@ public class BannerAdapter<T extends IBanner> extends UIExpandableAdapter<T> {
     public void onBindGroupViewHolder(@NonNull ViewHolder holder, int groupPosition) {
         // final T banner = this.requireDataBy(groupPosition);
 
-        final UIImageView cover = holder.requireViewById(R.id.cover);
-        cover.setImageUrl("https://img0.baidu.com/it/u=195169129,3351167253&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1711472400&t=c01455ade7e16a8bfd3ecd47d6e49bf9");
+        final UIImageView image1 = holder.requireViewById(R.id.image1);
+        image1.setImageUrl("https://img0.baidu.com/it/u=195169129,3351167253&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1711472400&t=c01455ade7e16a8bfd3ecd47d6e49bf9");
     }
 }

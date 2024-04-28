@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import com.framework.core.ui.abs.UIViewHolder;
 import com.framework.core.widget.UIImageView;
 import com.mall.R;
-import com.mall.bean.Commodity;
 
 import java.util.List;
 
@@ -18,13 +17,13 @@ import java.util.List;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class CommodityViewHolder<T extends Commodity> extends UIViewHolder<T> {
+public class CommodityViewHolder extends UIViewHolder {
     @NonNull
-    public static <T extends Commodity> CommodityViewHolder<T> create(@NonNull LayoutInflater inflater,
-                                                                      @NonNull ViewGroup parent) {
+    public static CommodityViewHolder create(@NonNull LayoutInflater inflater,
+                                             @NonNull ViewGroup parent) {
         final View itemView;
         itemView = inflater.inflate(R.layout.item_commodity_layout, parent, false);
-        return new CommodityViewHolder<>(itemView);
+        return new CommodityViewHolder(itemView);
     }
 
     @NonNull

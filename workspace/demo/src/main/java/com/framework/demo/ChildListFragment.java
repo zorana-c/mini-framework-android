@@ -88,7 +88,7 @@ public class ChildListFragment extends UIListFragment<String> {
     }
 
     @Override
-    public void onItemClick(@NonNull UIViewHolder<String> holder, @NonNull View target, int position) {
+    public void onItemClick(@NonNull UIViewHolder holder, @NonNull View target, int position) {
         UIViewModelProviders
                 .of(this)
                 .get(TestViewModel.class)

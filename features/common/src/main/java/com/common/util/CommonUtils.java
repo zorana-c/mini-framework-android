@@ -7,8 +7,8 @@ import android.os.Process;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public final class AppUtils {
-    private AppUtils() {
+public final class CommonUtils {
+    private CommonUtils() {
         throw new IllegalStateException("No instances!");
     }
     

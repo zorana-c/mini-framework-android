@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- UITabLayout -->
+    <style name="UITabLayout" parent="UIView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="tabIndicator">@drawable/ic_indicator_normal</item>
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabSelectedTextColor">@color/colorAccent</item>
+        <item name="tabTextAppearance">@style/UITextAppearance</item>
+        <item name="tabTextColor">#ff333333</item>
+    </style>
+
+    <!-- UITextAppearance -->
+    <style name="UITextAppearance" parent="UIView">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="UITextAppearance.Bold" parent="UITextAppearance">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="UITextAppearance.Large" parent="UITextAppearance">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="UITextAppearance.Large.Bold" parent="UITextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="UITextAppearance.Small" parent="UITextAppearance">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="UITextAppearance.Small.Bold" parent="UITextAppearance.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- UICancelTextView-->
+    <style name="UICancelTextView" parent="UIView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/ic_button_stroke_background_normal</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="android:enabled">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:hint">取消</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
+    </style>
+
+    <!-- UIConfirmTextView-->
+    <style name="UIConfirmTextView" parent="UIView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/ic_button_background_normal</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="android:enabled">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:hint">确认</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
+</resources>

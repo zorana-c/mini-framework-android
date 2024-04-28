@@ -38,22 +38,23 @@ import com.metamedia.bean.Video;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class RecommendAdapter<T extends Video> extends UIListController.LazyAdapter<T> {
+public class RecommendAdapter
+        extends UIListController.LazyAdapter<UIListController.ViewHolder> {
     @NonNull
     private final DataSource.Factory mDataSourceFactory;
     @NonNull
-    private final ComponentListener<T> mComponentListener;
+    private final ComponentListener mComponentListener;
 
     public RecommendAdapter(@NonNull UIPageControllerOwner owner) {
-        this(owner.<UIListController<T>>getUIPageController());
+        this(owner.<UIListController<?>>getUIPageController());
     }
 
-    public RecommendAdapter(@NonNull UIListController<T> uiListController) {
+    public RecommendAdapter(@NonNull UIListController<?> uiListController) {
         super(uiListController);
         // 很关键: 使ViewHolder具有唯一性, 保证每次刷新不被重置, 同时保存现有播放状态
         this.setHasStableIds(true);
         this.mDataSourceFactory = this.generateFactory(uiListController);
-        this.mComponentListener = new ComponentListener<>(uiListController);
+        this.mComponentListener = new ComponentListener(uiListController);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
     @Override
     public long getGroupItemId(int groupPosition) {
         // 很关键: 使ViewHolder具有唯一性, 保证每次刷新不被重置, 同时保存现有播放状态
-        final T item = this.requireDataBy(groupPosition);
+        final Video item = this.requireDataBy(groupPosition);
         return item.nanoId();
     }
 
@@ -159,25 +160,25 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
             if (itemView == null) {
                 continue;
             }
-            final RecommendViewHolder<T> holder;
-            holder = (RecommendViewHolder<T>) recyclerView.getChildViewHolder(itemView);
+            final RecommendViewHolder holder;
+            holder = (RecommendViewHolder) recyclerView.getChildViewHolder(itemView);
             holder.destroy();
         }
     }
 
-    private static final class ComponentListener<T extends Video>
+    private static final class ComponentListener
             extends RecyclerView.AdapterDataObserver
             implements DefaultLifecycleObserver, PagerLayoutManager.OnPageChangeListener {
         @NonNull
         private final Runnable mPlayAction = this::playWhen;
         @NonNull
-        private final UIListController<T> mUIListController;
+        private final UIListController<?> mUIListController;
         @Nullable
-        private RecommendViewHolder<T> mHolder;
+        private RecommendViewHolder mHolder;
         private boolean mIsPlayingDestroy;
         private boolean mIsPlayAfterPause;
 
-        public ComponentListener(@NonNull UIListController<T> uiListController) {
+        public ComponentListener(@NonNull UIListController<?> uiListController) {
             this.mUIListController = uiListController;
             // listen data
             uiListController.registerAdapterDataObserver(this);
@@ -210,7 +211,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
 
         @Override
         public void onResume(@NonNull LifecycleOwner owner) {
-            final RecommendViewHolder<T> holder = this.mHolder;
+            final RecommendViewHolder holder = this.mHolder;
             if (holder == null) {
                 this.playWhen();
             } else if (this.mIsPlayAfterPause) {
@@ -221,7 +222,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
 
         @Override
         public void onPause(@NonNull LifecycleOwner owner) {
-            final RecommendViewHolder<T> holder = this.mHolder;
+            final RecommendViewHolder holder = this.mHolder;
             if (holder != null) {
                 this.mIsPlayAfterPause = holder.isPlaying();
                 holder.pause();
@@ -231,7 +232,7 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
         @Override
         public void onDestroy(@NonNull LifecycleOwner owner) {
             this.mIsPlayingDestroy = true;
-            final UIListController<T> uiListController;
+            final UIListController<?> uiListController;
             uiListController = this.mUIListController;
             // un listen data
             uiListController.unregisterAdapterDataObserver(this);
@@ -267,10 +268,10 @@ public class RecommendAdapter<T extends Video> extends UIListController.LazyAdap
             if (snapView == null) {
                 return;
             }
-            final RecommendViewHolder<T> holder;
-            holder = (RecommendViewHolder<T>) rv.getChildViewHolder(snapView);
-            final RecommendViewHolder<T> oldHolder = this.mHolder;
-            final RecommendViewHolder<T> newHolder = holder;
+            final RecommendViewHolder holder;
+            holder = (RecommendViewHolder) rv.getChildViewHolder(snapView);
+            final RecommendViewHolder oldHolder = this.mHolder;
+            final RecommendViewHolder newHolder = holder;
             if (oldHolder == newHolder) {
                 if (oldHolder != null) {
                     oldHolder.play();

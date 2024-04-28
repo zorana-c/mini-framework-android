@@ -66,7 +66,7 @@ public class ChildListFragment2 extends UIListFragment<String> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UIViewHolder<String> holder, int position) {
+    public void onBindViewHolder(@NonNull UIViewHolder holder, int position) {
         final RecyclerView rv;
         rv = holder.requireViewById(R.id.list1);
 

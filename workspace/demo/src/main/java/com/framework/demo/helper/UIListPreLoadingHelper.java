@@ -69,7 +69,7 @@ public class UIListPreLoadingHelper {
     }
 
     private static final class ComponentContainer<T> extends RecyclerView.OnScrollListener implements
-            UIListController.ItemComponent<UIListController.ViewHolder<T>>,
+            UIListController.ItemComponent<UIListController.ViewHolder>,
             UIDataController.Observer {
         @NonNull
         private final UIListController<T> uiListController;
@@ -181,15 +181,15 @@ public class UIListPreLoadingHelper {
 
         @NonNull
         @Override
-        public UIListController.ViewHolder<T> onCreateViewHolder(@NonNull LayoutInflater inflater,
-                                                                 @NonNull ViewGroup parent, int itemViewType) {
+        public UIListController.ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater,
+                                                              @NonNull ViewGroup parent, int itemViewType) {
             final View itemView;
             itemView = inflater.inflate(R.layout.layout_preload_view, parent, false);
-            return new UIListController.ViewHolder<>(itemView);
+            return new UIListController.ViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull UIListController.ViewHolder<T> holder, int position) {
+        public void onBindViewHolder(@NonNull UIListController.ViewHolder holder, int position) {
             final TextView textView;
             textView = holder.requireViewById(R.id.text1);
             textView.setText(this.moreData ? "正在加载" : "没有更多了");

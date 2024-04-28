@@ -42,15 +42,15 @@ public class RecommendFragment extends UIListFragment<Video> {
 
     @NonNull
     @Override
-    public UIViewHolder<Video> onCreateViewHolder(@NonNull LayoutInflater inflater,
+    public UIViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater,
                                                   @NonNull ViewGroup parent,
                                                   int itemViewType) {
-        return new RecommendViewHolder<Video>(inflater, parent) {
+        return new RecommendViewHolder(inflater, parent) {
         };
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UIViewHolder<Video> holder, int position) {
+    public void onBindViewHolder(@NonNull UIViewHolder holder, int position) {
     }
 
     @Override
@@ -70,7 +70,7 @@ public class RecommendFragment extends UIListFragment<Video> {
 
         final UIListController<Video> uiListController;
         uiListController = this.getUIPageController();
-        uiListController.setAdapter(new RecommendAdapter<>(this));
+        uiListController.setAdapter(new RecommendAdapter(this));
 
         final PagerLayoutManager layoutManager;
         layoutManager = uiListController.getLayoutManager();

@@ -83,7 +83,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/ic_button_background"
+        android:background="@drawable/ic_button_background_normal"
         android:gravity="center"
         android:text="更多功能"
         android:textColor="@android:color/black"

@@ -10,7 +10,7 @@
     <!-- 装饰背景颜色-->
     <color name="decorBackground">@color/colorPrimary</color>
     <!-- 控件选中颜色-->
-    <color name="colorAccent">@color/colorPrimary</color>
+    <color name="colorAccent">@android:color/white</color>
     <!-- 视图背景颜色-->
     <color name="colorBackground">#fff8f8f8</color>
     <!-- 分割线颜色-->

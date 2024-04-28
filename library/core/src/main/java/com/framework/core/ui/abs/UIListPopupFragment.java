@@ -19,11 +19,11 @@ import com.framework.widget.expand.ExpandableRecyclerView;
  */
 public abstract class UIListPopupFragment<T> extends UIDecorPopupFragment
         implements UIListController.UIComponent<T>,
-        UIListController.Callback<UIViewHolder<T>>,
-        ExpandableRecyclerView.OnItemClickListener<UIViewHolder<T>>,
-        ExpandableRecyclerView.OnItemLongClickListener<UIViewHolder<T>>,
-        ExpandableRecyclerView.OnChildItemClickListener<UIViewHolder<T>>,
-        ExpandableRecyclerView.OnChildItemLongClickListener<UIViewHolder<T>> {
+        UIListController.Callback<UIViewHolder>,
+        ExpandableRecyclerView.OnItemClickListener<UIViewHolder>,
+        ExpandableRecyclerView.OnItemLongClickListener<UIViewHolder>,
+        ExpandableRecyclerView.OnChildItemClickListener<UIViewHolder>,
+        ExpandableRecyclerView.OnChildItemLongClickListener<UIViewHolder> {
     @NonNull
     private final UIListController<T>
             mUIListController = new UIListController<>(this);
@@ -56,9 +56,9 @@ public abstract class UIListPopupFragment<T> extends UIDecorPopupFragment
 
     @NonNull
     @Override
-    public UIViewHolder<T> onCreateViewHolder(@NonNull LayoutInflater inflater,
-                                              @NonNull ViewGroup parent, int itemViewType) {
-        return new UIViewHolder<T>(this.onCreateItemView(inflater, parent, itemViewType)) {
+    public UIViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater,
+                                           @NonNull ViewGroup parent, int itemViewType) {
+        return new UIViewHolder(this.onCreateItemView(inflater, parent, itemViewType)) {
         };
     }
 
@@ -69,17 +69,17 @@ public abstract class UIListPopupFragment<T> extends UIDecorPopupFragment
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UIViewHolder<T> holder, int position) {
+    public void onBindViewHolder(@NonNull UIViewHolder holder, int position) {
         // no-op
     }
 
     @Override
-    public void onItemClick(@NonNull UIViewHolder<T> holder, @NonNull View target, int position) {
+    public void onItemClick(@NonNull UIViewHolder holder, @NonNull View target, int position) {
         // no-op
     }
 
     @Override
-    public boolean onItemLongClick(@NonNull UIViewHolder<T> holder, @NonNull View target, int position) {
+    public boolean onItemLongClick(@NonNull UIViewHolder holder, @NonNull View target, int position) {
         // no-op
         return false;
     }
@@ -88,9 +88,9 @@ public abstract class UIListPopupFragment<T> extends UIDecorPopupFragment
 
     @NonNull
     @Override
-    public UIViewHolder<T> onCreateChildViewHolder(@NonNull LayoutInflater inflater,
-                                                   @NonNull ViewGroup parent, int itemViewType) {
-        return new UIViewHolder<T>(this.onCreateChildItemView(inflater, parent, itemViewType)) {
+    public UIViewHolder onCreateChildViewHolder(@NonNull LayoutInflater inflater,
+                                                @NonNull ViewGroup parent, int itemViewType) {
+        return new UIViewHolder(this.onCreateChildItemView(inflater, parent, itemViewType)) {
         };
     }
 
@@ -101,17 +101,17 @@ public abstract class UIListPopupFragment<T> extends UIDecorPopupFragment
     }
 
     @Override
-    public void onBindChildViewHolder(@NonNull UIViewHolder<T> holder, int groupPosition, int childPosition) {
+    public void onBindChildViewHolder(@NonNull UIViewHolder holder, int groupPosition, int childPosition) {
         // no-op
     }
 
     @Override
-    public void onChildItemClick(@NonNull UIViewHolder<T> holder, @NonNull View target, int groupPosition, int childPosition) {
+    public void onChildItemClick(@NonNull UIViewHolder holder, @NonNull View target, int groupPosition, int childPosition) {
         // no-op
     }
 
     @Override
-    public boolean onChildItemLongClick(@NonNull UIViewHolder<T> holder, @NonNull View target, int groupPosition, int childPosition) {
+    public boolean onChildItemLongClick(@NonNull UIViewHolder holder, @NonNull View target, int groupPosition, int childPosition) {
         // no-op
         return false;
     }
