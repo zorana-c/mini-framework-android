@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="NewApi">
+    <!-- UISearchTextView -->
+    <style name="UISearchTextView" parent="UIView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/ic_search_background</item>
+        <item name="android:drawableStart">@mipmap/ic_item_search</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:drawableTint">#ffa8a8a8</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:hint">搜索商品名称</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ffa8a8a8</item>
+        <item name="android:textColorHint">#ffa8a8a8</item>
+        <item name="android:transitionName">Search</item>
+    </style>
+
+    <!-- UIMoreTextView -->
+    <style name="UIMoreTextView" parent="UIView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:drawableRight">@mipmap/ic_item_more</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:drawableTint">#ff999999</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">更多</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#ff999999</item>
+        <item name="android:textColorHint">#ff999999</item>
+    </style>
+
     <!-- UITabLayout -->
     <style name="UITabLayout" parent="UIView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
-        <item name="tabIndicator">@drawable/ic_indicator_normal</item>
-        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="android:background">@color/colorBackground</item>
+        <item name="tabIndicator">@drawable/ic_indicator_background</item>
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="tabIndicatorHeight">3dp</item>
         <item name="tabRippleColor">@null</item>
-        <item name="tabSelectedTextColor">@color/colorAccent</item>
+        <item name="tabSelectedTextColor">@color/colorPrimary</item>
         <item name="tabTextAppearance">@style/UITextAppearance</item>
         <item name="tabTextColor">#ff333333</item>
     </style>
@@ -40,37 +76,45 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!-- UICancelTextView-->
-    <style name="UICancelTextView" parent="UIView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:background">@drawable/ic_button_stroke_background_normal</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/colorPrimary</item>
-        <item name="android:enabled">true</item>
-        <item name="android:gravity">center</item>
-        <item name="android:hint">取消</item>
-        <item name="android:paddingStart">12dp</item>
-        <item name="android:paddingEnd">12dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textColorHint">@color/colorPrimary</item>
-    </style>
-
-    <!-- UIConfirmTextView-->
+    <!-- UIConfirmTextView -->
     <style name="UIConfirmTextView" parent="UIView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:background">@drawable/ic_button_background_normal</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/colorPrimary</item>
-        <item name="android:enabled">true</item>
+        <item name="android:background">@drawable/ic_button_background</item>
+        <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:gravity">center</item>
-        <item name="android:hint">确认</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
+        <item name="android:text">确认</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+    <!-- UIMoneyTextView -->
+    <style name="UIMoneyTextView" parent="UIView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">0.00</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorMoney</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginStart">1dp</item>
+        <item name="android:layout_marginEnd">1dp</item>
+    </style>
+
+    <!-- UIMoneySymbolTextView -->
+    <style name="UIMoneySymbolTextView" parent="UIView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/symbol_money</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorMoney</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 </resources>

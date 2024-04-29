@@ -48,8 +48,8 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/symbolAmount"
-                android:textColor="@color/colorAmount"
+                android:text="@string/symbol_money"
+                android:textColor="@color/colorMoney"
                 android:textSize="11sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -59,7 +59,7 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="299.99"
-                android:textColor="@color/colorAmount"
+                android:textColor="@color/colorMoney"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:text="抢购价"
-                android:textColor="@color/colorAmount"
+                android:textColor="@color/colorMoney"
                 android:textSize="11sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

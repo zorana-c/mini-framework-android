@@ -36,7 +36,7 @@
             android:overScrollMode="never"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            app:tabIndicator="@drawable/ic_indicator_short"
+            app:tabIndicator="@drawable/ic_indicator_short_background"
             app:tabIndicatorColor="@android:color/white"
             app:tabIndicatorFullWidth="false"
             app:tabMaxWidth="0dp"

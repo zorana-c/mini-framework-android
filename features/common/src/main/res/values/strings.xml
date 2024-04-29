@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="symbolAmount" translatable="false">¥</string>
-    <string name="symbolAmountFormat" translatable="false">¥%s</string>
+    <string name="symbol_money" translatable="false">¥</string>
+    <string name="symbol_money_format" translatable="false">¥%s</string>
+    <string name="symbol_money_default" translatable="false">¥0.00</string>
 </resources>

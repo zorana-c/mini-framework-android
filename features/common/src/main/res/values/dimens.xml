@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Item radius-->
+    <!-- Item radius -->
     <dimen name="item_radius">10dp</dimen>
+    <!-- Item radius large -->
+    <dimen name="item_radius_large">15dp</dimen>
+    <!-- Item radius large plus -->
+    <dimen name="item_radius_large_plus">20dp</dimen>
+    <!-- Item radius small -->
+    <dimen name="item_radius_small">5dp</dimen>
 </resources>
