@@ -100,8 +100,8 @@ public class Resp<T> implements UIModelInterface {
         return this.code;
     }
 
-    public boolean successful() {
-        return this.code == SUCCESS;
+    public final boolean successful() {
+        return this.code() == SUCCESS;
     }
 
     public final boolean successfulWithBody() {
