@@ -1,5 +1,6 @@
 package com.framework.common.ui.picker.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.framework.common.R;
 import com.framework.common.util.DateUtils;
+import com.framework.common.widget.UIPickerAdapter;
 import com.framework.widget.recycler.picker.AppCompatPickerView;
 import com.framework.core.compat.UIRes;
 
@@ -19,7 +21,7 @@ import java.util.Calendar;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class UIDateTimePickerAdapter extends UIPickerAdapter<UIPickerViewHolder> {
+public class UIDateTimePickerAdapter extends UIPickerAdapter<UIPickerAdapter.ViewHolder> {
     private int field;
     private int itemCount;
     private long timestamp;
@@ -35,24 +37,26 @@ public class UIDateTimePickerAdapter extends UIPickerAdapter<UIPickerViewHolder>
 
     @Nullable
     @Override
-    public UIPickerViewHolder onCreateEmptyViewHolder(@NonNull ViewGroup parent, int itemViewType) {
-        return new UIPickerViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent));
+    public ViewHolder onCreateEmptyViewHolder(@NonNull ViewGroup parent, int itemViewType) {
+        return new ViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent)) {
+        };
     }
 
     @Nullable
     @Override
-    public UIPickerViewHolder onCreateGroupViewHolder(@NonNull ViewGroup parent, int itemViewType) {
-        return new UIPickerViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent));
+    public ViewHolder onCreateGroupViewHolder(@NonNull ViewGroup parent, int itemViewType) {
+        return new ViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent)) {
+        };
     }
 
     @Override
-    public void onBindEmptyViewHolder(@NonNull UIPickerViewHolder holder, int position) {
+    public void onBindEmptyViewHolder(@NonNull ViewHolder holder, int position) {
         final TextView textView = holder.requireViewById(android.R.id.text1);
         textView.setText(null);
     }
 
     @Override
-    public void onBindGroupViewHolder(@NonNull UIPickerViewHolder holder, int groupPosition) {
+    public void onBindGroupViewHolder(@NonNull ViewHolder holder, int groupPosition) {
         final int field = this.field;
         final String suffix;
         if (Calendar.YEAR == field) {
@@ -98,6 +102,7 @@ public class UIDateTimePickerAdapter extends UIPickerAdapter<UIPickerViewHolder>
         this.setItemCount(itemCount, RecyclerView.NO_POSITION);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItemCount(int itemCount, int defPosition) {
         this.itemCount = itemCount;
         this.notifyDataSetChanged();

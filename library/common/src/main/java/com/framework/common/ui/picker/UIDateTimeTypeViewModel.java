@@ -15,7 +15,7 @@ public class UIDateTimeTypeViewModel extends UIViewModel {
     @NonNull
     private final UILiveData<Long> mTimestampLiveData = new UILiveData<>();
 
-    public void withTimestampObserve(@NonNull Observer<Long> observer) {
+    public void observeTimestamp(@NonNull Observer<Long> observer) {
         this.mTimestampLiveData.observe(this, observer);
     }
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer;
 
 import com.framework.common.ui.picker.factory.UICountrySources;
 import com.framework.common.ui.picker.factory.UICountrySourcesFactory;
-import com.framework.common.ui.picker.bean.UICountryNode;
+import com.framework.common.bean.UICountryNode;
 import com.framework.core.content.UIPageController;
 import com.framework.core.content.UIPageControllerOwner;
 import com.framework.core.content.UIViewModel;
@@ -32,21 +32,21 @@ public class UICountryViewModel extends UIViewModel {
     @Nullable
     private UICountrySources mUICountrySources;
 
-    public void withCountryObserve(@NonNull Observer<String> observer) {
+    public void observeCountryString(@NonNull Observer<String> observer) {
         this.mCountryStringLiveData.observe(this, observer);
     }
 
-    public void withCountryObserve(@NonNull LifecycleOwner owner,
-                                   @NonNull Observer<String> observer) {
+    public void observeCountryString(@NonNull LifecycleOwner owner,
+                                     @NonNull Observer<String> observer) {
         this.mCountryStringLiveData.observe(owner, observer);
     }
 
-    public void queryCountryListObserve(@NonNull Observer<UICountryNode> observer) {
+    public void observeCountryList(@NonNull Observer<UICountryNode> observer) {
         this.mLinkedCountryLiveData.observe(this, observer);
     }
 
-    public void queryCountryListObserve(@NonNull LifecycleOwner owner,
-                                        @NonNull Observer<UICountryNode> observer) {
+    public void observeCountryList(@NonNull LifecycleOwner owner,
+                                   @NonNull Observer<UICountryNode> observer) {
         this.mLinkedCountryLiveData.observe(owner, observer);
     }
 

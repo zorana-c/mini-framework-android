@@ -1,4 +1,4 @@
-package com.framework.common.ui.dialog;
+package com.framework.common.ui.reminder;
 
 import androidx.annotation.NonNull;
 
@@ -10,7 +10,7 @@ import com.framework.core.content.UIViewModel;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class UIReconfirmViewModel extends UIViewModel {
+public class UIReminderViewModel extends UIViewModel {
     @Override
     protected void onCreated(@NonNull UIPageController uiPageController) {
         super.onCreated(uiPageController);

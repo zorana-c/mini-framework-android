@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/ic_reminder_background">
+    android:background="@drawable/ic_item_background">
 
     <com.framework.core.widget.UIImageView
         android:id="@+id/icon1"

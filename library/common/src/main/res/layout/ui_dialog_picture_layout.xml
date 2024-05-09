@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:background="@drawable/ic_sys_picture_background"
+    android:background="@drawable/ic_picture_background"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -16,7 +16,9 @@
         android:padding="15dip"
         android:text="@string/ui_system_picture_take"
         android:textColor="#ff333333"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
+
+    <View style="@style/UIDividerView.Horizontal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/pictureGalleryTextView"
@@ -28,7 +30,7 @@
         android:padding="15dip"
         android:text="@string/ui_system_picture_gallery"
         android:textColor="#ff333333"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <View
         style="@style/UIDividerView.Horizontal"
@@ -45,5 +47,5 @@
         android:padding="15dip"
         android:text="@string/ui_system_picture_cancel"
         android:textColor="#ff333333"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 </androidx.appcompat.widget.LinearLayoutCompat>

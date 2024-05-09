@@ -7,6 +7,7 @@ import androidx.palette.graphics.Palette;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Process;
 import android.view.KeyEvent;
@@ -15,10 +16,13 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.common.route.IChatRoute;
-import com.framework.common.palette.GlidePalette;
-import com.framework.common.palette.PaletteListener;
-import com.framework.common.palette.Profile;
+import com.framework.common.tools.GaussianBlur;
+import com.framework.common.tools.palette.GlidePalette;
+import com.framework.common.tools.palette.PaletteListener;
+import com.framework.common.tools.palette.Profile;
 import com.framework.common.ui.picker.UICountryDialogFragment;
 import com.framework.common.ui.picker.UICountryViewModel;
 import com.framework.common.ui.picker.UIDateTimeDialogFragment;
@@ -32,9 +36,12 @@ import com.framework.core.rx.permission.RxPermission;
 import com.framework.core.ui.abs.UIDecorFragmentActivity;
 import com.framework.core.widget.UIDecorLayout;
 import com.framework.core.widget.UISliverScrollView;
+import com.framework.core.widget.UISliverViewTarget;
 import com.framework.demo.content.CustomDecorOptions;
 import com.framework.demo.http.repository.TestServiceRepository;
 import com.navigation.UINavigatorController;
+
+import java.security.MessageDigest;
 
 /**
  * @Author create by Zhengzelong on 2022/7/19
@@ -83,17 +90,38 @@ public class MainActivity extends UIDecorFragmentActivity {
                     UILog.e("SUCCESS: " + t.toString());
                 }, UILog::e);
 
-        this.getUIPageController()
-                .<UISliverScrollView>requireViewById(R.id.sliverScrollView)
-                .setZoomImageUrl("https://img2.baidu.com/it/u=364539099,1287245682&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500");
+        final UISliverScrollView sliverScrollView;
+        sliverScrollView = this.findViewById(R.id.sliverScrollView);
+        // sliverScrollView.setZoomImageUrl("https://img2.baidu.com/it/u=364539099,1287245682&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500");
+
+        Glide.with(this)
+                .load("https://img2.baidu.com/it/u=364539099,1287245682&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500")
+                .transform(new BitmapTransformation() {
+                    @Override
+                    protected Bitmap transform(@NonNull BitmapPool pool,
+                                               @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+                        // 高斯模糊
+                        return GaussianBlur.with(MainActivity.this)
+                                .setPolicy(GaussianBlur.Policy.BLUR_RS)
+                                .setRadius(10)
+                                .setScale(0.5f)
+                                .blur(toTransform);
+                        // return toTransform;
+                    }
+
+                    @Override
+                    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+                    }
+                })
+                .into(UISliverViewTarget.get(sliverScrollView));
 
         UIViewModelProviders.of(this)
                 .get(UICountryViewModel.class)
-                .withCountryObserve(UIToast::asyncToast);
+                .observeCountryString(UIToast::asyncToast);
 
         UIViewModelProviders.of(this)
                 .get(UIDateTimeViewModel.class)
-                .withTimestampObserve(timestamp -> UIToast.asyncToast(DateUtils.formatTimeMillis(timestamp)));
+                .observeTimestamp(timestamp -> UIToast.asyncToast(DateUtils.formatTimeMillis(timestamp)));
 
         this.randomPalette();
     }
@@ -158,7 +186,15 @@ public class MainActivity extends UIDecorFragmentActivity {
     }
 
     public void joinPushDialogFragment(@NonNull View view) {
-        this.getUINavigatorController().showDialogFragment(PushDialogFragment.class);
+        // this.getUINavigatorController().showDialogFragment(PushDialogFragment.class);
+        final PushDialogFragment pushDialogFragment = new PushDialogFragment();
+        pushDialogFragment.addOnCancelListener(dialogFragment -> {
+            UILog.e("Cancel Who: " + dialogFragment + ", Showing => " + dialogFragment.isShowing());
+        });
+        pushDialogFragment.addOnDismissListener(dialogFragment -> {
+            UILog.e("Dismiss Who: " + dialogFragment + ", Showing => " + dialogFragment.isShowing());
+        });
+        pushDialogFragment.show(this);
     }
 
     public void joinPickerDialogFragment(@NonNull View view) {

@@ -1,4 +1,4 @@
-package com.framework.common.blur;
+package com.framework.common.tools;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,16 +13,16 @@ import androidx.annotation.Nullable;
 /**
  * @Author create by Zhengzelong on 2023-05-29
  * @Email : 171905184@qq.com
- * @Description :
+ * @Description : 高斯模糊
  */
-public class UIBlur {
-    private static volatile UIBlur sInstance;
+public class GaussianBlur {
+    private static volatile GaussianBlur sInstance;
 
     @NonNull
-    public static UIBlur with(@NonNull Context context) {
+    public static GaussianBlur with(@NonNull Context context) {
         if (sInstance != null) return sInstance;
-        synchronized (UIBlur.class) {
-            sInstance = new UIBlur(context);
+        synchronized (GaussianBlur.class) {
+            sInstance = new GaussianBlur(context);
         }
         return sInstance;
     }
@@ -45,7 +45,7 @@ public class UIBlur {
     @NonNull
     private Policy blurPolicy = Policy.BLUR_RS;
 
-    private UIBlur(@NonNull Context context) {
+    private GaussianBlur(@NonNull Context context) {
         this.context = context.getApplicationContext();
     }
 
@@ -53,7 +53,7 @@ public class UIBlur {
      * 模糊半径: (0, 25]
      */
     @NonNull
-    public UIBlur setRadius(int blurRadius) {
+    public GaussianBlur setRadius(int blurRadius) {
         this.blurRadius = blurRadius;
         return this;
     }
@@ -62,7 +62,7 @@ public class UIBlur {
      * 模糊缩放比例: [0, 1]
      */
     @NonNull
-    public UIBlur setScale(float blurScale) {
+    public GaussianBlur setScale(float blurScale) {
         this.blurScale = blurScale;
         return this;
     }
@@ -71,7 +71,7 @@ public class UIBlur {
      * 模糊策略(默认: RS)
      */
     @NonNull
-    public UIBlur setPolicy(@NonNull Policy policy) {
+    public GaussianBlur setPolicy(@NonNull Policy policy) {
         this.blurPolicy = policy;
         return this;
     }

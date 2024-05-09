@@ -1,4 +1,4 @@
-package com.framework.common.palette;
+package com.framework.common.tools.palette;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;

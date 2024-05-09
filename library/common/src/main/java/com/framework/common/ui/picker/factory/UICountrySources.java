@@ -2,8 +2,8 @@ package com.framework.common.ui.picker.factory;
 
 import androidx.annotation.NonNull;
 
-import com.framework.common.ui.picker.bean.UICountryNode;
-import com.framework.common.ui.picker.bean.UILetterNode;
+import com.framework.common.bean.UICountryNode;
+import com.framework.common.bean.UILetterNode;
 
 import java.util.List;
 

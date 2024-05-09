@@ -1,4 +1,4 @@
-package com.framework.common.ui.picker.bean;
+package com.framework.common.bean;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

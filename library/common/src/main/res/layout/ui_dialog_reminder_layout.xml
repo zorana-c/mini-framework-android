@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/ic_reminder_background"
+    android:background="@drawable/ic_dialog_background"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -11,11 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
         android:minEms="12"
-        android:padding="24dip"
+        android:paddingStart="24dip"
+        android:paddingTop="20dip"
+        android:paddingEnd="24dip"
+        android:paddingBottom="20dip"
         android:textColor="#ff666666"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <View style="@style/UIDividerView.Horizontal" />
 
@@ -26,7 +28,7 @@
         android:layout_gravity="center"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
-        android:padding="12dip"
+        android:padding="10dip"
         android:text="@string/ui_reminder_confirm"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp" />

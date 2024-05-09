@@ -1,4 +1,6 @@
-package com.framework.common.ui.picker.adapter;
+package com.framework.common.widget;
+
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +14,7 @@ import com.framework.widget.recycler.picker.AppCompatPickerView;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public abstract class UIPickerAdapter<VH extends UIPickerViewHolder>
+public abstract class UIPickerAdapter<VH extends UIPickerAdapter.ViewHolder>
         extends AppCompatPickerView.Adapter<VH> {
     @Nullable
     private final AppCompatPickerView upstream;
@@ -166,6 +168,12 @@ public abstract class UIPickerAdapter<VH extends UIPickerViewHolder>
             public void onItemRangeChanged(int positionStart, int itemCount) {
                 UpstreamComponent.this.notifyUpstreamPositionChanged();
             }
+        }
+    }
+
+    public static abstract class ViewHolder extends AppCompatPickerView.ViewHolder {
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
         }
     }
 }

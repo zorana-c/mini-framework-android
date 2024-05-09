@@ -9,7 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.framework.common.R;
-import com.framework.common.ui.picker.bean.UINode;
+import com.framework.common.bean.UINode;
+import com.framework.common.widget.UIPickerAdapter;
 import com.framework.core.content.UIDataController;
 import com.framework.widget.recycler.picker.AppCompatPickerView;
 
@@ -18,8 +19,8 @@ import com.framework.widget.recycler.picker.AppCompatPickerView;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UIPickerViewHolder>
-        implements UIDataController.Adapter {
+public class UINodePickerAdapter<T extends UINode<?>>
+        extends UIPickerAdapter<UIPickerAdapter.ViewHolder> implements UIDataController.Adapter {
     @NonNull
     private final UIDataController<T> uiDataController;
     @Nullable
@@ -38,36 +39,39 @@ public class UINodePickerAdapter<T extends UINode<?>> extends UIPickerAdapter<UI
 
     @Nullable
     @Override
-    public UIPickerViewHolder onCreateHeadViewHolder(@NonNull ViewGroup parent, int itemViewType) {
-        return new UIPickerViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent));
+    public ViewHolder onCreateHeadViewHolder(@NonNull ViewGroup parent, int itemViewType) {
+        return new ViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent)) {
+        };
     }
 
     @Nullable
     @Override
-    public UIPickerViewHolder onCreateEmptyViewHolder(@NonNull ViewGroup parent, int itemViewType) {
-        return new UIPickerViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent));
+    public ViewHolder onCreateEmptyViewHolder(@NonNull ViewGroup parent, int itemViewType) {
+        return new ViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent)) {
+        };
     }
 
     @Nullable
     @Override
-    public UIPickerViewHolder onCreateGroupViewHolder(@NonNull ViewGroup parent, int itemViewType) {
-        return new UIPickerViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent));
+    public ViewHolder onCreateGroupViewHolder(@NonNull ViewGroup parent, int itemViewType) {
+        return new ViewHolder(this.inflate(R.layout.ui_item_picker_layout, parent)) {
+        };
     }
 
     @Override
-    public void onBindHeadViewHolder(@NonNull UIPickerViewHolder holder, int position) {
+    public void onBindHeadViewHolder(@NonNull ViewHolder holder, int position) {
         final TextView textView = holder.requireViewById(android.R.id.text1);
         textView.setText("不限");
     }
 
     @Override
-    public void onBindEmptyViewHolder(@NonNull UIPickerViewHolder holder, int position) {
+    public void onBindEmptyViewHolder(@NonNull ViewHolder holder, int position) {
         final TextView textView = holder.requireViewById(android.R.id.text1);
         textView.setText(null);
     }
 
     @Override
-    public void onBindGroupViewHolder(@NonNull UIPickerViewHolder holder, int groupPosition) {
+    public void onBindGroupViewHolder(@NonNull ViewHolder holder, int groupPosition) {
         final TextView textView = holder.requireViewById(android.R.id.text1);
         textView.setText(this.requireDataBy(groupPosition).toString());
     }

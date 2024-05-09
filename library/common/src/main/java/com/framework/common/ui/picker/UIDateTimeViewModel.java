@@ -13,16 +13,16 @@ import com.framework.core.content.UIViewModelProviders;
  */
 public class UIDateTimeViewModel extends UIViewModel {
 
-    public void withTimestampObserve(@NonNull Observer<Long> observer) {
-        this.withTimestampObserve(0, observer);
+    public void observeTimestamp(@NonNull Observer<Long> observer) {
+        this.observeTimestamp(0, observer);
     }
 
-    public void withTimestampObserve(int timestampType,
-                                     @NonNull Observer<Long> observer) {
+    public void observeTimestamp(int timestampType,
+                                 @NonNull Observer<Long> observer) {
         UIViewModelProviders
                 .of(this)
                 .get(keyBy(timestampType), UIDateTimeTypeViewModel.class)
-                .withTimestampObserve(observer);
+                .observeTimestamp(observer);
     }
 
     public long getTimestamp() {

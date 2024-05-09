@@ -6,8 +6,8 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.framework.common.ui.picker.bean.UICountryNode;
-import com.framework.common.ui.picker.bean.UILetterNode;
+import com.framework.common.bean.UICountryNode;
+import com.framework.common.bean.UILetterNode;
 import com.framework.common.util.LettersUtils;
 import com.framework.core.UIFramework;
 import com.google.gson.Gson;

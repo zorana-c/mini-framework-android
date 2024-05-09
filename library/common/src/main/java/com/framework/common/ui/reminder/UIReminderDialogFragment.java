@@ -1,4 +1,4 @@
-package com.framework.common.ui.dialog;
+package com.framework.common.ui.reminder;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,7 +18,7 @@ import com.navigation.floating.UIDialogFragment;
  * @Description : 提醒对话框
  */
 public class UIReminderDialogFragment extends UIDialogFragment {
-    private int gravity = Gravity.NO_GRAVITY;
+    private int contentGravity = Gravity.NO_GRAVITY;
     @Nullable
     private CharSequence contentText;
     @Nullable
@@ -33,23 +33,23 @@ public class UIReminderDialogFragment extends UIDialogFragment {
 
     @Override
     public void onUICreated(@Nullable Bundle savedInstanceState) {
-        TextView it;
+        TextView textView;
         // Sets content text.
-        it = this.requireViewById(R.id.contentTextView);
-        final int gravity = this.gravity;
-        if (gravity != Gravity.NO_GRAVITY) {
-            it.setGravity(gravity);
+        textView = this.requireViewById(R.id.contentTextView);
+        final int contentGravity = this.contentGravity;
+        if (contentGravity != Gravity.NO_GRAVITY) {
+            textView.setGravity(contentGravity);
         }
         final CharSequence contentText = this.contentText;
         if (!TextUtils.isEmpty(contentText)) {
-            it.setText(contentText);
+            textView.setText(contentText);
         }
         // Sets confirm text.
-        it = this.requireViewById(R.id.confirmTextView);
-        it.setOnClickListener(this::onClick);
+        textView = this.requireViewById(R.id.confirmTextView);
+        textView.setOnClickListener(this::onClick);
         final CharSequence confirmText = this.confirmText;
         if (!TextUtils.isEmpty(confirmText)) {
-            it.setText(confirmText);
+            textView.setText(confirmText);
         }
     }
 
@@ -58,8 +58,8 @@ public class UIReminderDialogFragment extends UIDialogFragment {
         // no-op
     }
 
-    public void setGravity(int gravity) {
-        this.gravity = gravity;
+    public void setContentGravity(int contentGravity) {
+        this.contentGravity = contentGravity;
     }
 
     public void setContentText(@Nullable CharSequence text) {

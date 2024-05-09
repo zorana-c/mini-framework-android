@@ -1,22 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 系统属性-->
-    <!-- 主题颜色-->
-    <color name="colorPrimary">#ff000000</color>
-    <!-- 操作栏颜色-->
-    <color name="colorPrimaryDark">@color/colorPrimary</color>
-    <!-- 窗体背景颜色-->
-    <color name="windowBackground">@color/colorPrimary</color>
-    <!-- 装饰背景颜色-->
-    <color name="decorBackground">@color/colorPrimary</color>
-    <!-- 控件选中颜色-->
-    <color name="colorAccent">@android:color/white</color>
-    <!-- 视图背景颜色-->
-    <color name="colorBackground">#fff8f8f8</color>
-    <!-- 分割线颜色-->
-    <color name="colorLineBar">@android:color/transparent</color>
-    <!-- 状态栏颜色-->
-    <color name="colorStatusBar">@android:color/transparent</color>
-    <!-- 导航栏颜色-->
-    <color name="colorNavigationBar">@android:color/transparent</color>
 </resources>

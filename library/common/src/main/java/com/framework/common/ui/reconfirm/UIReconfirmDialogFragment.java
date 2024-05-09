@@ -1,4 +1,4 @@
-package com.framework.common.ui.dialog;
+package com.framework.common.ui.reconfirm;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,11 +15,13 @@ import com.navigation.floating.UIDialogFragment;
 /**
  * @Author create by Zhengzelong on 2023-05-26
  * @Email : 171905184@qq.com
- * @Description : 确认对话框
+ * @Description : 重复确认对话框
  */
 public class UIReconfirmDialogFragment extends UIDialogFragment {
     private int titleGravity = Gravity.NO_GRAVITY;
     private int contentGravity = Gravity.NO_GRAVITY;
+    private boolean titleEnabled = true;
+    private boolean contentEnabled = true;
     @Nullable
     private CharSequence titleText;
     @Nullable
@@ -40,46 +42,58 @@ public class UIReconfirmDialogFragment extends UIDialogFragment {
 
     @Override
     public void onUICreated(@Nullable Bundle savedInstanceState) {
-        TextView it;
+        TextView textView;
         // Sets title text.
-        it = this.requireViewById(R.id.titleTextView);
+        textView = this.requireViewById(R.id.titleTextView);
         final int titleGravity = this.titleGravity;
         if (titleGravity != Gravity.NO_GRAVITY) {
-            it.setGravity(titleGravity);
+            textView.setGravity(titleGravity);
         }
         final CharSequence titleText = this.titleText;
         if (!TextUtils.isEmpty(titleText)) {
-            it.setText(titleText);
+            textView.setText(titleText);
         }
+        final boolean titleEnabled = this.titleEnabled;
+        textView.setVisibility(titleEnabled ? View.VISIBLE : View.GONE);
         // Sets content text.
-        it = this.requireViewById(R.id.contentTextView);
+        textView = this.requireViewById(R.id.contentTextView);
         final int contentGravity = this.contentGravity;
         if (contentGravity != Gravity.NO_GRAVITY) {
-            it.setGravity(contentGravity);
+            textView.setGravity(contentGravity);
         }
         final CharSequence contentText = this.contentText;
         if (!TextUtils.isEmpty(contentText)) {
-            it.setText(contentText);
+            textView.setText(contentText);
         }
+        final boolean contentEnabled = this.contentEnabled;
+        textView.setVisibility(contentEnabled ? View.VISIBLE : View.GONE);
         // Sets cancel text.
-        it = this.requireViewById(R.id.cancelTextView);
-        it.setOnClickListener(this::onClick);
+        textView = this.requireViewById(R.id.cancelTextView);
+        textView.setOnClickListener(this::onClick);
         final CharSequence cancelText = this.cancelText;
         if (!TextUtils.isEmpty(cancelText)) {
-            it.setText(cancelText);
+            textView.setText(cancelText);
         }
         // Sets confirm text.
-        it = this.requireViewById(R.id.confirmTextView);
-        it.setOnClickListener(this::onClick);
+        textView = this.requireViewById(R.id.confirmTextView);
+        textView.setOnClickListener(this::onClick);
         final CharSequence confirmText = this.confirmText;
         if (!TextUtils.isEmpty(confirmText)) {
-            it.setText(confirmText);
+            textView.setText(confirmText);
         }
     }
 
     @Override
     public void onUIRefresh(@Nullable Bundle savedInstanceState) {
         // no-op
+    }
+
+    public void setTitleEnabled(boolean titleEnabled) {
+        this.titleEnabled = titleEnabled;
+    }
+
+    public void setContentEnabled(boolean contentEnabled) {
+        this.contentEnabled = contentEnabled;
     }
 
     public void setTitleGravity(int titleGravity) {

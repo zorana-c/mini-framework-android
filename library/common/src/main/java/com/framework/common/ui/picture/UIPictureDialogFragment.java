@@ -1,4 +1,4 @@
-package com.framework.common.ui.dialog;
+package com.framework.common.ui.picture;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -31,9 +31,9 @@ import java.util.Map;
 /**
  * @Author create by Zhengzelong on 2023-05-26
  * @Email : 171905184@qq.com
- * @Description : 系统图片
+ * @Description : 选择系统图片
  */
-public class UISysPictureDialogFragment extends UIDialogFragment {
+public class UIPictureDialogFragment extends UIDialogFragment {
     @Nullable
     private ActivityResultLauncher<Uri> pictureByTake;
     @Nullable
@@ -47,7 +47,7 @@ public class UISysPictureDialogFragment extends UIDialogFragment {
 
     @Override
     public int onUILayoutId(@Nullable Bundle savedInstanceState) {
-        return R.layout.ui_dialog_sys_picture_layout;
+        return R.layout.ui_dialog_picture_layout;
     }
 
     @SuppressLint("CheckResult")
@@ -196,8 +196,8 @@ public class UISysPictureDialogFragment extends UIDialogFragment {
         // Sets result call.
         UIViewModelProviders
                 .ofParent(this)
-                .get(UISysPictureViewModel.class)
-                .setSysPicture(it);
+                .get(UIPictureViewModel.class)
+                .setPicture(it);
         // Done and finish it.
         this.getUINavigatorController().navigateUp();
     }

@@ -3,35 +3,38 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/ic_reconfirm_background"
+    android:background="@drawable/ic_dialog_background"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dip">
+        android:paddingStart="24dip"
+        android:paddingTop="20dip"
+        android:paddingEnd="24dip"
+        android:paddingBottom="20dip">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dip"
             android:gravity="center"
             android:text="@string/ui_reconfirm_tips"
             android:textColor="#ff333333"
-            android:textSize="16sp" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/contentTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dip"
-            android:gravity="center"
             android:minEms="12"
             android:textColor="#ff666666"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <View style="@style/UIDividerView.Horizontal" />
@@ -49,7 +52,7 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:padding="12dip"
+            android:padding="10dip"
             android:text="@string/ui_reconfirm_cancel"
             android:textColor="#ff333333"
             android:textSize="14sp" />
@@ -64,7 +67,7 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:padding="12dip"
+            android:padding="10dip"
             android:text="@string/ui_reconfirm_confirm"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp" />

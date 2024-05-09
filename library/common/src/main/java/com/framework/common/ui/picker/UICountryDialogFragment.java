@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.framework.common.R;
 import com.framework.common.ui.picker.adapter.UINodePickerAdapter;
-import com.framework.common.ui.picker.bean.UICountryNode;
-import com.framework.common.ui.picker.bean.UINode;
+import com.framework.common.bean.UICountryNode;
+import com.framework.common.bean.UINode;
 import com.framework.widget.recycler.picker.AppCompatPickerView;
 import com.framework.core.compat.UIToast;
 import com.framework.core.content.UIViewModelProviders;
@@ -24,6 +24,8 @@ import com.navigation.floating.UIDialogFragmentCompat;
  * @Description :城市选择器对话框
  */
 public class UICountryDialogFragment extends UIDecorDialogFragment {
+    private boolean allowUnlimitedEnabled = true;
+
     @Override
     public int onUILayoutId(@Nullable Bundle savedInstanceState) {
         return R.layout.ui_dialog_picker_layout;
@@ -45,7 +47,7 @@ public class UICountryDialogFragment extends UIDecorDialogFragment {
         UIViewModelProviders
                 .ofParent(this)
                 .get(UICountryViewModel.class)
-                .queryCountryListObserve(this, this::init);
+                .observeCountryList(this, this::init);
     }
 
     @Override
@@ -61,24 +63,24 @@ public class UICountryDialogFragment extends UIDecorDialogFragment {
             this.getUINavigatorController().navigateUp();
             return;
         }
+        final boolean allowUnlimitedEnabled = this.allowUnlimitedEnabled;
         AppCompatPickerView upstream;
         // set adapter
         UINodePickerAdapter<UICountryNode> upstreamAd;
         // set province
         upstreamAd = new UINodePickerAdapter<>();
-        upstreamAd.setAllowUnlimitedEnabled(true);
-        // set province dataSources
+        upstreamAd.setAllowUnlimitedEnabled(allowUnlimitedEnabled);
         upstreamAd.setDataSources(dataSources);
         upstream = this.requireViewById(R.id.lPickerView);
         upstream.setAdapter(upstreamAd);
         // set city
         upstreamAd = new UINodePickerAdapter<>(upstream);
-        upstreamAd.setAllowUnlimitedEnabled(true);
+        upstreamAd.setAllowUnlimitedEnabled(allowUnlimitedEnabled);
         upstream = this.requireViewById(R.id.cPickerView);
         upstream.setAdapter(upstreamAd);
         // set area
         upstreamAd = new UINodePickerAdapter<>(upstream);
-        upstreamAd.setAllowUnlimitedEnabled(true);
+        upstreamAd.setAllowUnlimitedEnabled(allowUnlimitedEnabled);
         upstream = this.requireViewById(R.id.rPickerView);
         upstream.setAdapter(upstreamAd);
     }
@@ -88,7 +90,7 @@ public class UICountryDialogFragment extends UIDecorDialogFragment {
         upstream = this.requireViewById(R.id.rPickerView);
         final String countryStr = this.getCountryStr(upstream);
         if (TextUtils.isEmpty(countryStr)) {
-            UIToast.asyncToast("请选择");
+            UIToast.asyncToast("请选择选项");
             return;
         }
         UIViewModelProviders
@@ -125,5 +127,9 @@ public class UICountryDialogFragment extends UIDecorDialogFragment {
             return null;
         }
         return String.format("%s-%s", upstreamCountryStr, countryStr);
+    }
+
+    public void setAllowUnlimitedEnabled(boolean allowUnlimitedEnabled) {
+        this.allowUnlimitedEnabled = allowUnlimitedEnabled;
     }
 }

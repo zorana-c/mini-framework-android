@@ -1,4 +1,4 @@
-package com.framework.common.ui.picker.bean;
+package com.framework.common.bean;
 
 import androidx.annotation.Nullable;
 
@@ -17,7 +17,7 @@ public class UILetterNode extends UINode<UICountryNode> {
 
     @Nullable
     public final String getName() {
-        return name;
+        return this.name;
     }
 
     @Nullable
