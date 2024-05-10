@@ -153,10 +153,15 @@ public class UIDecorOptions implements UIPageOptions {
             final UIDecorController uiDecorController = this.mUIDecorController;
             final int currentDecorKey = uiDecorController.getCurrentDecorKey();
             final int pendingDecorKey = uiDecorController.getPendingDecorKey();
-
-            if (this.mIsExecutedPauseAfter
+            /*
+             * 触发下面事件的时候, 进行刷新界面
+             * 1.当前界面还处于刷新状态
+             * 2.每间隔一段时间数据失效
+             * */
+            if ((this.mIsExecutedPauseAfter
                     && UIDecorLayout.INVALID_DECOR == pendingDecorKey
-                    && UIDecorLayout.DECOR_LOADING == currentDecorKey) {
+                    && UIDecorLayout.DECOR_LOADING == currentDecorKey)
+                    || this.hasPageRefreshTimedOut()) {
                 this.mIsExecutedPauseAfter = false;
                 uiDecorController.notifyDataSetRefresh();
             } else {
@@ -177,6 +182,14 @@ public class UIDecorOptions implements UIPageOptions {
             if (this.mNetworkStateReceiver != null) {
                 this.mNetworkStateReceiver.unregister();
             }
+        }
+
+        /**
+         * @hide
+         * @deprecated 暂不支持
+         */
+        private boolean hasPageRefreshTimedOut() {
+            return false;
         }
     }
 
