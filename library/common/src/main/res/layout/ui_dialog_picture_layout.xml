@@ -14,7 +14,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:padding="15dip"
-        android:text="@string/ui_system_picture_take"
+        android:text="@string/ui_picture_take"
         android:textColor="#ff333333"
         android:textSize="14sp" />
 
@@ -28,7 +28,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:padding="15dip"
-        android:text="@string/ui_system_picture_gallery"
+        android:text="@string/ui_picture_gallery"
         android:textColor="#ff333333"
         android:textSize="14sp" />
 
@@ -45,7 +45,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:padding="15dip"
-        android:text="@string/ui_system_picture_cancel"
+        android:text="@string/ui_picture_cancel"
         android:textColor="#ff333333"
         android:textSize="14sp" />
 </androidx.appcompat.widget.LinearLayoutCompat>
