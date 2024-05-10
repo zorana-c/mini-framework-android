@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.framework.core.UIFramework;
+
 import java.util.ServiceLoader;
 
 /**
@@ -12,20 +14,14 @@ import java.util.ServiceLoader;
  * @Email : 171905184@qq.com
  * @Description :
  */
-public final class UIRouter {
+final class UIRouter {
     @Nullable
     private static UIRouter sRouter;
-
-    public static void init(@NonNull Context context) {
-        if (sRouter == null) {
-            sRouter = new UIRouter(context);
-        }
-    }
 
     @NonNull
     static <T extends UIRoute> T get(@NonNull Class<T> tClass) {
         if (sRouter == null) {
-            throw new IllegalStateException("Not init");
+            sRouter = new UIRouter(UIFramework.getApplicationContext());
         }
         return sRouter.getRoute(tClass);
     }

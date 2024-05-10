@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.framework.core.compat.UIFile;
 import com.framework.core.content.UIPageControllers;
-import com.framework.core.route.UIRouter;
 
 import java.lang.ref.WeakReference;
 
@@ -41,8 +40,6 @@ public final class UIFramework {
         sApplicationWeR = new WeakReference<>(appContext);
         // 本地文件初始化
         UIFile.init(appContext);
-        // 模块化通信初始化
-        UIRouter.init(appContext);
         // 视图控制器初始化
         UIPageControllers.init(appContext);
     }

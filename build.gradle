@@ -20,6 +20,7 @@ buildscript {
 
 plugins {
     // 定义扩展参数, 可全局配置使用
+    id 'maven-publish'
     // 项目 build 配置应声明为false, 告诉 Gradle 不要将插件应用到当前项目
     id 'com.android.application' version '8.0.1' apply false
     id 'com.android.library' version '8.0.1' apply false
