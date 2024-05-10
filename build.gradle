@@ -18,6 +18,7 @@ buildscript {
     }
 }
 
+// 声明插件
 plugins {
     // 定义扩展参数, 可全局配置使用
     id 'maven-publish'
