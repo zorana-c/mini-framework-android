@@ -8,6 +8,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
 import android.view.KeyEvent;
@@ -79,13 +80,9 @@ public class MainActivity extends UIDecorFragmentActivity {
                             .setMenuEnabled(!(UIDecorLayout.DECOR_CONTENT == decorLayoutKey));
                 });
 
+        UILog.e("BUILD VERSION: " + Build.VERSION.SDK_INT);
         RxPermission.of(this)
-                .requestEach(Manifest.permission.CAMERA,
-                        Manifest.permission.INTERNET,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                .requestEach(this.needsRequestSystemPermissions())
                 .subscribe(t -> {
                     UILog.e("SUCCESS: " + t.toString());
                 }, UILog::e);
@@ -124,6 +121,29 @@ public class MainActivity extends UIDecorFragmentActivity {
                 .observeTimestamp(timestamp -> UIToast.asyncToast(DateUtils.formatTimeMillis(timestamp)));
 
         this.randomPalette();
+    }
+
+    @NonNull
+    private String[] needsRequestSystemPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.READ_MEDIA_AUDIO,
+                    Manifest.permission.READ_MEDIA_VIDEO,
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+            };
+        }
+        return new String[]{
+                Manifest.permission.CAMERA,
+                Manifest.permission.INTERNET,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+        };
     }
 
     @SuppressLint("CheckResult")
